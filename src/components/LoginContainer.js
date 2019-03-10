@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import LoginForm from './LoginForm';
+import axiosClient from './../axios/axiosClient';
+import {apiPaths} from './../routes/apiPaths';
+
 class LoginContainer extends Component{
 
     constructor(props){
@@ -8,9 +11,19 @@ class LoginContainer extends Component{
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(value){
-        alert(value.value.password);
-        console.log(value.password);
+    handleSubmit(values){        
+        values.preventDefault();
+        
+        axiosClient.post("/login", {
+            username : values.target.username.value,
+            password : values.target.password.value
+        })
+        .then(()=>{
+            console.log("logged in");
+        })
+        .catch((err)=> {
+            console.log(err);
+        });
     }
 
     render() {

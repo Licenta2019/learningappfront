@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import {reduxForm} from 'redux-form';
+import {FormGroup , Button} from 'reactstrap';
 
 class LoginForm extends Component{
 
@@ -28,16 +29,38 @@ class LoginForm extends Component{
     }
 
     render() {
+        
+        console.log("render");
+
         const {username , password} = this.state;
         const {handleSubmit} = this.props;
 
         return (
         <form onSubmit = {handleSubmit}>
-            <div>Username: <input type="text" name = "username" onChange = {this.handleUsernameOnChange}></input> </div>
-            <div>Password: <input type="text" name = "password" onChange = {this.handlePasswordOnChange}></input> </div>
-            <button type="submit">Login</button>
+            <FormGroup>
+                <div>Username:
+                     <input type="text"
+                                    name = "username"
+                                    onChange = {this.handleUsernameOnChange}>
+                     </input>
+                </div>
+            </FormGroup>
+            
+            <FormGroup>
+            <div>Password:
+                 <input 
+                        type="text" 
+                        name = "password"
+                        onChange = {this.handlePasswordOnChange}>
+                 </input> 
+                    </div>
+            </FormGroup>
+            <Button type = "Submit">Login</Button>
         </form>);
     }
 }
 
-export default LoginForm;
+export default reduxForm({
+    form: 'loginForm',
+    fields: ['username','password']
+  })(LoginForm)
