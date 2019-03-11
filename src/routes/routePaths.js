@@ -1,4 +1,4 @@
 export default {
     homepage: '/',
-    login: '/login'
+    question: '/question'
 }

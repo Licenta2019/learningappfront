@@ -9,13 +9,13 @@ import LoginContainer from './components/LoginContainer';
 
 //  import 'bootstrap/dist/css/bootstrap.min.css';
 // import './assets/styles/index.css';
-// import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
   <Provider store={ store }>
-    {/* <BrowserRouter> */}
+    <BrowserRouter>
       <LoginContainer/>
-    {/* </BrowserRouter> */}
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );

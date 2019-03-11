@@ -1,6 +1,34 @@
 import React, { Component } from 'react';
-import {reduxForm} from 'redux-form';
+import {reduxForm, Field} from 'redux-form';
 import {FormGroup , Button} from 'reactstrap';
+
+const renderTextField = ({ input, meta: { touched, error }, ...props }) => {
+
+    return (
+      <div>
+        <input
+          { ...input }
+          { ...props }
+        />
+        { touched && (error && <span className="text-danger">{ error }</span>) }
+      </div>
+    )
+  };
+  
+const validate = (values, props) => {
+    const errors = {};
+
+    if (!values.username) {
+      errors.username = "error.form.username.required";
+    }
+    
+    if (!values.password) {
+      errors.password = "error.form.password.required";
+    }
+    
+    return errors;
+};
+  
 
 class LoginForm extends Component{
 
@@ -29,38 +57,40 @@ class LoginForm extends Component{
     }
 
     render() {
-        
-        console.log("render");
 
         const {username , password} = this.state;
         const {handleSubmit} = this.props;
 
         return (
         <form onSubmit = {handleSubmit}>
-            <FormGroup>
-                <div>Username:
-                     <input type="text"
-                                    name = "username"
-                                    onChange = {this.handleUsernameOnChange}>
-                     </input>
-                </div>
-            </FormGroup>
-            
-            <FormGroup>
-            <div>Password:
-                 <input 
-                        type="text" 
-                        name = "password"
-                        onChange = {this.handlePasswordOnChange}>
-                 </input> 
-                    </div>
-            </FormGroup>
+            <div>
+                <Field 
+                name = "username"
+                component = "input"
+                type = "text"
+                value = {username}
+                onChange = {this.handleUsernameOnChange}
+                placeholder = "username"
+                />
+            </div>
+            <div>
+                <Field 
+                name = "password"
+                component = "input"
+                type = "text"
+                value = {password}
+                onChange = {this.handlePasswordOnChange}
+                placeholder = "password"
+                />
+            </div>
             <Button type = "Submit">Login</Button>
-        </form>);
+        </form>
+        );
     }
 }
 
 export default reduxForm({
     form: 'loginForm',
-    fields: ['username','password']
+    fields: ['username','password'],
+    validate
   })(LoginForm)
