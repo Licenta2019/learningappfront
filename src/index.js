@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 
 import store from './store';
-import LoginContainer from './components/LoginContainer';
+import App from './components/App';
 
 //  import 'bootstrap/dist/css/bootstrap.min.css';
 // import './assets/styles/index.css';
@@ -14,7 +14,7 @@ import { BrowserRouter } from 'react-router-dom';
 ReactDOM.render(
   <Provider store={ store }>
     <BrowserRouter>
-      <LoginContainer/>
+      <App/>
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')

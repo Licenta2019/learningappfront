@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import LoginForm from './LoginForm';
-import axiosClient from './../axios/axiosClient';
-import {apiPaths} from './../routes/apiPaths';
-import routePaths from './../routes/routePaths';
+import axiosClient from './../../axios/axiosClient';
+import apiPaths from './../../axios/apiPaths';
+import routePaths from './../../routes/routePaths';
 import {withRouter} from 'react-router-dom';
 
 class LoginContainer extends Component{
@@ -14,20 +14,17 @@ class LoginContainer extends Component{
     }
 
     handleSubmit(values){        
-        // values.preventDefault();
+
         
-        console.log(values);
-        console.log(values.username);
-        
-        axiosClient.post("/login", {
+        axiosClient.post(apiPaths.login, {
             username : values.username,
             password : values.password
         })
         .then(()=>{
-        // this.props.history.push(routePaths.homepage);
+        this.props.history.push(routePaths.homepage);
         })
         .catch((err)=> {
-            console.log(err);
+            console.log(err + 'eroare');
         });
     }
 

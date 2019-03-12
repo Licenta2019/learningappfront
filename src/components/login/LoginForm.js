@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import {reduxForm, Field} from 'redux-form';
-import {FormGroup , Button} from 'reactstrap';
+import {Button} from 'reactstrap';
 
-const renderTextField = ({ input, meta: { touched, error }, ...props }) => {
+// const renderTextField = ({ input, meta: { touched, error }, ...props }) => {
 
-    return (
-      <div>
-        <input
-          { ...input }
-          { ...props }
-        />
-        { touched && (error && <span className="text-danger">{ error }</span>) }
-      </div>
-    )
-  };
+//     return (
+//       <div>
+//         <input
+//           { ...input }
+//           { ...props }
+//         />
+//         { touched && (error && <span className="text-danger">{ error }</span>) }
+//       </div>
+//     )
+//   };
   
 const validate = (values, props) => {
     const errors = {};
