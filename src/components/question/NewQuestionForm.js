@@ -1,81 +1,83 @@
-import React, {Component} from 'react';
-import {reduxForm, Field} from 'redux-form';
-import {Button} from 'reactstrap';
-import AnswerRow from './AnswerRow';
-class NewQuestionForm extends Component{
+import React, { Component } from 'react';
+import { reduxForm, Field, FieldArray } from 'redux-form';
+import { Button } from 'reactstrap';
+import AnswerRow, { answerRow } from './AnswerRow';
+import { renderTextarea } from '../shared/renders';
 
-    constructor(props){
+const validate = (values) => {
+    console.log(values);
+}
+
+const renderAnswers = ({ fields, meta: { error, submitFailed } }) => (
+    <ul>
+        {fields.map((answer, index) => (
+            <li key={index}>
+                <h4>Answer #{index + 1}</h4>
+                <Field
+                    name={`${answer}.answerText`}
+                    type="text"
+                    component={renderTextarea}
+                />
+                <Field
+                    name={`${answer}.isCorrect`}
+                    type="checkbox"
+                    component="input"
+                />
+                <button
+                    type="button"
+                    title="Remove"
+                    onClick={() => fields.remove(index)}
+                >Remove</button>
+            </li>
+        ))}
+        <li>
+            <button type="button" onClick={() => fields.push({
+                'answerText': "",
+                isCorrect: false
+            })}>
+                Add Answer
+                    </button>
+            {submitFailed && error && <span>{error}</span>}
+        </li>
+    </ul>
+)
+
+class NewQuestionForm extends Component {
+
+    constructor(props) {
         super(props);
 
         this.state = {
-            question: null,
-            answer: null,
-            isValid:false
+            question: "",
+            answers: []
         };
-        
+
         this.handleQuestionOnChange = this.handleQuestionOnChange.bind(this);
-        this.handleAnswerOnChange = this.handleAnswerOnChange.bind(this);
-        this.handleIsValidOnChange = this.handleIsValidOnChange.bind(this);
-       
     }
 
-    handleQuestionOnChange(event){
+    handleQuestionOnChange(event) {
         this.setState({
             question: event.target.value
         });
     }
 
-    handleAnswerOnChange(event){
-        this.setState({
-            answer: event.target.value});
-    }
-
-    handleIsValidOnChange(event){
-        this.setState({
-            isValid: event.target.value});
-    }
-
-    // handleAddAnswer(answer){
-    //     let newAnswers = this.state.answers;
-    //     newAnswers.push(answer);
-
-    //     this.setState({
-    //         answers:newAnswers
-    //     });
-    // }
-
-    render(){
-
-        const {handleSubmit} = this.props;
-        const {question, answer, isValid} = this.state;
+    render() {
+        const { handleSubmit } = this.props;
+        const { question, answers, isValid } = this.state;
 
         return (
-            <form onSubmit = {handleSubmit}>
-                <Field 
-                    name = "question"
-                    component = "textarea"
-                    value = {question}
-                    onChange = {this.handleQuestionOnChange}
+            <form onSubmit={handleSubmit}>
+                <Field
+                    name="question"
+                    component="textarea"
+                    value={question}
+                    onChange={this.handleQuestionOnChange}
                 />
-                <Field 
-                    name = "answer"
-                    component = "textarea"
-                    value = {answer}
-                    onChange = {this.handleAnswerOnChange}
+                <FieldArray
+                    name="answers"
+                    component={renderAnswers}
                 />
-                <Field 
-                    name = "isValid"
-                    component = "input"
-                    type = "checkbox"
-                    value = {isValid}
-                    onChange = {this.handleIsValidOnChange}
-                />
-
-                {/* <input name = "question" type = "textarea" value = {question} onChange = {this.handleQuestionOnChange}/>
-                <input name = "answer" type = "textarea" value = {answer} onChange = {this.handleAnswerOnChange}/>
-                <input name = "isValid" type = "checkbox" value = {isValid} onChange = {this.handleChangeIsValid} /> */}
-                {/* <AnswerRow/> */}
-                <Button type = "submit">Submit</Button>
+                <Button type="submit">Submit</Button>
             </form>
         );
     }
@@ -83,6 +85,5 @@ class NewQuestionForm extends Component{
 
 export default reduxForm({
     form: 'newQuestionForm',
-    fields: ['question','answer','isValid']
-    // validate
+    vaidate: validate
 })(NewQuestionForm)
