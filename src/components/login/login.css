@@ -1,0 +1,151 @@
+/* General settings */
+
+body {
+    margin: 0px;
+}
+
+input {
+    border: none;
+    display: block;
+    background-color: #3b4148;
+    color: #606468;
+    font-size: 14px;
+    width: 100%;
+}
+
+/* Main div */
+
+.mainLoginDiv {
+    background-color: #2c3338;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 12px;
+    color: #606468;
+}
+
+/* Logo div */
+
+.logoDiv>img {
+    width: auto;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    max-width: 630px;
+    max-height: 370px;
+    margin-top: 10%;
+    margin-bottom: 0%;
+}
+
+/* Login div */
+
+.loginDiv {
+    margin-top: 10%;
+    display: block;
+    align-items: center;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+/* Username div */
+
+.usernameDiv {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+}
+
+.usernameDiv>img {
+    padding: 11px;
+    max-width: 11px;
+    max-height: 11px;
+    background-color: #363b41;
+    border-radius: 3px 0px 0px 3px;
+}
+
+.usernameDiv>input {
+    height: 33px;
+    padding: 0 10px;
+    border-radius: 0px 3px 3px 0px;
+}
+
+/* Password div */
+
+.passwordDiv {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+}
+
+.passwordDiv>img {
+    padding: 11px;
+    max-width: 11px;
+    max-height: 11px;
+    background-color: #363b41;
+    border-radius: 3px 0px 0px 3px;
+}
+
+.passwordDiv>input {
+    height: 33px;
+    padding: 0 10px;
+    border-radius: 0px 3px 3px 0px;
+}
+
+/* Login button */
+
+.loginButton {
+    background-color: #ea4c4c;
+    border-color: #ea4c4c;
+    border-width: 2px 0px 0px 2px;
+    border-radius: 3px;
+    color: #eee;
+    font-size: 14px;
+    font-weight: bold;
+    height: 35px;
+    margin: auto;
+    margin-top: 5px;
+    margin-bottom: 1em;
+    width: 100%;
+}
+
+.loginButton:hover {
+    background-color: #d44141 !important;
+}
+
+/* Errors div */
+
+.tooltipP {
+    color: #eee;
+    font-style: italic;
+}
+
+/* Footer div */
+
+.footerDiv {
+    display: flex;
+    justify-content: center;
+}
+
+.footerDiv>img {
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    max-width: 11px;
+    max-height: 11px;
+}
+
+.footerDiv>.notMemberLabel {
+    padding-right: 5px;
+}
+
+.footerDiv>.signUpLabel {
+    color: #eee;
+}
+
+.footerDiv>.signUpLabel:hover {
+    text-decoration: underline;
+}
