@@ -1,11 +1,29 @@
 import React, { Component } from 'react';
 import { reduxForm, Field, FieldArray } from 'redux-form';
-import { Button } from 'reactstrap';
-import AnswerRow, { answerRow } from './AnswerRow';
+import { Button,Label } from 'reactstrap';
 import { renderTextarea } from '../shared/renders';
 
-const validate = (values) => {
-    console.log(values);
+const validate = (values, props) => {
+
+    let errors = {};
+    const { question, answers, explanation } = values;
+
+    if (!question)
+        errors.question = "Question must not be empty!";
+
+    if (!explanation)
+        errors.explanation = "Explanation must not be empty!";
+
+    if (!answers || answers.length < 2)
+        errors.answers = "You must append at least two answers";
+    else
+    //TODO(paul) fix this validation
+        answers.forEach((answer) => {
+            if (!answer.text)
+                errors.answer = "Answer must not be empty!";
+        })
+
+    return errors;
 }
 
 const renderAnswers = ({ fields, meta: { error, submitFailed } }) => (
@@ -15,7 +33,6 @@ const renderAnswers = ({ fields, meta: { error, submitFailed } }) => (
                 <h4>Answer #{index + 1}</h4>
                 <Field
                     name={`${answer}.answerText`}
-                    type="text"
                     component={renderTextarea}
                 />
                 <Field
@@ -49,33 +66,37 @@ class NewQuestionForm extends Component {
 
         this.state = {
             question: "",
-            answers: []
+            answers: [],
+            explanation: ""
         };
 
-        this.handleQuestionOnChange = this.handleQuestionOnChange.bind(this);
-    }
-
-    handleQuestionOnChange(event) {
-        this.setState({
-            question: event.target.value
-        });
     }
 
     render() {
         const { handleSubmit } = this.props;
-        const { question, answers, isValid } = this.state;
+        const { question, explanation } = this.state;
 
         return (
             <form onSubmit={handleSubmit}>
+                <Label>
+                    Question
+                </Label>
                 <Field
                     name="question"
-                    component="textarea"
+                    component={renderTextarea}
                     value={question}
-                    onChange={this.handleQuestionOnChange}
                 />
                 <FieldArray
                     name="answers"
                     component={renderAnswers}
+                />
+                <Label>
+                    Explanation
+                </Label>
+                <Field
+                    name="explanation"
+                    component={renderTextarea}
+                    value={explanation}
                 />
                 <Button type="submit">Submit</Button>
             </form>
@@ -85,5 +106,5 @@ class NewQuestionForm extends Component {
 
 export default reduxForm({
     form: 'newQuestionForm',
-    vaidate: validate
+    validate
 })(NewQuestionForm)
