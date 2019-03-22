@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 import { reduxForm, Field, FieldArray } from 'redux-form';
-import { Button,Label } from 'reactstrap';
-import { renderTextarea } from '../shared/renders';
+import { Button, Label } from 'reactstrap';
+import { renderTextarea, renderSelect } from '../shared/renders';
+import axiosClient from '../../axios/axiosClient';
+import { mapOptions } from '../helpers/selectHelper';
 
 const validate = (values, props) => {
 
+    console.log(props);
     let errors = {};
-    const { question, answers, explanation } = values;
+    const { question, answers, explanation,subject,topic } = values;
+
+    if(!subject)
+        errors.subject = "Please select a subject!";
+        
+    if(!topic)
+    errors.topic = "Please select a topic!";
 
     if (!question)
         errors.question = "Question must not be empty!";
@@ -14,10 +23,9 @@ const validate = (values, props) => {
     if (!explanation)
         errors.explanation = "Explanation must not be empty!";
 
-    if (!answers || answers.length < 2)
+    if (!answers || answers === undefined)
         errors.answers = "You must append at least two answers";
     else
-    //TODO(paul) fix this validation
         answers.forEach((answer) => {
             if (!answer.text)
                 errors.answer = "Answer must not be empty!";
@@ -69,15 +77,29 @@ class NewQuestionForm extends Component {
             answers: [],
             explanation: ""
         };
-
     }
 
     render() {
-        const { handleSubmit } = this.props;
+        const { handleSubmit, handleSubjectOnChange, handleTopicOnChange, subjects, topics, topicDisabled } = this.props;
         const { question, explanation } = this.state;
 
         return (
             <form onSubmit={handleSubmit}>
+                <Field
+                    name="subject"
+                    placeholder={"Subject"}
+                    component={renderSelect}
+                    onChange={handleSubjectOnChange}
+                    options={mapOptions(subjects)}
+                />
+                <Field
+                    name="topic"
+                    placeholder={"Topic"}
+                    component={renderSelect}
+                    onChange={handleTopicOnChange}
+                    options={mapOptions(topics)}
+                    isDisabled={topicDisabled}
+                />
                 <Label>
                     Question
                 </Label>
