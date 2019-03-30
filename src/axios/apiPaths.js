@@ -1,6 +1,8 @@
 export default {
     homepage: '/',
     login: '/login',
-    addQuestion: '/test/topic/{}/question',
-    getSubjects: '/subject'
+    addQuestion: '/topic/{}/question',
+    getSubjects: '/subject',
+    getQuestions: '/topic/{}/questions',
+    updateQuestions: '/topic/{}/question/{}'
 }

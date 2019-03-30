@@ -10,16 +10,23 @@ class MainPageContainer extends Component{
     // }
 
     render(){
-        const toQuestionPath = pathToRegexp.compile(routePaths.newQuestion);
-
+        const toNewQuestionPath = pathToRegexp.compile(routePaths.newQuestion);
+        const toQuestionPath = pathToRegexp.compile(routePaths.listQuestions);
+         
         return (
         <div>
            -- MainPageContainer --
         <Link
             to={ {
+                pathname: toNewQuestionPath({
+                }) } }>
+                <div>addQuestion</div>
+        </Link>
+        <Link
+            to={ {
                 pathname: toQuestionPath({
                 }) } }>
-                <div>click</div>
+                <div>viewQuestions</div>
         </Link>
         </div>
         );

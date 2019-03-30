@@ -5,7 +5,6 @@ import axiosClient from './../../axios/axiosClient';
 import apiPaths from './../../axios/apiPaths';
 import { Row } from 'reactstrap';
 
-const topicId = '374c6260-2bc8-4a54-acc4-12a2e082f876';
 class NewQuestionContainer extends Component {
 
     constructor(props) {
@@ -50,15 +49,15 @@ class NewQuestionContainer extends Component {
     }
 
     handleSubmit(value) {
-        
-        console.log(value);
 
         const { question, answers, explanation,topic } = value;
 
         axiosClient.post(apiPaths.addQuestion.replace('{}', topic.value), {
             questionText: question,
             answerDtos: answers,
-            explanation: explanation
+            explanation: explanation,
+            status: 'PENDING',
+            studentId:'15ba3454-65e2-439c-8519-9ba135cf97b9' //remove moock after login implementation
         }).then(() => {
             // TODO add modal here
         })
@@ -68,6 +67,7 @@ class NewQuestionContainer extends Component {
     render() {
         const { subjects, topics, subject, topic,topicDisabled } = this.state;
 
+        console.log(subjects);
         return (
             <div>
                 <NewQuestionForm

@@ -7,14 +7,15 @@ import { mapOptions } from '../helpers/selectHelper';
 
 const validate = (values, props) => {
 
+    console.log(props);
     let errors = {};
-    const { question, answers, explanation,subject,topic } = values;
+    const { question, answers, explanation, subject, topic } = values;
 
-    if(!subject)
+    if (!subject)
         errors.subject = "Please select a subject!";
-        
-    if(!topic)
-    errors.topic = "Please select a topic!";
+
+    if (!topic)
+        errors.topic = "Please select a topic!";
 
     if (!question)
         errors.question = "Question must not be empty!";
@@ -66,30 +67,31 @@ const renderAnswers = ({ fields, meta: { error, submitFailed } }) => (
     </ul>
 )
 
-class NewQuestionForm extends Component {
+class UpdateQuestionForm extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
             question: "",
-            answers: [],
-            explanation: ""
+            message: "" //notification message
         };
     }
 
     render() {
-        const { handleSubmit, handleSubjectOnChange, handleTopicOnChange, subjects, topics, topicDisabled } = this.props;
-        const { question, explanation } = this.state;
+        const { handleSubmit, handleSubjectOnChange, handleTopicOnChange, question } = this.props;
+        
+        const {message } = this.state;
 
         return (
             <form onSubmit={handleSubmit}>
-                <Field
+                {/* <Field
                     name="subject"
                     placeholder={"Subject"}
                     component={renderSelect}
                     onChange={handleSubjectOnChange}
                     options={mapOptions(subjects)}
+                    selected={subject}
                 />
                 <Field
                     name="topic"
@@ -97,7 +99,7 @@ class NewQuestionForm extends Component {
                     component={renderSelect}
                     onChange={handleTopicOnChange}
                     options={mapOptions(topics)}
-                    isDisabled={topicDisabled}
+                    selected={topic}
                 />
                 <Label>
                     Question
@@ -119,7 +121,12 @@ class NewQuestionForm extends Component {
                     component={renderTextarea}
                     value={explanation}
                 />
-                <Button type="submit">Submit</Button>
+                <Field
+                    name="message"
+                    component={renderTextarea}
+                    value={message}
+                />
+                <Button type="submit">Submit</Button> */}
             </form>
         );
     }
@@ -128,4 +135,4 @@ class NewQuestionForm extends Component {
 export default reduxForm({
     form: 'newQuestionForm',
     validate
-})(NewQuestionForm)
+})(UpdateQuestionForm)

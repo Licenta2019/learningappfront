@@ -2,5 +2,7 @@ export default {
     login: '/login',
     homepage: '/homepage',
     newQuestion: '/question/new',
-    validateQuestion: '/question/validate'
+    updateQuestion: '/question/update',
+    validateQuestion: '/question/validate',
+    listQuestions: '/questions'
 }
