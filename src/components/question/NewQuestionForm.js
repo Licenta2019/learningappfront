@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { reduxForm, Field, FieldArray } from 'redux-form';
 import { Button, Label } from 'reactstrap';
 import { renderTextarea, renderSelect } from '../shared/renders';
-import axiosClient from '../../axios/axiosClient';
 import { mapOptions } from '../helpers/selectHelper';
 
 const validate = (values, props) => {

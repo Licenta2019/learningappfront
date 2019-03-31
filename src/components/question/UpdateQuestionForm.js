@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import { reduxForm, Field, FieldArray } from 'redux-form';
 import { Button, Label } from 'reactstrap';
 import { renderTextarea, renderSelect } from '../shared/renders';
-import axiosClient from '../../axios/axiosClient';
 import { mapOptions } from '../helpers/selectHelper';
 
 const validate = (values, props) => {
 
-    console.log(props);
     let errors = {};
     const { question, answers, explanation, subject, topic } = values;
 
@@ -34,99 +32,108 @@ const validate = (values, props) => {
     return errors;
 }
 
-const renderAnswers = ({ fields, meta: { error, submitFailed } }) => (
-    <ul>
-        {fields.map((answer, index) => (
-            <li key={index}>
-                <h4>Answer #{index + 1}</h4>
-                <Field
-                    name={`${answer}.answerText`}
-                    component={renderTextarea}
-                />
-                <Field
-                    name={`${answer}.isCorrect`}
-                    type="checkbox"
-                    component="input"
-                />
-                <button
-                    type="button"
-                    title="Remove"
-                    onClick={() => fields.remove(index)}
-                >Remove</button>
-            </li>
-        ))}
-        <li>
-            <button type="button" onClick={() => fields.push({
-                'answerText': "",
-                isCorrect: false
-            })}>
-                Add Answer
-                    </button>
-            {submitFailed && error && <span>{error}</span>}
-        </li>
-    </ul>
-)
-
 class UpdateQuestionForm extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            question: "",
             message: "" //notification message
         };
     }
 
-    render() {
-        const { handleSubmit, handleSubjectOnChange, handleTopicOnChange, question } = this.props;
+    renderAnswers = ({ meta: { error, submitFailed } }) => {
         
-        const {message } = this.state;
+        const {answerDtos} = this.props.question;
+
+        return (
+        <ul>
+            {answerDtos && answerDtos.map((answer, index) => (
+                <li key={index}>
+                    <h4>Answer #{index + 1}</h4>
+                    <Field
+                        name={`${answer}.answerText`}
+                        component={renderTextarea}
+                        value={answer.answerText}
+                    />
+                    <Field
+                        name={`${answer}.isCorrect`}
+                        type="checkbox"
+                        component="input"
+                        selected={answer.isCorrect}
+                    />
+                    <button
+                        type="button"
+                        title="Remove"
+                        onClick={() => answerDtos.remove(index)}
+                    >Remove</button>
+                </li>
+            ))}
+            <li>
+                <button type="button" onClick={() => answerDtos.push({
+                    'answerText': "",
+                    isCorrect: false
+                })}>
+                    Add Answer
+                        </button>
+                {submitFailed && error && <span>{error}</span>}
+            </li>
+        </ul>)
+    }
+
+    render() {
+        const { handleSubmit, handleSubjectOnChange, question, subjects, topics } = this.props;
+
+        console.log(question);
+
+        const { message } = this.state;
 
         return (
             <form onSubmit={handleSubmit}>
-                {/* <Field
+                {subjects && <Field
                     name="subject"
                     placeholder={"Subject"}
                     component={renderSelect}
                     onChange={handleSubjectOnChange}
                     options={mapOptions(subjects)}
-                    selected={subject}
-                />
-                <Field
+                // selected={subject}
+                />}
+                {topics && <Field
                     name="topic"
                     placeholder={"Topic"}
                     component={renderSelect}
-                    onChange={handleTopicOnChange}
                     options={mapOptions(topics)}
-                    selected={topic}
-                />
+                // selected={topic}
+                />}
                 <Label>
                     Question
                 </Label>
-                <Field
+                {question && <Field
                     name="question"
                     component={renderTextarea}
-                    value={question}
-                />
-                <FieldArray
+                    value={question.questionText}
+                />}
+                {question.answerDtos && <FieldArray
                     name="answers"
-                    component={renderAnswers}
-                />
+                    component={this.renderAnswers}
+                />}
                 <Label>
                     Explanation
                 </Label>
-                <Field
+                {question.explanation && <Field
                     name="explanation"
                     component={renderTextarea}
-                    value={explanation}
-                />
+                    value={question.explanation}
+                />}
+                <Label>
+                    Message
+                </Label>
                 <Field
                     name="message"
                     component={renderTextarea}
                     value={message}
                 />
-                <Button type="submit">Submit</Button> */}
+                <Button type="submit">Submit</Button>
             </form>
         );
     }

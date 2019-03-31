@@ -3,7 +3,6 @@ import UpdateQuestionForm from './UpdateQuestionForm';
 import { withRouter } from 'react-router-dom';
 import axiosClient from './../../axios/axiosClient';
 import apiPaths from './../../axios/apiPaths';
-import { Row } from 'reactstrap';
 
 class UpdateQuestionContainer extends Component {
 
@@ -11,11 +10,10 @@ class UpdateQuestionContainer extends Component {
         super(props);
 
         this.state = {
-            subjectOptions: [],
-            topicsOptions: [], 
-            selectedSubject: '',
-            selectedTopic:'',
-            topics:[],
+            subjects: [],
+            selectedSubject: null,
+            topics: [],
+            selectedTopic: null,
             question: null
         };
 
@@ -26,28 +24,33 @@ class UpdateQuestionContainer extends Component {
 
     componentDidMount() {
 
-        console.log(this.props.match);
-        
-        console.log(this.props.location);
-
-        axiosClient.get(apiPaths.getSubjects)
-            .then((subjects) => {
+        Promise.all([this.getSubjects(), this.getQuestion()])
+            .then(([subjects, question]) => {
                 this.setState({
-                    subjectsOptions: subjects.data
+                    subjects: subjects.data,
+                    question: question.data
                 })
             });
     }
 
-    // handleSubjectOnChange(value) {
-    //     const { subjects } = this.state;
+    getSubjects() {
+        return axiosClient.get(apiPaths.getSubjects);
+    }
 
-    //     const subject = subjects.filter(subject => subject.id === value.value)[0];
+    getQuestion() {
+        return axiosClient.get(
+            apiPaths.getQuestion.replace('{}', this.props.match.params.question_id));
+    }
 
-    //     this.setState({
-    //         topics: subject.topicDtos,
-    //         topicDisabled : false
-    //     });
-    // }
+    handleSubjectOnChange(value) {
+        const { subjects } = this.state;
+
+        const subject = subjects.filter(subject => subject.id === value.value)[0];
+
+        this.setState({
+            topics: subject.topicDtos
+        });
+    }
 
     // handleTopicOnChange(value) {
     //     this.setState({
@@ -72,18 +75,20 @@ class UpdateQuestionContainer extends Component {
     }
 
     render() {
-        const { subjects, topics, subject, topic,topicDisabled } = this.state;
+
+        console.log(this.state);
+
+        const { subjects, question, topics, selectedSubject, selectedTopic } = this.state;
 
         return (
             <div>
-                <UpdateQuestionForm
+                {question &&<UpdateQuestionForm
                     onSubmit={this.handleSubmit}
                     handleSubjectOnChange={this.handleSubjectOnChange}
-                    handleTopicOnChange={this.handleTopicOnChange}
                     subjects={subjects}
                     topics={topics}
-                    topicDisabled={topicDisabled}
-                />
+                    question={question}
+                />}
             </div>
         );
     }

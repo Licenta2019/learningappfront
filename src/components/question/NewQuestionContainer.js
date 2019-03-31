@@ -3,7 +3,6 @@ import NewQuestionForm from './NewQuestionForm';
 import { withRouter } from 'react-router-dom';
 import axiosClient from './../../axios/axiosClient';
 import apiPaths from './../../axios/apiPaths';
-import { Row } from 'reactstrap';
 
 class NewQuestionContainer extends Component {
 
@@ -14,7 +13,7 @@ class NewQuestionContainer extends Component {
             topicId: null, //todo set this from props
             subjects: [],
             topics: [],
-            topicDisabled:true
+            topicDisabled: true
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,7 +37,7 @@ class NewQuestionContainer extends Component {
 
         this.setState({
             topics: subject.topicDtos,
-            topicDisabled : false
+            topicDisabled: false
         });
     }
 
@@ -50,14 +49,14 @@ class NewQuestionContainer extends Component {
 
     handleSubmit(value) {
 
-        const { question, answers, explanation,topic } = value;
+        const { question, answers, explanation, topic } = value;
 
         axiosClient.post(apiPaths.addQuestion.replace('{}', topic.value), {
             questionText: question,
             answerDtos: answers,
             explanation: explanation,
             status: 'PENDING',
-            studentId:'15ba3454-65e2-439c-8519-9ba135cf97b9' //remove moock after login implementation
+            studentId: '15ba3454-65e2-439c-8519-9ba135cf97b9' //remove moock after login implementation
         }).then(() => {
             // TODO add modal here
         })
@@ -65,9 +64,8 @@ class NewQuestionContainer extends Component {
     }
 
     render() {
-        const { subjects, topics, subject, topic,topicDisabled } = this.state;
+        const { subjects, topics, topicDisabled } = this.state;
 
-        console.log(subjects);
         return (
             <div>
                 <NewQuestionForm

@@ -30,7 +30,6 @@ export default class QuestionContainer extends Component {
 
     getQuestions(topicId) {
 
-        console.log(topicId);
         return axiosClient.get(apiPaths.getQuestions.replace('{}',topicId));
     }
 

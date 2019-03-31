@@ -4,5 +4,6 @@ export default {
     addQuestion: '/topic/{}/question',
     getSubjects: '/subject',
     getQuestions: '/topic/{}/questions',
+    getQuestion: '/topic/question/{}',
     updateQuestions: '/topic/{}/question/{}'
 }

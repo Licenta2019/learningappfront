@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
-import axiosClient from '../../axios/axiosClient';
-import apiPaths from '../../axios/apiPaths';
-import { Container, Row, Col } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import { mapOptions } from '../helpers/selectHelper';
 
 export default class QuestionListing extends Component {
