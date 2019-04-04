@@ -1,44 +1,80 @@
 import React, { Component } from 'react';
 import NewQuestionForm from './NewQuestionForm';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import axiosClient from './../../axios/axiosClient';
 import apiPaths from './../../axios/apiPaths';
 
-const topicId = '374c6260-2bc8-4a54-acc4-12a2e082f876';
-class NewQuestionContainer extends Component{
+class NewQuestionContainer extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
-            topicId : null //todo set this from props
+            topicId: null, //todo set this from props
+            subjects: [],
+            topics: [],
+            topicDisabled: true
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubjectOnChange = this.handleSubjectOnChange.bind(this);
+        this.handleTopicOnChange = this.handleTopicOnChange.bind(this);
     }
 
-    handleSubmit(value){
-        
-        const {question, answers} = value;
+    componentDidMount() {
+        axiosClient.get(apiPaths.getSubjects)
+            .then((subjects) => {
+                this.setState({
+                    subjects: subjects.data
+                })
+            });
+    }
 
-        answers.forEach(a => {
-            console.log(a.isCorrect);
+    handleSubjectOnChange(value) {
+        const { subjects } = this.state;
+
+        const subject = subjects.filter(subject => subject.id === value.value)[0];
+
+        this.setState({
+            topics: subject.topicDtos,
+            topicDisabled: false
         });
+    }
 
-        axiosClient.post(apiPaths.addQuestion.replace('{}','374c6260-2bc8-4a54-acc4-12a2e082f876'),{
+    handleTopicOnChange(value) {
+        this.setState({
+            topic: value.value
+        })
+    }
+
+    handleSubmit(value) {
+
+        const { question, answers, explanation, topic } = value;
+
+        axiosClient.post(apiPaths.addQuestion.replace('{}', topic.value), {
             questionText: question,
-            answerDtos: answers
-        }).then(()=>{
+            answerDtos: answers,
+            explanation: explanation,
+            status: 'PENDING',
+            studentId: '15ba3454-65e2-439c-8519-9ba135cf97b9' //remove moock after login implementation
+        }).then(() => {
             // TODO add modal here
         })
-        .catch((err)=>console.log(err));
-    }    
+            .catch((err) => console.log(err)); //TODO catch error here
+    }
 
-    render(){
+    render() {
+        const { subjects, topics, topicDisabled } = this.state;
+
         return (
             <div>
-                <NewQuestionForm 
-                    onSubmit = {this.handleSubmit}
+                <NewQuestionForm
+                    onSubmit={this.handleSubmit}
+                    handleSubjectOnChange={this.handleSubjectOnChange}
+                    handleTopicOnChange={this.handleTopicOnChange}
+                    subjects={subjects}
+                    topics={topics}
+                    topicDisabled={topicDisabled}
                 />
             </div>
         );
@@ -46,4 +82,3 @@ class NewQuestionContainer extends Component{
 }
 
 export default withRouter(NewQuestionContainer);
-
