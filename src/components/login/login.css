@@ -1,0 +1,181 @@
+/* General settings */
+
+body {
+    background-color: #2c3338;
+    margin: 0px;
+}
+
+input {
+    border: none;
+    display: block;
+    background-color: #3b4148;
+    color: #606468;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+span {
+    display: block;
+    text-align: left;
+    color: #eee;
+    font-style: italic;
+}
+
+/* Main div */
+
+.mainLoginDiv {
+    background-color: #2c3338;
+    position: absolute;
+    width: 100%;
+    height:100%;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 12px;
+    color: #606468;
+}
+
+/* Logo div */
+
+.logoDiv>img {
+    width: auto;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    max-width: 60%;
+    max-height: 60%;
+    margin-top: 10%;
+    margin-bottom: 0%;
+}
+
+/* Login div */
+
+.loginDiv {
+    display: block;
+    margin-top: 5%;
+    margin-left: 20%;
+    margin-right: 20%;
+    align-items: center;
+    text-align: center;
+}
+
+/* Username div */
+
+.usernameDiv {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 15%;
+    margin-right: 15%;
+    display: flex;
+}
+
+.usernameDiv > * {
+    flex-grow: 1;
+    flex-basis: auto;
+}
+
+.usernameDiv>img {
+    padding: 11px;
+    max-width: 11px;
+    max-height: 11px;
+    background-color: #363b41;
+    border-radius: 3px 0px 0px 3px;
+}
+
+.usernameDiv input {
+    height: 33px;
+    padding: 0 10px;
+    border-radius: 0px 3px 3px 0px;
+}
+
+/* Password div */
+
+.passwordDiv {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 15%;
+    margin-right: 15%;
+    display: flex;
+}
+
+.passwordDiv > * {
+    flex-grow: 1;
+    flex-basis: auto;
+}
+
+.passwordDiv>img {
+    padding: 11px;
+    max-width: 11px;
+    max-height: 11px;
+    background-color: #363b41;
+    border-radius: 3px 0px 0px 3px;
+}
+
+.passwordDiv input {
+    height: 33px;
+    padding: 0 10px;
+    border-radius: 0px 3px 3px 0px;
+}
+
+/* Login button */
+
+.loginButton {
+    background-color: #ea4c4c;
+    border-color: #ea4c4c;
+    border-width: 2px 0px 0px 2px;
+    border-radius: 3px;
+    color: #eee;
+    font-size: 14px;
+    font-weight: bold;
+    height: 35px;
+    margin: auto;
+    margin-top: 5px;
+    margin-bottom: 1em;
+    width: 70%;
+}
+
+.loginButton:hover {
+    background-color: #d44141;
+}
+
+/* Footer div */
+
+.footerDiv {
+    display: flex;
+    justify-content: center;
+}
+
+.footerDiv>img {
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    max-width: 11px;
+    max-height: 11px;
+}
+
+.footerDiv>.notMemberLabel {
+    padding-right: 5px;
+}
+
+.footerDiv>.signUpLabel {
+    color: #eee;
+}
+
+.footerDiv>.signUpLabel:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+
+@media screen and (max-width: 480px) {
+    
+    .logoDiv>img {
+         margin-top: 30%;
+    }
+
+    .loginDiv {
+        margin-top: 20%;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}

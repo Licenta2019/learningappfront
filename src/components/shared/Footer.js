@@ -5,7 +5,7 @@ class Footer extends Component{
     render(){
         return (
             //todo(Alex) add style and text
-            <div>Footer</div>
+            <div></div>
         );
     }
 }
