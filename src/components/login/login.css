@@ -1,6 +1,7 @@
 /* General settings */
 
 body {
+    background-color: #2c3338;
     margin: 0px;
 }
 
@@ -11,6 +12,14 @@ input {
     color: #606468;
     font-size: 14px;
     width: 100%;
+    box-sizing: border-box;
+}
+
+span {
+    display: block;
+    text-align: left;
+    color: #eee;
+    font-style: italic;
 }
 
 /* Main div */
@@ -19,9 +28,7 @@ input {
     background-color: #2c3338;
     position: absolute;
     width: 100%;
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
+    height:100%;
     font-family: 'Open Sans', Arial, sans-serif;
     font-size: 12px;
     color: #606468;
@@ -35,8 +42,8 @@ input {
     margin-left: auto;
     margin-right: auto;
     display: block;
-    max-width: 630px;
-    max-height: 370px;
+    max-width: 60%;
+    max-height: 60%;
     margin-top: 10%;
     margin-bottom: 0%;
 }
@@ -44,11 +51,12 @@ input {
 /* Login div */
 
 .loginDiv {
-    margin-top: 10%;
     display: block;
-    align-items: center;
+    margin-top: 5%;
     margin-left: 20%;
     margin-right: 20%;
+    align-items: center;
+    text-align: center;
 }
 
 /* Username div */
@@ -56,7 +64,14 @@ input {
 .usernameDiv {
     margin-top: 5px;
     margin-bottom: 5px;
+    margin-left: 15%;
+    margin-right: 15%;
     display: flex;
+}
+
+.usernameDiv > * {
+    flex-grow: 1;
+    flex-basis: auto;
 }
 
 .usernameDiv>img {
@@ -67,7 +82,7 @@ input {
     border-radius: 3px 0px 0px 3px;
 }
 
-.usernameDiv>input {
+.usernameDiv input {
     height: 33px;
     padding: 0 10px;
     border-radius: 0px 3px 3px 0px;
@@ -78,7 +93,14 @@ input {
 .passwordDiv {
     margin-top: 5px;
     margin-bottom: 5px;
+    margin-left: 15%;
+    margin-right: 15%;
     display: flex;
+}
+
+.passwordDiv > * {
+    flex-grow: 1;
+    flex-basis: auto;
 }
 
 .passwordDiv>img {
@@ -89,7 +111,7 @@ input {
     border-radius: 3px 0px 0px 3px;
 }
 
-.passwordDiv>input {
+.passwordDiv input {
     height: 33px;
     padding: 0 10px;
     border-radius: 0px 3px 3px 0px;
@@ -109,18 +131,11 @@ input {
     margin: auto;
     margin-top: 5px;
     margin-bottom: 1em;
-    width: 100%;
+    width: 70%;
 }
 
 .loginButton:hover {
-    background-color: #d44141 !important;
-}
-
-/* Errors div */
-
-.tooltipP {
-    color: #eee;
-    font-style: italic;
+    background-color: #d44141;
 }
 
 /* Footer div */
@@ -148,4 +163,19 @@ input {
 
 .footerDiv>.signUpLabel:hover {
     text-decoration: underline;
+}
+
+/* Responsive */
+
+@media screen and (max-width: 480px) {
+    
+    .logoDiv>img {
+         margin-top: 30%;
+    }
+
+    .loginDiv {
+        margin-top: 20%;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
 }

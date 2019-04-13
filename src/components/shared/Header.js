@@ -5,7 +5,7 @@ class Header extends Component{
     render(){
         return (
             //todo(Alex) add style and text
-            <div>Header</div>
+            <div></div>
         );
     }
 }

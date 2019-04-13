@@ -3,6 +3,13 @@ import { reduxForm, Field } from 'redux-form';
 import { Button } from 'reactstrap';
 import { renderField } from '../shared/renders';
 
+import './login.css';
+
+import whiteLogo from '../../assets/images/whiteLogo.png';
+import usernameLogo from '../../assets/images/username.png';
+import passwordLogo from '../../assets/images/password.png';
+import arrowLogo from '../../assets/images/arrow.png'
+
 const validate = (values, props) => {
     const errors = {};
 
@@ -36,24 +43,43 @@ class LoginForm extends Component {
 
         return (
             <form onSubmit={handleSubmit}>
-                <div>
-                    <Field
-                        name="username"
-                        component={renderField}
-                        value={username}
-                        placeholder="username"
-                    />
+                <div className="mainLoginDiv">
+
+                    <div className="logoDiv">
+                        <img src={whiteLogo} alt="Logo" />
+                    </div>
+
+                    <div className="loginDiv">
+                        <div className="usernameDiv">
+                            <img src={usernameLogo} alt="UsernameLogo" />
+                            <Field
+                                name="username"
+                                component={renderField}
+                                value={username}
+                                placeholder="username"
+                            />
+                        </div>
+                        
+                        <div className="passwordDiv">
+                            <img src={passwordLogo} alt="PasswordLogo" />
+                            <Field
+                                name="password"
+                                component={renderField}
+                                value={password}
+                                placeholder="password"
+                                type = "password"
+                            />
+                        </div>
+                        
+                        <Button type="Submit" className="loginButton">Login</Button>
+                    </div>
+
+                    <div className="footerDiv">
+                        <label className="notMemberLabel">Not a member?</label>
+                        <label className="signUpLabel">Sign up now</label>
+                        <img src={arrowLogo} alt="arrowLogo" />
+                    </div>
                 </div>
-                <div>
-                    <Field
-                        name="password"
-                        component={renderField}
-                        value={password}
-                        placeholder="password"
-                        type = "password"
-                    />
-                </div>
-                <Button type="Submit">Login</Button>
             </form>
         );
     }

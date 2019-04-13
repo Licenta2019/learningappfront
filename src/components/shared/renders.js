@@ -1,5 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
+import TextareaAutosize from 'react-autosize-textarea';
 
 export const renderField = ({ input, meta: { touched, error }, ...props }) => {
 
@@ -18,7 +19,7 @@ export const renderTextarea = ({ input, meta: { touched, error }, ...props }) =>
 
     return (
         <div>
-            <textarea
+            <TextareaAutosize
                 {...input}
                 {...props}
             />
