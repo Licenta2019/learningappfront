@@ -23,14 +23,27 @@ const validate = (values, props) => {
     if (!explanation)
         errors.explanation = "Explanation must not be empty!";
 
-    if (!answers || answers === undefined)
-        errors.answers = "You must append at least two answers";
-    else
-        answers.forEach((answer) => {
-            if (!answer.text)
-                errors.answer = "Answer must not be empty!";
+    errors.answers = [];
+    if (!values.answers || values.answers.length < 2) {
+        errors.answers._error = 'At least two answers must be entered';
+    }
+    else {
+        const answersErrors = [];
+        let atLeastOneCorrectAnswer = false;
+        values.answers.forEach((answer, index) => {
+            const answerErrors = {}
+            if (!answer || answer.answerText === "") {
+                answerErrors.answerText = "Answer text must not be empty!";
+                answersErrors[index] = answerErrors
+            }
+            if (answer.isCorrect)
+                atLeastOneCorrectAnswer = true;
         })
+        errors.answers = answersErrors;
 
+        if (!atLeastOneCorrectAnswer)
+            errors.answers._error = 'At least one answer must be correct!';
+    }
     return errors;
 }
 
@@ -41,17 +54,17 @@ const renderAnswers = ({ fields, meta: { error, submitFailed } }) => (
                 <h4>Answer #{index + 1}</h4>
                 <div className="answerAndCheckboxDiv">
                     <div className="textareaDiv">
-                    <Field
-                        name={`${answer}.answerText`}
-                        component={renderTextarea}
-                    />
+                        <Field
+                            name={`${answer}.answerText`}
+                            component={renderTextarea}
+                        />
                     </div>
                     <div className="checkboxDiv">
-                    <Field
-                        name={`${answer}.isCorrect`}
-                        type="checkbox"
-                        component="input"
-                    />
+                        <Field
+                            name={`${answer}.isCorrect`}
+                            type="checkbox"
+                            component="input"
+                        />
                     </div>
                 </div>
                 <button
@@ -80,48 +93,47 @@ class NewQuestionForm extends Component {
 
         this.state = {
             question: "",
-            answers: [],
             explanation: ""
         };
     }
 
     render() {
         const { handleSubmit, handleSubjectOnChange, handleTopicOnChange, subjects, topics, topicDisabled } = this.props;
-        const { question, explanation } = this.state;
+        const { question, explanation, answers } = this.state;
 
         const customStyles = {
             control: (base, state) => ({
-              ...base,
-              background: "#3b4148",
-              color: "#606468",
-              font: "14px",
-              // match with the menu
-              //borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
-              // Overwrittes the different states of border
-              //borderColor: state.isFocused ? "yellow" : "green",
-              borderColor: null,
-              // Removes weird border around container
-              //boxShadow: state.isFocused ? null : null,
-              "&:hover": {
+                ...base,
+                background: "#3b4148",
+                color: "#606468",
+                font: "14px",
+                // match with the menu
+                //borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
                 // Overwrittes the different states of border
-                borderColor: "grey"
-              }
+                //borderColor: state.isFocused ? "yellow" : "green",
+                borderColor: null,
+                // Removes weird border around container
+                //boxShadow: state.isFocused ? null : null,
+                "&:hover": {
+                    // Overwrittes the different states of border
+                    borderColor: "grey"
+                }
             }),
             menu: base => ({
-              ...base,
-              // override border radius to match the box
-              //borderRadius: 0,
-              // kill the gap
-              //marginTop: 0
+                ...base,
+                // override border radius to match the box
+                //borderRadius: 0,
+                // kill the gap
+                //marginTop: 0
             }),
             menuList: base => ({
-              ...base,
-              background: "grey",
-              color: "#606468"
-              // kill the white space on first and last option
-              //padding: 0
+                ...base,
+                background: "grey",
+                color: "#606468"
+                // kill the white space on first and last option
+                //padding: 0
             })
-          };
+        };
 
         return (
             <form onSubmit={handleSubmit}>
@@ -189,5 +201,15 @@ class NewQuestionForm extends Component {
 
 export default reduxForm({
     form: 'newQuestionForm',
+    initialValues: {
+        answers: [{
+            'answerText': "",
+            isCorrect: false
+        },
+        {
+            'answerText': "",
+            isCorrect: false
+        }]
+    },
     validate
 })(NewQuestionForm)

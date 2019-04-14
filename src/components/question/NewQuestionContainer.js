@@ -3,6 +3,7 @@ import NewQuestionForm from './NewQuestionForm';
 import { withRouter } from 'react-router-dom';
 import axiosClient from './../../axios/axiosClient';
 import apiPaths from './../../axios/apiPaths';
+import routePaths from './../../routes/routePaths';
 
 class NewQuestionContainer extends Component {
 
@@ -48,7 +49,6 @@ class NewQuestionContainer extends Component {
     }
 
     handleSubmit(value) {
-
         const { question, answers, explanation, topic } = value;
 
         axiosClient.post(apiPaths.addQuestion.replace('{}', topic.value), {
@@ -58,6 +58,7 @@ class NewQuestionContainer extends Component {
             status: 'PENDING',
             studentId: '15ba3454-65e2-439c-8519-9ba135cf97b9' //remove moock after login implementation
         }).then(() => {
+            this.props.history.push(routePaths.homepage);
             // TODO add modal here
         })
             .catch((err) => console.log(err)); //TODO catch error here
