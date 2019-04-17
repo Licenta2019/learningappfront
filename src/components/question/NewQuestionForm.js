@@ -6,10 +6,10 @@ import { mapOptions } from '../helpers/selectHelper';
 
 import './newQuestion.css';
 
-const validate = (values, props) => {
+const validate = (values) => {
 
     let errors = {};
-    const { question, answers, explanation, subject, topic } = values;
+    const { question, explanation, subject, topic } = values;
 
     if (!subject)
         errors.subject = "Please select a subject!";
@@ -25,7 +25,7 @@ const validate = (values, props) => {
 
     errors.answers = [];
     if (!values.answers || values.answers.length < 2) {
-        errors.answers._error = 'At least two answers must be entered';
+        errors.answers._error = 'At least two answers must be added!';
     }
     else {
         const answersErrors = [];
@@ -99,7 +99,7 @@ class NewQuestionForm extends Component {
 
     render() {
         const { handleSubmit, handleSubjectOnChange, handleTopicOnChange, subjects, topics, topicDisabled } = this.props;
-        const { question, explanation, answers } = this.state;
+        const { question, explanation } = this.state;
 
         const customStyles = {
             control: (base, state) => ({
@@ -201,15 +201,5 @@ class NewQuestionForm extends Component {
 
 export default reduxForm({
     form: 'newQuestionForm',
-    initialValues: {
-        answers: [{
-            'answerText': "",
-            isCorrect: false
-        },
-        {
-            'answerText': "",
-            isCorrect: false
-        }]
-    },
     validate
 })(NewQuestionForm)

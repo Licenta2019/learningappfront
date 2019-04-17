@@ -71,6 +71,17 @@ class NewQuestionContainer extends Component {
             <div>
                 <NewQuestionForm
                     onSubmit={this.handleSubmit}
+                    initialValues={{
+                        answers: [{
+                            'answerText': "",
+                            isCorrect: false
+                        },
+                        {
+                            'answerText': "",
+                            isCorrect: false
+                        }]
+                    }
+                    }
                     handleSubjectOnChange={this.handleSubjectOnChange}
                     handleTopicOnChange={this.handleTopicOnChange}
                     subjects={subjects}
