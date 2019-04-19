@@ -5,5 +5,6 @@ export default {
     getSubjects: '/subject',
     getQuestions: '/topic/{}/questions',
     getQuestion: '/topic/question/{}',
-    updateQuestions: '/topic/{}/question/{}'
+    updateQuestions: '/topic/{}/question/[]',
+    validateQuestions: '/topic/{}/question/[]'
 }
