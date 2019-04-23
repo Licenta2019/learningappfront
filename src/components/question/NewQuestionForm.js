@@ -3,13 +3,14 @@ import { reduxForm, Field, FieldArray } from 'redux-form';
 import { Button, Label } from 'reactstrap';
 import { renderTextarea, renderSelect } from '../shared/renders';
 import { mapOptions } from '../helpers/selectHelper';
+import { BurgerMenu } from '../shared/BurgerMenu';
 
 import './newQuestion.css';
 
-const validate = (values) => {
+const validate = (values, props) => {
 
     let errors = {};
-    const { question, explanation, subject, topic } = values;
+    const { question, answers, explanation, subject, topic } = values;
 
     if (!subject)
         errors.subject = "Please select a subject!";
@@ -47,27 +48,58 @@ const validate = (values) => {
     return errors;
 }
 
+function onChangeTextarea(event) {
+    var textArea = event.target.value;
+    var index = event.target.id;
+    var checkBox = document.getElementsByClassName("checkboxDiv")[index].getElementsByTagName("input")[0].checked;
+
+    if (textArea.length > 0 && checkBox) {
+        document.getElementsByClassName("textareaDiv")[index].style["border"] = "1px solid #04a347";
+    } else if(textArea.length > 0 && !checkBox) {
+        document.getElementsByClassName("textareaDiv")[index].style["border"] = "1px solid #ea4c4c";
+    } else {
+        document.getElementsByClassName("textareaDiv")[index].style["border"] = "grey";
+    }
+}
+
+function onChangeCheckbox (event) {
+    var checkBox = event.target.checked;
+    var index = event.target.id;
+    var textArea = document.getElementsByClassName("textareaDiv")[index].getElementsByTagName("textarea")[0].value;
+
+    if (checkBox && textArea.length > 0) {
+        document.getElementsByClassName("textareaDiv")[index].style["border"] = "1px solid #04a347";
+    } else if(!checkBox && textArea.length > 0) {
+        document.getElementsByClassName("textareaDiv")[index].style["border"] = "1px solid #ea4c4c";
+    } else {
+        document.getElementsByClassName("textareaDiv")[index].style["border"] = "grey";
+    }
+}
+
 const renderAnswers = ({ fields, meta: { error, submitFailed } }) => (
     <ul className="ulContainer">
         {fields.map((answer, index) => (
             <li className="liAnswerAndCheckbox" key={index}>
-                <h4>Answer #{index + 1}</h4>
+                <label className="liLabel">Answer #{index + 1}</label>
                 <div className="answerAndCheckboxDiv">
                     <div className="textareaDiv">
-                        <Field
-                            name={`${answer}.answerText`}
-                            component={renderTextarea}
-                        />
+                    <Field
+                        name={`${answer}.answerText`}
+                        component={renderTextarea}
+                    id={index}
+                        onChange={onChangeTextarea}/>
                     </div>
                     <div className="checkboxDiv">
-                        <Field
-                            name={`${answer}.isCorrect`}
-                            type="checkbox"
-                            component="input"
-                        />
+                    <Field
+                        name={`${answer}.isCorrect`}
+                        type="checkbox"
+                        component="input"
+                    onChange={onChangeCheckbox}
+                        id={index}/>
                     </div>
                 </div>
                 <button
+                    className="removeButton"
                     type="button"
                     title="Remove"
                     onClick={() => fields.remove(index)}
@@ -75,7 +107,7 @@ const renderAnswers = ({ fields, meta: { error, submitFailed } }) => (
             </li>
         ))}
         <li className="liButton">
-            <button type="button" onClick={() => fields.push({
+            <button className="addButton" type="button" onClick={() => fields.push({
                 'answerText': "",
                 isCorrect: false
             })}>
@@ -103,39 +135,51 @@ class NewQuestionForm extends Component {
 
         const customStyles = {
             control: (base, state) => ({
-                ...base,
-                background: "#3b4148",
-                color: "#606468",
-                font: "14px",
-                // match with the menu
-                //borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
-                // Overwrittes the different states of border
-                //borderColor: state.isFocused ? "yellow" : "green",
-                borderColor: null,
-                // Removes weird border around container
-                //boxShadow: state.isFocused ? null : null,
-                "&:hover": {
-                    // Overwrittes the different states of border
-                    borderColor: "grey"
-                }
-            }),
-            menu: base => ({
-                ...base,
-                // override border radius to match the box
-                //borderRadius: 0,
-                // kill the gap
-                //marginTop: 0
+              ...base,
+              background: "#3b4148",
+              color: "#606468",
+              font: "14px",
+
+              borderColor: null,
+
+              "&:hover": {
+
+                borderColor: "grey"
+              }
             }),
             menuList: base => ({
+              ...base,
+              background: "#3b4148",
+              color: "#606468",
+              border: "1px solidgrey"
+            }),
+            input: base => ({
                 ...base,
-                background: "grey",
+                background: "#3b4148",  color: "#606468",
+              font: "14px"
+            }),
+            dropdownIndicator: base => ({
+                ...base,
+                background: "#2e3338"
+           }), option: (styles, state) => ({
+              ...styles,
+                color: state.isSelected ? "#FFF" : "#606468",
+                backgroundColor: state.isSelected ? "#3297FD" : styles.color,
+                borderBottom: "1px solid rgba( 0, 0, 0, 0.125)",
+                "&:hover": {
+                  color: "#FFF",
+                  backgroundColor: "#3297FD"
+                }
+              }),
+            singleValue: (styles, state) => ({
+                ...styles,
                 color: "#606468"
-                // kill the white space on first and last option
-                //padding: 0
             })
         };
 
         return (
+            <div>
+            <BurgerMenu/>
             <form onSubmit={handleSubmit}>
                 <div className="newQuestionDiv">
                     <div className="subjectDiv">
@@ -190,11 +234,12 @@ class NewQuestionForm extends Component {
                         />
                     </div>
 
-                    <div className='buttonSubmitDiv'>
+                    <div className='submitButtonDiv'>
                         <Button type="submit" className="submitButton">Submit</Button>
                     </div>
                 </div>
             </form>
+            </div>
         );
     }
 }

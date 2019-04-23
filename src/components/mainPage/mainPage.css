@@ -11,13 +11,13 @@
 /* Color/shape of burger icon bars */
 
 .bm-burger-bars {
-    background: #373a47;
+    background: #606468;
 }
 
 /* Color/shape of burger icon bars on hover*/
 
 .bm-burger-bars-hover {
-    background: #a90000;
+    background: #eee;
 }
 
 /* Position and sizing of clickable cross button */
@@ -46,9 +46,20 @@
 /* General sidebar styles */
 
 .bm-menu {
-    background: #373a47;
-    padding: 2.5em 1.5em 0;
-    font-size: 1.15em;
+    background: #2c3338;
+    /* padding: 2.5em 1.5em 0; */
+    /* font-size: 1.15em; */
+    font-family: 'Roboto', sans-serif;
+}
+
+.bm-menu a {
+    text-decoration: none;
+    color: #eee;
+}
+
+/* Hiding the scrollbar */
+.bm-menu::-webkit-scrollbar{
+    display: none;
 }
 
 /* Morph shape necessary with bubble or elastic */
@@ -61,13 +72,51 @@
 
 .bm-item-list {
     color: #b8b7ad;
-    padding: 0.8em;
+    /* padding: 0.8em; */
 }
 
 /* Individual item */
 
 .bm-item {
-    display: inline-block;
+    /* margin-top: 10%;
+    margin-bottom: 10%; */
+    color: #eee;
+    background-color: #3b4148;
+    align-items: center;
+}
+
+.bm-item :hover {
+    /* background-color: orangered; */
+    /* background-color: grey; */
+    background-color: #c70909;
+
+} 
+
+.menu-item {
+    border-bottom: 1px solid #606468;
+}
+
+.menu-item>img {
+    padding: 11px;
+    max-width: 22px;
+    max-height: 22px;
+    /* background-color: #363b41; */
+    border-radius: 3px 0px 0px 3px;
+    vertical-align: middle;
+
+}
+
+.menu-item > h5 {
+    vertical-align: middle;
+    display: inline;
+    letter-spacing: 1px;
+}
+
+.menuSeparatorDiv {
+    display: block;
+    min-height: 1px;
+    max-height: 1px;
+    background: #606468;
 }
 
 /* Styling of overlay */
@@ -76,16 +125,36 @@
     background: rgba(0, 0, 0, 0.3);
 }
 
-/* Logo div */
+/* Menu logo div */
 
-.logoDiv>img {
-    width: auto;
-    height: auto;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    max-width: 630px;
-    max-height: 370px;
-    margin-top: 10%;
-    margin-bottom: 0%;
+.menuLogoDiv{
+    background-color: #2c3338;
 }
+
+.menuLogoDiv > img {
+    display: block;
+    max-width: 280px;
+    max-height: 170px;
+    margin-top: 20%;
+    margin-bottom: 20%;
+    margin-left: auto;
+	margin-right: auto;
+}
+
+.menuLogoDiv :hover {
+    background-color: #2c3338;
+}
+
+/* roboto-regular - latin */
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../assets/fonts/Roboto/roboto-v19-latin-regular.eot'); /* IE9 Compat Modes */
+    src: local('Roboto'), local('Roboto-Regular'),
+         url('../../assets/fonts/Roboto/roboto-v19-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../../assets/fonts/Roboto/roboto-v19-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../../assets/fonts/Roboto/roboto-v19-latin-regular.woff') format('woff'), /* Modern Browsers */
+         url('../../assets/fonts/Roboto/roboto-v19-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('../../assets/fonts/Roboto/roboto-v19-latin-regular.svg#Roboto') format('svg'); /* Legacy iOS */
+  }
