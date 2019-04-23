@@ -55,7 +55,7 @@ button {
 .newQuestionDiv {
     position: absolute;
     width: 100%;
-    height:100%;
+    height: 100%;
     margin: 0%;
     font-family: 'Open Sans', Arial, sans-serif;
     font-size: 12px;
@@ -66,7 +66,7 @@ button {
 
 .subjectDiv {
     display: block;
-    margin-top: 5%;
+    margin-top: 7%;
     margin-left: 20%;
     margin-right: 20%;
     align-items: center;
@@ -84,7 +84,7 @@ button {
 
 .topicDiv {
     display: block;
-    margin-top: 5%;
+    margin-top: 2%;
     margin-left: 20%;
     margin-right: 20%;
     align-items: center;
@@ -102,7 +102,7 @@ button {
 
 .questionDiv {
     display: block;
-    margin-top: 5%;
+    margin-top: 2%;
     margin-left: 20%;
     margin-right: 20%;
     align-items: center;
@@ -120,20 +120,30 @@ button {
 
 .answerDiv {
     display: block;
-    margin-top: 5%;
+    margin-top: 2%;
     margin-left: 20%;
     margin-right: 20%;
     align-items: center;
     text-align: center;
 }
 
+/* Ul container */
+
 .ulContainer > .liAnswerAndCheckbox {
-    color: white;
+    color: #eee;
+    font-size: 30px;
+}
+
+.liAnswerAndCheckbox > .liLabel {
+    font-size: 12px;
+    font-weight: bold;
 }
 
 .ulContainer > .liButton {
     list-style-type: none;
 }
+
+/* Answer and checkbox div */
 
 .answerAndCheckboxDiv {
     margin-top: 5px;
@@ -148,38 +158,104 @@ button {
     flex-basis: auto;
 }
 
+/* Textarea answer */
+
 .textareaDiv textarea{
     resize: vertical;
 }
 
+/* Checkbox answer */
+
 .checkboxDiv {
-    margin: 0px;
-    background-color: orange;
-    max-width: 6%;
-    min-width: 6%;
-    padding-top: 13px;
+    background-color: #3b4148;
+    max-width: 40px;
+    min-width: 40px;
+    padding-top: 10px;
     padding-left: 1px;
     padding-right: 1px;
     border-radius: 0px 3px 3px 0px;
+    border:1px solid grey;
 }
 
-.checkboxDiv input[type=checkbox]{
-
-    /* background-color: #363b41; */
-    transform: scale(1.5);
-    margin: 0px;
-    vertical-align: middle;
+.checkboxDiv input[type="checkbox"] {
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 0;
+    margin: 0;
+    margin-left:25%;
+    background: lightgray;
+    height: 20px;
+    width: 20px;
+    border: 1px solid white;
+}
+  
+.checkboxDiv input[type="checkbox"]:checked {
+    background: #04a347;
+    border: none;
+}
+  
+.checkboxDiv input[type="checkbox"]:hover {
+    filter: brightness(90%);
+}
+  
+.checkboxDiv input[type="checkbox"]:disabled {
+    background: #e6e6e6;
+    opacity: 0.6;
+    pointer-events: none;
+}
+  
+.checkboxDiv input[type="checkbox"]:after {
+    content: '';
+    position: relative;
+    left: 40%;
+    top: 20%;
+    width: 15%;
+    height: 40%;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    display: none;
+}
+  
+.checkboxDiv input[type="checkbox"]:checked:after {
+    display: block;
+}
+  
+.checkboxDiv input[type="checkbox"]:disabled:after {
+    border-color: #7b7b7b;
 }
 
-.checkboxDiv input[type=checkbox]:checked{
-    background-color: red;
+/* Remove button */
+
+.removeButton {
+    background-color: #ea4c4c;
+    border-color: #ea4c4c;
+    width: 50%;
+}
+
+.removeButton:hover {
+    background-color: #d44141;
+}
+
+/* Add button */
+
+.addButton {
+    background: #2aa1c0;
+    border-color: #2aa1c0;
+    width: 50%;
+}
+
+.addButton:hover {
+    background-color: #178aa7;
 }
 
 /* Explanation div */
 
 .explanationDiv {
     display: block;
-    margin-top: 5%;
+    margin-top: 2%;
     margin-left: 20%;
     margin-right: 20%;
     align-items: center;
@@ -193,9 +269,9 @@ button {
     font-weight: 900;
 }
 
-/* Button submit div */
+/* Submit button div */
 
-.buttonSubmitDiv {
+.submitButtonDiv {
     display: block;
     margin-top: 5%;
     margin-left: 20%;
@@ -209,165 +285,21 @@ button {
 .submitButton {
     background-color: #04a347;
     border-color: #04a347;
-    border-width: 2px 0px 0px 2px;
-    border-radius: 3px;
-    color: #eee;
-    font-size: 14px;
-    font-weight: bold;
-    height: 35px;
-    margin: auto;
-    margin-top: 5px;
-    margin-bottom: 1em;
-    width: 70%;
 }
 
 .submitButton:hover {
     background-color: #02923e;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Login div */
-
-.loginDiv {
-    display: block;
-    margin-top: 5%;
-    margin-left: 20%;
-    margin-right: 20%;
-    align-items: center;
-    text-align: center;
-}
-
-/* Username div */
-
-.usernameDiv {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 15%;
-    margin-right: 15%;
-    display: flex;
-}
-
-.usernameDiv > * {
-    flex-grow: 1;
-    flex-basis: auto;
-}
-
-.usernameDiv>img {
-    padding: 11px;
-    max-width: 11px;
-    max-height: 11px;
-    background-color: #363b41;
-    border-radius: 3px 0px 0px 3px;
-}
-
-.usernameDiv input {
-    height: 33px;
-    padding: 0 10px;
-    border-radius: 0px 3px 3px 0px;
-}
-
-/* Password div */
-
-.passwordDiv {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 15%;
-    margin-right: 15%;
-    display: flex;
-}
-
-.passwordDiv > * {
-    flex-grow: 1;
-    flex-basis: auto;
-}
-
-.passwordDiv>img {
-    padding: 11px;
-    max-width: 11px;
-    max-height: 11px;
-    background-color: #363b41;
-    border-radius: 3px 0px 0px 3px;
-}
-
-.passwordDiv input {
-    height: 33px;
-    padding: 0 10px;
-    border-radius: 0px 3px 3px 0px;
-}
-
-/* Login button */
-
-.loginButton {
-    background-color: #ea4c4c;
-    border-color: #ea4c4c;
-    border-width: 2px 0px 0px 2px;
-    border-radius: 3px;
-    color: #eee;
-    font-size: 14px;
-    font-weight: bold;
-    height: 35px;
-    margin: auto;
-    margin-top: 5px;
-    margin-bottom: 1em;
-    width: 70%;
-}
-
-.loginButton:hover {
-    background-color: #d44141;
-}
-
-/* Footer div */
-
-.footerDiv {
-    display: flex;
-    justify-content: center;
-}
-
-.footerDiv>img {
-    display: flex;
-    align-items: center;
-    padding: 2px;
-    max-width: 11px;
-    max-height: 11px;
-}
-
-.footerDiv>.notMemberLabel {
-    padding-right: 5px;
-}
-
-.footerDiv>.signUpLabel {
-    color: #eee;
-}
-
-.footerDiv>.signUpLabel:hover {
-    text-decoration: underline;
-}
-
 /* Responsive */
 
 @media screen and (max-width: 480px) {
-    
-    .logoDiv>img {
-         margin-top: 30%;
+
+    .newQuestionDiv {
+        margin-top: 20%;
     }
 
-    .loginDiv {
-        margin-top: 20%;
-        margin-left: 10%;
-        margin-right: 10%;
+    .ulContainer {
+        padding-left: 0;
     }
 }

@@ -2,33 +2,23 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import routePaths from '../../routes/routePaths';
 import pathToRegexp from 'path-to-regexp';
+import { slide as Menu } from 'react-burger-menu';
+import BurgerMenu from '../shared/BurgerMenu';
 
-class MainPageContainer extends Component{
+import './mainPage.css';
+
+class MainPageContainer extends Component {
 
     // constructor(props){
     //     super(props);
     // }
 
-    render(){
-        const toNewQuestionPath = pathToRegexp.compile(routePaths.newQuestion);
-        const toQuestionPath = pathToRegexp.compile(routePaths.listQuestions);
-         
+    render() {
+
         return (
-        <div>
-           -- MainPageContainer --
-        <Link
-            to={ {
-                pathname: toNewQuestionPath({
-                }) } }>
-                <div>addQuestion</div>
-        </Link>
-        <Link
-            to={ {
-                pathname: toQuestionPath({
-                }) } }>
-                <div>viewQuestions</div>
-        </Link>
-        </div>
+           <div>
+               <BurgerMenu />
+           </div>
         );
     }
 }
