@@ -3,7 +3,7 @@ import { reduxForm, Field, FieldArray } from 'redux-form';
 import { Button, Label } from 'reactstrap';
 import { renderTextarea, renderSelect } from '../shared/renders';
 import { mapOptions } from '../helpers/selectHelper';
-import { BurgerMenu } from '../shared/BurgerMenu';
+import BurgerMenu from '../shared/BurgerMenu';
 
 import './newQuestion.css';
 

@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { slide as Menu } from 'react-burger-menu';
-import './../mainPage/mainPage.css';
+import { Link } from 'react-router-dom';
+import routePaths from '../../routes/routePaths';
+import pathToRegexp from 'path-to-regexp';
 import redLogo from '../../assets/images/redLogo2.png';
 import home from '../../assets/images/home2.png';
 import logout from '../../assets/images/logout.png';
 import settings from '../../assets/images/settings.png';
 import profile from '../../assets/images/profile.png';
 import menu from '../../assets/images/menu.png';
-import { Link } from 'react-router-dom';
-import routePaths from '../../routes/routePaths';
-import pathToRegexp from 'path-to-regexp';
+import './burgerMenu.css';
 
 class BurgerMenu extends Component {
+    
     handleStateChange(newState) {
-    window.setTimeout(() => { // This is necessary to force the blur to happen after in the event loop
+    window.setTimeout(() => {
       if (newState.isOpen) {
         document.activeElement.blur();
       }
@@ -27,7 +28,7 @@ class BurgerMenu extends Component {
     const toHomePagePath = pathToRegexp.compile(routePaths.homepage);
     const toLoginPagePath = pathToRegexp.compile(routePaths.login);
 
-    return(
+    return(   
         <Menu onStateChange={this.handleStateChange}>
                 <div className="menuLogoDiv">
                     <img src={redLogo} alt="Logo" />
