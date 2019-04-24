@@ -7,10 +7,10 @@ import BurgerMenu from '../shared/BurgerMenu';
 
 import './question.css';
 
-const validate = (values, props) => {
+const validate = (values) => {
 
     let errors = {};
-    const { question, answers, explanation, subject, topic } = values;
+    const { question, explanation, subject, topic } = values;
 
     if (!subject)
         errors.subject = "Please select a subject!";
@@ -80,7 +80,7 @@ const renderAnswers = ({ fields, meta: { error, submitFailed } }) => (
     <ul className="ulContainer">
         {fields.map((answer, index) => (
             <li className="liAnswerAndCheckbox" key={index}>
-                <label className="liLabel">Answer #{index + 1}</label>
+                <h3>Answer #{index + 1}</h3>
                 <div className="answerAndCheckboxDiv">
                     <div className="textareaDiv">
                         <Field
@@ -113,8 +113,8 @@ const renderAnswers = ({ fields, meta: { error, submitFailed } }) => (
             })}>
                 Add Answer
                     </button>
-            {submitFailed && error && <span>{error}</span>}
         </li>
+            {submitFailed && error && <div>{error}</div>}
     </ul>
 )
 
