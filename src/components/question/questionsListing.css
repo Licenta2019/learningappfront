@@ -58,7 +58,7 @@ table {
   }
 
   th{
-      background-color: #8d1010;
+      background-color: #3b4140;
   }
 
 th, td {
@@ -66,10 +66,17 @@ th, td {
     padding: 16px;
   }
 
+tr:hover td{
+    background-color: #c70909;
+}
+
 tr:nth-child(even) {
-    background-color: #f2f2f2
-  }
+    background-color: #3b4148;
+}
+tr:nth-child(odd) {
+    background-color: #3c4140;
+}
 
 .table-container{
     overflow-x:auto
-  }
+}

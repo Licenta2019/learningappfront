@@ -78,6 +78,7 @@ class UpdateQuestionContainer extends Component {
             'questionText': values.questionText,
             'answerDtos': values.answers,
             'explanation': values.explanation,
+            'difficulty': values.difficulty,
             'notificationMessage': values.message
         };
 

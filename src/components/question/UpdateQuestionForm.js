@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { reduxForm, Field, FieldArray } from 'redux-form';
 import { Button, Label } from 'reactstrap';
-import { renderTextarea, renderSelect } from '../shared/renders';
+import { renderTextarea, renderSelect,renderSlider } from '../shared/renders';
 import { mapOptions } from '../helpers/selectHelper';
 import { UPDATE_QUESTION, VALIDATE_QUESTION } from '../constants/question';
 import BurgerMenu from '../shared/BurgerMenu';
@@ -11,7 +11,7 @@ import './question.css';
 const validate = (values) => {
 
     let errors = {};
-    const { question, explanation, subject, topic } = values;
+    const { question, explanation, subject, topic, difficulty } = values;
 
     if (!subject)
         errors.subject = "Please select a subject!";
@@ -25,8 +25,8 @@ const validate = (values) => {
     if (!explanation)
         errors.explanation = "Explanation must not be empty!";
 
-    // if (!message)
-    //     errors.message = "Explanation must not be empty!";
+    if (!difficulty || difficulty < 1 || difficulty > 10)
+        errors.difficulty = "You must select a difficulty!";
 
     errors.answers = [];
     if (!values.answers || values.answers.length < 2) {
@@ -215,6 +215,18 @@ class UpdateQuestionForm extends Component {
                             <Field
                                 name="explanation"
                                 component={renderTextarea}
+                            />
+                        </div>
+                        <div className="difficultyDiv">
+                            <Label>
+                                Difficulty
+                            </Label>
+                            <Field
+                                name="difficulty"
+                                component={renderSlider}
+                                orientation="horizontal"
+                                min={0}
+                                max={10}
                             />
                         </div>
                         <div className="messageDiv">

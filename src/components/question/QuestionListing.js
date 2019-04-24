@@ -38,7 +38,7 @@ export default class QuestionListing extends Component {
 
     render() {
         return (
-            <div class = "table-container">
+            <div className="table-container">
                 <Table striped responsive>
                     <thead>
                         <tr>
@@ -59,7 +59,9 @@ export default class QuestionListing extends Component {
                         </th>
                         </tr>
                     </thead>
-                    {this.renderQuestions()}
+                    <tbody>
+                        {this.renderQuestions()}
+                    </tbody>
                 </Table>
             </div>
         );
