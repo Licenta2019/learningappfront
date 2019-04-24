@@ -23,9 +23,9 @@ class BurgerMenu extends Component {
 
   render() {
     
+    const toHomePagePath = pathToRegexp.compile(routePaths.homepage);
     const toNewQuestionPath = pathToRegexp.compile(routePaths.newQuestion);
     const toQuestionPath = pathToRegexp.compile(routePaths.listQuestions);
-    const toHomePagePath = pathToRegexp.compile(routePaths.homepage);
     const toLoginPagePath = pathToRegexp.compile(routePaths.login);
 
     return(   
@@ -81,7 +81,7 @@ class BurgerMenu extends Component {
                 </Link>
                 <Link
                     to={ {
-                        pathname: toLoginPagePath({
+                        pathname: toQuestionPath({
                         }) } }>
                         <div className="menu-item">
                             <img src={home} alt="Logo" />

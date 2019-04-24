@@ -35,6 +35,7 @@ span {
     text-align: left;
     color: #eee;
     font-style: italic;
+    font-size: 12px;
 }
 
 button {
@@ -52,7 +53,7 @@ button {
 
 /* New Question div */
 
-.newQuestionDiv {
+.newQuestionDiv, .updateQuestionDiv {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -139,6 +140,13 @@ button {
     font-weight: bold;
 }
 
+.liAnswerAndCheckbox span {
+    text-shadow: 1px 1px black;
+    border-bottom: 1px solid grey;
+    border-left: 1px solid grey;
+    padding-left: 5px;
+}
+
 .ulContainer > .liButton {
     list-style-type: none;
 }
@@ -170,6 +178,8 @@ button {
     background-color: #3b4148;
     max-width: 40px;
     min-width: 40px;
+    /* max-height: 28px;
+    min-height: 28px; */
     padding-top: 10px;
     padding-left: 1px;
     padding-right: 1px;
@@ -269,6 +279,24 @@ button {
     font-weight: 900;
 }
 
+/* Message div */
+
+.messageDiv {
+    display: block;
+    margin-top: 2%;
+    margin-left: 20%;
+    margin-right: 20%;
+    align-items: center;
+    text-align: center;
+}
+
+.messageDiv > label {
+    display: block;
+    text-align: left;
+    color: #eee;
+    font-weight: 900;
+}
+
 /* Submit button div */
 
 .submitButtonDiv {
@@ -289,6 +317,24 @@ button {
 
 .submitButton:hover {
     background-color: #02923e;
+}
+
+.requestChangesButtonDiv {
+    display: block;
+    margin-left: 20%;
+    margin-right: 20%;
+    align-items: center;
+    text-align: center;
+}
+
+/* Request changes button */
+.requestChangesButton {
+    background-color: #ea4c4c;
+    border-color: #ea4c4c;
+}
+
+.requestChangesButton:hover {
+    background-color: #d44141;
 }
 
 /* Responsive */
