@@ -4,6 +4,9 @@ import { Button, Label } from 'reactstrap';
 import { renderTextarea, renderSelect } from '../shared/renders';
 import { mapOptions } from '../helpers/selectHelper';
 import { UPDATE_QUESTION, VALIDATE_QUESTION } from '../constants/question';
+import BurgerMenu from '../shared/BurgerMenu';
+
+import './question.css';
 
 const validate = (values) => {
 
@@ -49,11 +52,25 @@ const validate = (values) => {
     return errors;
 }
 
+function onChangeCheckbox(event) {
+    var checkBox = event.target.checked;
+    var index = event.target.id;
+    var textArea = document.getElementsByClassName("textareaDiv")[index].getElementsByTagName("textarea")[0].value;
+
+    if (checkBox && textArea.length > 0) {
+        document.getElementsByClassName("textareaDiv")[index].style["border"] = "1px solid #04a347";
+    } else if (!checkBox && textArea.length > 0) {
+        document.getElementsByClassName("textareaDiv")[index].style["border"] = "1px solid #ea4c4c";
+    } else {
+        document.getElementsByClassName("textareaDiv")[index].style["border"] = "grey";
+    }
+}
+
 const renderAnswers = ({ fields, meta: { error, submitFailed } }) => (
     <ul className="ulContainer">
         {fields.map((answer, index) => (
             <li className="liAnswerAndCheckbox" key={index}>
-                <h4>Answer #{index + 1}</h4>
+                <label className="liLabel">Answer #{index + 1}</label>
                 <div className="answerAndCheckboxDiv">
                     <div className="textareaDiv">
                         <Field
@@ -66,10 +83,13 @@ const renderAnswers = ({ fields, meta: { error, submitFailed } }) => (
                             name={`${answer}.isCorrect`}
                             type="checkbox"
                             component="input"
+                            onChange={onChangeCheckbox}
+                            id={index}
                         />
                     </div>
                 </div>
                 <button
+                    className="removeButton"
                     type="button"
                     title="Remove"
                     onClick={() => fields.remove(index)}
@@ -77,7 +97,7 @@ const renderAnswers = ({ fields, meta: { error, submitFailed } }) => (
             </li>
         ))}
         <li className="liButton">
-            <button type="button" onClick={() => fields.push({
+            <button className="addButton" type="button" onClick={() => fields.push({
                 'answerText': "",
                 isCorrect: false
             })}>
@@ -103,62 +123,131 @@ class UpdateQuestionForm extends Component {
 
         const { message } = this.state;
 
+        const customStyles = {
+            control: (base, state) => ({
+                ...base,
+                background: "#3b4148",
+                color: "#606468",
+                font: "14px",
+
+                borderColor: null,
+
+                "&:hover": {
+
+                    borderColor: "grey"
+                }
+            }),
+            menuList: base => ({
+                ...base,
+                background: "#3b4148",
+                color: "#606468",
+                border: "1px solidgrey"
+            }),
+            input: base => ({
+                ...base,
+                background: "#3b4148", color: "#606468",
+                font: "14px"
+            }),
+            dropdownIndicator: base => ({
+                ...base,
+                background: "#2e3338"
+            }), option: (styles, state) => ({
+                ...styles,
+                color: state.isSelected ? "#FFF" : "#606468",
+                backgroundColor: state.isSelected ? "#3297FD" : styles.color,
+                borderBottom: "1px solid rgba( 0, 0, 0, 0.125)",
+                "&:hover": {
+                    color: "#FFF",
+                    backgroundColor: "#3297FD"
+                }
+            }),
+            singleValue: (styles, state) => ({
+                ...styles,
+                color: "#606468"
+            })
+        };
+
         return (
-            <form>
-                {<Field
-                    name="subject"
-                    placeholder={"Subject"}
-                    component={renderSelect}
-                    onChange={handleSubjectOnChange}
-                    options={mapOptions(subjects)}
-                />}
-                {<Field
-                    name="topic"
-                    placeholder={"Topic"}
-                    component={renderSelect}
-                    options={mapOptions(topics)}
-                />}
-                <Label>
-                    Question
-                </Label>
-                {<Field
-                    name="questionText"
-                    component={renderTextarea}
-                />}
-                {<FieldArray
-                    name="answers"
-                    component={renderAnswers}
-                />}
-                <Label>
-                    Explanation
-                </Label>
-                {<Field
-                    name="explanation"
-                    component={renderTextarea}
-                />}
-                <Label>
-                    Message
-                </Label>
-                <Field
-                    name="message"
-                    component={renderTextarea}
-                    value={message}
-                />
-                <Button type="submit" onClick={
-                    handleSubmit(values =>
-                        this.props.onSubmit({
-                            ...values,
-                            submitType: VALIDATE_QUESTION
-                        }))
-                }>Validate</Button>
-                <Button type="submit" onClick={
-                    handleSubmit(values =>
-                        this.props.onSubmit({
-                            ...values,
-                            submitType: UPDATE_QUESTION
-                        }))
-                }>RequestChanges</Button>
-            </form>
+            <div>
+                <BurgerMenu />
+                <form>
+                    <div className="updateQuestionDiv">
+                        <div className="subjectDiv">
+                            <Label>Choose a subject:</Label>
+                            <Field
+                                name="subject"
+                                placeholder={"Subject"}
+                                component={renderSelect}
+                                onChange={handleSubjectOnChange}
+                                options={mapOptions(subjects)}
+                                styles={customStyles}
+                            />
+                        </div>
+                        <div className="topicDiv">
+                            <Label>Choose a topic:</Label>
+                            <Field
+                                name="topic"
+                                placeholder={"Topic"}
+                                component={renderSelect}
+                                options={mapOptions(topics)}
+                                styles={customStyles}
+                            />
+                        </div>
+                        <div className="questionDiv">
+                            <Label>
+                                Question
+                            </Label>
+                            <Field
+                                name="questionText"
+                                component={renderTextarea}
+                            />
+                        </div>
+                        <div className="answerDiv">
+                            <FieldArray
+                                name="answers"
+                                component={renderAnswers}
+                            />
+                        </div>
+                        <div className="explanationDiv">
+                            <Label>
+                                Explanation
+                            </Label>
+                            <Field
+                                name="explanation"
+                                component={renderTextarea}
+                            />
+                        </div>
+                        <div className="messageDiv">
+                            <Label>
+                                Message
+                            </Label>
+                            <Field
+                                name="message"
+                                component={renderTextarea}
+                                value={message}
+                            />
+                        </div>
+                        <div className='submitButtonDiv'>
+                            <Button className="submitButton" type="submit" onClick={
+                                handleSubmit(values =>
+                                    this.props.onSubmit({
+                                        ...values,
+                                        submitType: VALIDATE_QUESTION
+                                    }))
+                            }>Validate</Button>
+                        </div>
+                        <div className='requestChangesButtonDiv'>
+                            <Button className="requestChangesButton" type="submit" onClick={
+                                handleSubmit(values =>
+                                    this.props.onSubmit({
+                                        ...values,
+                                        submitType: UPDATE_QUESTION
+                                    }))
+                            }>Request Changes</Button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         );
     }
 }

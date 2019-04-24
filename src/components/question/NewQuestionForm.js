@@ -5,7 +5,7 @@ import { renderTextarea, renderSelect } from '../shared/renders';
 import { mapOptions } from '../helpers/selectHelper';
 import BurgerMenu from '../shared/BurgerMenu';
 
-import './newQuestion.css';
+import './question.css';
 
 const validate = (values, props) => {
 
@@ -55,21 +55,21 @@ function onChangeTextarea(event) {
 
     if (textArea.length > 0 && checkBox) {
         document.getElementsByClassName("textareaDiv")[index].style["border"] = "1px solid #04a347";
-    } else if(textArea.length > 0 && !checkBox) {
+    } else if (textArea.length > 0 && !checkBox) {
         document.getElementsByClassName("textareaDiv")[index].style["border"] = "1px solid #ea4c4c";
     } else {
         document.getElementsByClassName("textareaDiv")[index].style["border"] = "grey";
     }
 }
 
-function onChangeCheckbox (event) {
+function onChangeCheckbox(event) {
     var checkBox = event.target.checked;
     var index = event.target.id;
     var textArea = document.getElementsByClassName("textareaDiv")[index].getElementsByTagName("textarea")[0].value;
 
     if (checkBox && textArea.length > 0) {
         document.getElementsByClassName("textareaDiv")[index].style["border"] = "1px solid #04a347";
-    } else if(!checkBox && textArea.length > 0) {
+    } else if (!checkBox && textArea.length > 0) {
         document.getElementsByClassName("textareaDiv")[index].style["border"] = "1px solid #ea4c4c";
     } else {
         document.getElementsByClassName("textareaDiv")[index].style["border"] = "grey";
@@ -83,19 +83,19 @@ const renderAnswers = ({ fields, meta: { error, submitFailed } }) => (
                 <label className="liLabel">Answer #{index + 1}</label>
                 <div className="answerAndCheckboxDiv">
                     <div className="textareaDiv">
-                    <Field
-                        name={`${answer}.answerText`}
-                        component={renderTextarea}
-                    id={index}
-                        onChange={onChangeTextarea}/>
+                        <Field
+                            name={`${answer}.answerText`}
+                            component={renderTextarea}
+                            id={index}
+                            onChange={onChangeTextarea} />
                     </div>
                     <div className="checkboxDiv">
-                    <Field
-                        name={`${answer}.isCorrect`}
-                        type="checkbox"
-                        component="input"
-                    onChange={onChangeCheckbox}
-                        id={index}/>
+                        <Field
+                            name={`${answer}.isCorrect`}
+                            type="checkbox"
+                            component="input"
+                            onChange={onChangeCheckbox}
+                            id={index} />
                     </div>
                 </div>
                 <button
@@ -135,42 +135,42 @@ class NewQuestionForm extends Component {
 
         const customStyles = {
             control: (base, state) => ({
-              ...base,
-              background: "#3b4148",
-              color: "#606468",
-              font: "14px",
+                ...base,
+                background: "#3b4148",
+                color: "#606468",
+                font: "14px",
 
-              borderColor: null,
+                borderColor: null,
 
-              "&:hover": {
+                "&:hover": {
 
-                borderColor: "grey"
-              }
+                    borderColor: "grey"
+                }
             }),
             menuList: base => ({
-              ...base,
-              background: "#3b4148",
-              color: "#606468",
-              border: "1px solidgrey"
+                ...base,
+                background: "#3b4148",
+                color: "#606468",
+                border: "1px solidgrey"
             }),
             input: base => ({
                 ...base,
-                background: "#3b4148",  color: "#606468",
-              font: "14px"
+                background: "#3b4148", color: "#606468",
+                font: "14px"
             }),
             dropdownIndicator: base => ({
                 ...base,
                 background: "#2e3338"
-           }), option: (styles, state) => ({
-              ...styles,
+            }), option: (styles, state) => ({
+                ...styles,
                 color: state.isSelected ? "#FFF" : "#606468",
                 backgroundColor: state.isSelected ? "#3297FD" : styles.color,
                 borderBottom: "1px solid rgba( 0, 0, 0, 0.125)",
                 "&:hover": {
-                  color: "#FFF",
-                  backgroundColor: "#3297FD"
+                    color: "#FFF",
+                    backgroundColor: "#3297FD"
                 }
-              }),
+            }),
             singleValue: (styles, state) => ({
                 ...styles,
                 color: "#606468"
@@ -179,66 +179,66 @@ class NewQuestionForm extends Component {
 
         return (
             <div>
-            <BurgerMenu/>
-            <form onSubmit={handleSubmit}>
-                <div className="newQuestionDiv">
-                    <div className="subjectDiv">
-                        <Label>Choose a subject:</Label>
-                        <Field
-                            name="subject"
-                            placeholder={"Subject"}
-                            component={renderSelect}
-                            onChange={handleSubjectOnChange}
-                            options={mapOptions(subjects)}
-                            styles={customStyles}
-                        />
-                    </div>
-                    <div className="topicDiv">
-                        <Label>Choose a topic:</Label>
-                        <Field
-                            name="topic"
-                            placeholder={"Topic"}
-                            component={renderSelect}
-                            onChange={handleTopicOnChange}
-                            options={mapOptions(topics)}
-                            isDisabled={topicDisabled}
-                            styles={customStyles}
-                        />
-                    </div>
-                    <div className="questionDiv">
-                        <Label>
-                            Question:
+                <BurgerMenu />
+                <form onSubmit={handleSubmit}>
+                    <div className="newQuestionDiv">
+                        <div className="subjectDiv">
+                            <Label>Choose a subject:</Label>
+                            <Field
+                                name="subject"
+                                placeholder={"Subject"}
+                                component={renderSelect}
+                                onChange={handleSubjectOnChange}
+                                options={mapOptions(subjects)}
+                                styles={customStyles}
+                            />
+                        </div>
+                        <div className="topicDiv">
+                            <Label>Choose a topic:</Label>
+                            <Field
+                                name="topic"
+                                placeholder={"Topic"}
+                                component={renderSelect}
+                                onChange={handleTopicOnChange}
+                                options={mapOptions(topics)}
+                                isDisabled={topicDisabled}
+                                styles={customStyles}
+                            />
+                        </div>
+                        <div className="questionDiv">
+                            <Label>
+                                Question:
                         </Label>
-                        <Field
-                            name="question"
-                            placeholder={"Write a question"}
-                            component={renderTextarea}
-                            value={question}
-                        />
-                    </div>
-                    <div className="answerDiv">
-                        <FieldArray
-                            name="answers"
-                            component={renderAnswers}
-                        />
-                    </div>
-                    <div className="explanationDiv">
-                        <Label>
-                            Explanation:
+                            <Field
+                                name="question"
+                                placeholder={"Write a question"}
+                                component={renderTextarea}
+                                value={question}
+                            />
+                        </div>
+                        <div className="answerDiv">
+                            <FieldArray
+                                name="answers"
+                                component={renderAnswers}
+                            />
+                        </div>
+                        <div className="explanationDiv">
+                            <Label>
+                                Explanation:
                         </Label>
-                        <Field
-                            name="explanation"
-                            placeholder={"Write an explanation"}
-                            component={renderTextarea}
-                            value={explanation}
-                        />
-                    </div>
+                            <Field
+                                name="explanation"
+                                placeholder={"Write an explanation"}
+                                component={renderTextarea}
+                                value={explanation}
+                            />
+                        </div>
 
-                    <div className='submitButtonDiv'>
-                        <Button type="submit" className="submitButton">Submit</Button>
+                        <div className='submitButtonDiv'>
+                            <Button type="submit" className="submitButton">Submit</Button>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
             </div>
         );
     }

@@ -4,6 +4,9 @@ import apiPaths from '../../axios/apiPaths';
 import QuestionListing from './QuestionListing';
 import QuestionFilter from './QuestionFilter';
 import { Container } from 'reactstrap';
+import BurgerMenu from '../shared/BurgerMenu';
+
+import './question.css';
 
 export default class QuestionContainer extends Component {
 
@@ -69,6 +72,7 @@ export default class QuestionContainer extends Component {
         const { questions, subjects,topics,topicsDisabled } = this.state;
         return (
             <Container>
+                <BurgerMenu />
                 <QuestionFilter
                     subjects={subjects}
                     topics = {topics}
