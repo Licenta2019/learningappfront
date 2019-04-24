@@ -233,7 +233,6 @@ class NewQuestionForm extends Component {
                                 value={explanation}
                             />
                         </div>
-
                         <div className='submitButtonDiv'>
                             <Button type="submit" className="submitButton">Submit</Button>
                         </div>

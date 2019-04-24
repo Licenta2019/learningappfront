@@ -47,8 +47,6 @@
 
 .bm-menu {
     background: #2c3338;
-    /* padding: 2.5em 1.5em 0; */
-    /* font-size: 1.15em; */
     font-family: 'Roboto', sans-serif;
 }
 
@@ -78,35 +76,34 @@
 /* Individual item */
 
 .bm-item {
-    /* margin-top: 10%;
-    margin-bottom: 10%; */
     color: #eee;
     background-color: #3b4148;
     align-items: center;
 }
 
 .bm-item :hover {
-    /* background-color: orangered; */
-    /* background-color: grey; */
     background-color: #c70909;
-
 } 
 
 .menu-item {
     border-bottom: 1px solid #606468;
 }
 
-.menu-item>img {
+.sub-menu-item {
+    border-bottom: 1px solid #606468;
+    padding-left: 10%;
+}
+
+.menu-item > img, .sub-menu-item > img {
     padding: 11px;
     max-width: 22px;
     max-height: 22px;
-    /* background-color: #363b41; */
     border-radius: 3px 0px 0px 3px;
     vertical-align: middle;
 
 }
 
-.menu-item > h5 {
+.menu-item > h5, .sub-menu-item > h5 {
     vertical-align: middle;
     display: inline;
     letter-spacing: 1px;
