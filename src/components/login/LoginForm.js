@@ -10,7 +10,7 @@ import usernameLogo from '../../assets/images/username.png';
 import passwordLogo from '../../assets/images/password.png';
 import arrowLogo from '../../assets/images/arrow.png'
 
-const validate = (values, props) => {
+const validate = (values) => {
     const errors = {};
 
     if (!values.username) {
@@ -39,7 +39,7 @@ class LoginForm extends Component {
     render() {
 
         const { username, password } = this.state;
-        const { handleSubmit } = this.props;
+        const { handleSubmit, error } = this.props;
 
         return (
             <form onSubmit={handleSubmit}>
@@ -70,6 +70,7 @@ class LoginForm extends Component {
                                 type="password"
                             />
                         </div>
+                        {error !== undefined && <div className="text-danger">{error}</div>}
 
                         <Button type="Submit" className="loginButton">Login</Button>
                     </div>

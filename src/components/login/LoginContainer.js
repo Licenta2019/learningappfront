@@ -4,17 +4,22 @@ import axiosClient from './../../axios/axiosClient';
 import apiPaths from './../../axios/apiPaths';
 import routePaths from './../../routes/routePaths';
 import { withRouter } from 'react-router-dom';
+import { SubmissionError } from 'redux-form';
 
 class LoginContainer extends Component {
 
     constructor(props) {
         super(props);
 
+        this.state = {
+            error: null
+        }
+
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSubmit(values) {
-        axiosClient.post(apiPaths.login, {
+        return axiosClient.post(apiPaths.login, {
             username: values.username,
             password: values.password
         })
@@ -23,8 +28,7 @@ class LoginContainer extends Component {
                 this.props.history.push(routePaths.homepage);
             })
             .catch((err) => {
-                //TODO(bind back-end exception and display it into a modal)
-                console.log(err + 'eroare');
+                throw new SubmissionError({ _error: err.response.data.message });
             });
     }
 
