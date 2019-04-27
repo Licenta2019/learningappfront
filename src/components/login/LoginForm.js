@@ -59,7 +59,7 @@ class LoginForm extends Component {
                                 placeholder="username"
                             />
                         </div>
-                        
+
                         <div className="passwordDiv">
                             <img src={passwordLogo} alt="PasswordLogo" />
                             <Field
@@ -67,10 +67,10 @@ class LoginForm extends Component {
                                 component={renderField}
                                 value={password}
                                 placeholder="password"
-                                type = "password"
+                                type="password"
                             />
                         </div>
-                        
+
                         <Button type="Submit" className="loginButton">Login</Button>
                     </div>
 
