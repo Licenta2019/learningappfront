@@ -11,6 +11,7 @@ import addItem from '../../assets/images/addItem.png';
 import viewList from '../../assets/images/viewList.png';
 import settings from '../../assets/images/settings.png';
 import logout from '../../assets/images/logout.png';
+import { setAuthorizationToken } from '../helpers/login';
 
 import './burgerMenu.css';
 
@@ -23,128 +24,145 @@ class BurgerMenu extends Component {
             questionsSubMenuVisible: false,
         }
     }
-    
+
     handleStateChange(newState) {
-    window.setTimeout(() => {
-      if (newState.isOpen) {
-        document.activeElement.blur();
-      }
-    });
-  }
+        window.setTimeout(() => {
+            if (newState.isOpen) {
+                document.activeElement.blur();
+            }
+        });
+    }
 
-  render() {
-    
-    const toHomePagePath = pathToRegexp.compile(routePaths.homepage);
-    const toNewQuestionPath = pathToRegexp.compile(routePaths.newQuestion);
-    const toQuestionPath = pathToRegexp.compile(routePaths.listQuestions);
-    const toLoginPagePath = pathToRegexp.compile(routePaths.login);
+    render() {
 
-    return(   
-        <Menu onStateChange={this.handleStateChange}>
+        const toHomePagePath = pathToRegexp.compile(routePaths.homepage);
+        const toNewQuestionPath = pathToRegexp.compile(routePaths.newQuestion);
+        const toQuestionPath = pathToRegexp.compile(routePaths.listQuestions);
+        const toLoginPagePath = pathToRegexp.compile(routePaths.login);
+
+        const { gradesSubMenuVisible, questionsSubMenuVisible } = this.state;
+
+        return (
+            <Menu onStateChange={this.handleStateChange}>
                 <div className="menuLogoDiv">
                     <img src={redLogo} alt="Logo" />
                 </div>
-                <div className="menuSeparatorDiv"/>
+                <div className="menuSeparatorDiv" />
                 <Link
-                    to={ {
+                    to={{
                         pathname: toHomePagePath({
-                        }) } }>
-                        <div className="menu-item">
-                            <img src={home} alt="Logo" />
-                            <h5>HOME</h5>
-                        </div>
+                        })
+                    }}>
+                    <div className="menu-item">
+                        <img src={home} alt="Logo" />
+                        <h5>HOME</h5>
+                    </div>
                 </Link>
                 <Link
-                    to={ {
+                    to={{
                         pathname: toHomePagePath({
-                        }) } }>
-                        <div className="menu-item">
-                            <img src={profile} alt="Logo" />
-                            <h5>PROFILE</h5>
-                        </div>
+                        })
+                    }}>
+                    <div className="menu-item">
+                        <img src={profile} alt="Logo" />
+                        <h5>PROFILE</h5>
+                    </div>
                 </Link>
-                <Link to={{}} onClick={()=>{this.setState({
-                    gradesSubMenuVisible:!this.state.gradesSubMenuVisible
-                })}}>
+                <Link to={{}} onClick={() => {
+                    this.setState({
+                        gradesSubMenuVisible: !gradesSubMenuVisible
+                    })
+                }}>
                     <div className="menu-item">
                         <img src={menu} alt="Logo" />
                         <h5>GRADES MENU</h5>
                     </div>
                 </Link>
-                {this.state.gradesSubMenuVisible&&(
+                {gradesSubMenuVisible && (
                     <div className="questionsSubMenuDiv">
                         <Link
-                            to={ {
+                            to={{
                                 pathname: toNewQuestionPath({
-                                }) } }>
-                                <div className="sub-menu-item">
-                                    <img src={addItem} alt="Logo" />
-                                    <h5>ADD GRADE</h5>
-                                </div>
+                                })
+                            }}>
+                            <div className="sub-menu-item">
+                                <img src={addItem} alt="Logo" />
+                                <h5>ADD GRADE</h5>
+                            </div>
                         </Link>
                         <Link
-                            to={ {
+                            to={{
                                 pathname: toQuestionPath({
-                                }) } }>
-                                <div className="sub-menu-item">
-                                    <img src={viewList} alt="Logo" />
-                                    <h5>VIEW GRADES</h5>
-                                </div>
+                                })
+                            }}>
+                            <div className="sub-menu-item">
+                                <img src={viewList} alt="Logo" />
+                                <h5>VIEW GRADES</h5>
+                            </div>
                         </Link>
                     </div>
                 )}
-                <Link to={{}} onClick={()=>{this.setState({
-                    questionsSubMenuVisible:!this.state.questionsSubMenuVisible
-                })}}>
+                <Link to={{}} onClick={() => {
+                    this.setState({
+                        questionsSubMenuVisible: !questionsSubMenuVisible
+                    })
+                }}>
                     <div className="menu-item">
                         <img src={menu} alt="Logo" />
                         <h5>QUESTIONS MENU</h5>
                     </div>
                 </Link>
-                {this.state.questionsSubMenuVisible&&(
+                {questionsSubMenuVisible && (
                     <div className="questionsSubMenuDiv">
                         <Link
-                            to={ {
+                            to={{
                                 pathname: toNewQuestionPath({
-                                }) } }>
-                                <div className="sub-menu-item">
-                                    <img src={addItem} alt="Logo" />
-                                    <h5>ADD QUESTION</h5>
-                                </div>
+                                })
+                            }}>
+                            <div className="sub-menu-item">
+                                <img src={addItem} alt="Logo" />
+                                <h5>ADD QUESTION</h5>
+                            </div>
                         </Link>
                         <Link
-                            to={ {
+                            to={{
                                 pathname: toQuestionPath({
-                                }) } }>
-                                <div className="sub-menu-item">
-                                    <img src={viewList} alt="Logo" />
-                                    <h5>VIEW QUESTIONS</h5>
-                                </div>
+                                })
+                            }}>
+                            <div className="sub-menu-item">
+                                <img src={viewList} alt="Logo" />
+                                <h5>VIEW QUESTIONS</h5>
+                            </div>
                         </Link>
                     </div>
                 )}
                 <Link
-                    to={ {
+                    to={{
                         pathname: toLoginPagePath({
-                        }) } }>
-                        <div className="menu-item">
-                            <img src={settings} alt="Logo" />
-                            <h5>SETTINGS</h5>
-                        </div>
+                        })
+                    }}>
+                    <div className="menu-item">
+                        <img src={settings} alt="Logo" />
+                        <h5>SETTINGS</h5>
+                    </div>
                 </Link>
                 <Link
-                    to={ {
+                    to={{
                         pathname: toLoginPagePath({
-                        }) } }>
-                        <div className="menu-item">
-                            <img src={logout} alt="Logo" />
-                            <h5>LOGOUT</h5>
-                        </div>
+                        })
+                    }}
+                    onClick={() => {
+                        setAuthorizationToken(null);
+                    }}>
+                    <div className="menu-item">
+                        <img src={logout} alt="Logo" />
+                        <h5>LOGOUT</h5>
+                    </div>
                 </Link>
             </Menu>
-    );
-  }
-  
+        );
+    }
+
 }
 
 export default BurgerMenu;

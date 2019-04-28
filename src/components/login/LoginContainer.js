@@ -5,6 +5,7 @@ import apiPaths from './../../axios/apiPaths';
 import routePaths from './../../routes/routePaths';
 import { withRouter } from 'react-router-dom';
 import { SubmissionError } from 'redux-form';
+import { setAuthorizationToken } from '../helpers/login';
 
 class LoginContainer extends Component {
 
@@ -24,17 +25,13 @@ class LoginContainer extends Component {
             password: values.password
         })
             .then((response) => {
-                this.setStateValues(response.data);
+                setAuthorizationToken(response.data.jwtToken);
                 this.props.history.push(routePaths.homepage);
             })
             .catch((err) => {
                 throw new SubmissionError({ _error: err.response.data.message });
             });
     }
-
-    setStateValues(data) {
-        axiosClient.defaults.headers.common['Authorization'] = "Bearer " + data.jwtToken;
-    };
 
     render() {
         return (
