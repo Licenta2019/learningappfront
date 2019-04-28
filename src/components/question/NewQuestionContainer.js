@@ -55,8 +55,7 @@ class NewQuestionContainer extends Component {
             questionText: question,
             answerDtos: answers,
             explanation: explanation,
-            status: 'PENDING',
-            studentId: '0bba19e9-3c15-43ca-8eb5-3124c0f80e1b' //remove moock after login implementation
+            status: 'PENDING'
         }).then(() => {
             this.props.history.push(routePaths.homepage);
             // TODO add modal here

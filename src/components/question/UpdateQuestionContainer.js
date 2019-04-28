@@ -5,6 +5,7 @@ import axiosClient from './../../axios/axiosClient';
 import apiPaths from './../../axios/apiPaths';
 import routePaths from './../../routes/routePaths';
 import { UPDATE_QUESTION } from '../constants/question';
+import { throwSubmissionError } from '../helpers/errors';
 
 class UpdateQuestionContainer extends Component {
 
@@ -56,17 +57,20 @@ class UpdateQuestionContainer extends Component {
             .then(() => {
                 this.props.history.push(routePaths.homepage);
             })
-            .catch((err) => console.log(err)); //TODO catch error here
+            .catch((err) => {
+                throwSubmissionError("An error occured when trying to update question:" + err.response.data.message);
+            });
     }
 
     handleValidate(formObject) {
         //validate question 
-        console.log(formObject);
         axiosClient.put(apiPaths.validateQuestions.replace('{}', formObject.topicId).replace('[]', formObject.id), formObject)
             .then(() => {
                 this.props.history.push(routePaths.homepage);
             })
-            .catch((err) => console.log(err)); //TODO catch error here
+            .catch((err) => {
+                throwSubmissionError("An error occured when trying to validate question:" + err.response.data.message);
+            });
     }
 
     handleSubmit(values) {

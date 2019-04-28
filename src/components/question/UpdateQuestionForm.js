@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { reduxForm, Field, FieldArray } from 'redux-form';
 import { Button, Label } from 'reactstrap';
-import { renderTextarea, renderSelect,renderSlider } from '../shared/renders';
+import { renderTextarea, renderSelect, renderSlider } from '../shared/renders';
 import { mapOptions } from '../helpers/selectHelper';
 import { UPDATE_QUESTION, VALIDATE_QUESTION } from '../constants/question';
 import BurgerMenu from '../shared/BurgerMenu';
@@ -119,7 +119,7 @@ class UpdateQuestionForm extends Component {
     }
 
     render() {
-        const { handleSubmit, handleSubjectOnChange, subjects, topics } = this.props;
+        const { handleSubmit, handleSubjectOnChange, subjects, topics, error } = this.props;
 
         const { message } = this.state;
 
@@ -239,6 +239,9 @@ class UpdateQuestionForm extends Component {
                                 value={message}
                             />
                         </div>
+
+                        {error !== undefined && <div className="text-danger">{error}</div>}
+
                         <div className='submitButtonDiv'>
                             <Button className="submitButton" type="submit" onClick={
                                 handleSubmit(values =>

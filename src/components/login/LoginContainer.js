@@ -4,8 +4,8 @@ import axiosClient from './../../axios/axiosClient';
 import apiPaths from './../../axios/apiPaths';
 import routePaths from './../../routes/routePaths';
 import { withRouter } from 'react-router-dom';
-import { SubmissionError } from 'redux-form';
 import { setAuthorizationToken } from '../helpers/login';
+import { throwSubmissionError } from '../helpers/errors';
 
 class LoginContainer extends Component {
 
@@ -29,7 +29,7 @@ class LoginContainer extends Component {
                 this.props.history.push(routePaths.homepage);
             })
             .catch((err) => {
-                throw new SubmissionError({ _error: err.response.data.message });
+                throwSubmissionError(err.response.data.message);
             });
     }
 
