@@ -6,6 +6,7 @@ import routePaths from './../../routes/routePaths';
 import { withRouter } from 'react-router-dom';
 import { setAuthorizationToken } from '../helpers/login';
 import { throwSubmissionError } from '../helpers/errors';
+import { authenticateUser, getUser } from '../../localStorage';
 
 class LoginContainer extends Component {
 
@@ -26,7 +27,10 @@ class LoginContainer extends Component {
         })
             .then((response) => {
                 setAuthorizationToken(response.data.jwtToken);
+
+                authenticateUser(response.data);
                 this.props.history.push(routePaths.homepage);
+                console.log(getUser());
             })
             .catch((err) => {
                 throwSubmissionError(err.response.data.message);

@@ -1,4 +1,7 @@
+import { throwSubmissionError } from "./components/helpers/errors";
+
 const LOCAL_STORAGE_KEY = 'reduxState';
+const AUTHENTICATED_USER = 'user';
 
 export const loadState = () => {
   try {
@@ -23,3 +26,32 @@ export const saveState = (state) => {
     // Failed to save state to localStorage
   }
 };
+
+export const authenticateUser = (user) => {
+  try {
+    const serializedUser = JSON.stringify(user);
+
+    localStorage.setItem(AUTHENTICATED_USER, serializedUser);
+  }
+  catch (err) {
+    throwSubmissionError("Failed to authenticate user, reason:" + err);
+  }
+};
+
+export const unauthenticateUser = () => {
+  localStorage.setItem(AUTHENTICATED_USER, null);
+}
+
+export const getUser = () => {
+  try {
+    const serializedState = localStorage.getItem(AUTHENTICATED_USER);
+
+    if (serializedState === null) {
+      return undefined;
+    }
+
+    return JSON.parse(serializedState);
+  } catch (err) {
+    return undefined;
+  }
+}

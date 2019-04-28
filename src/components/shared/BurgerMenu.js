@@ -14,6 +14,8 @@ import logout from '../../assets/images/logout.png';
 import { setAuthorizationToken } from '../helpers/login';
 
 import './burgerMenu.css';
+import { getUser } from '../../localStorage';
+import { isProfessor } from '../helpers/user';
 
 class BurgerMenu extends Component {
 
@@ -34,13 +36,14 @@ class BurgerMenu extends Component {
     }
 
     render() {
-
         const toHomePagePath = pathToRegexp.compile(routePaths.homepage);
         const toNewQuestionPath = pathToRegexp.compile(routePaths.newQuestion);
         const toQuestionPath = pathToRegexp.compile(routePaths.listQuestions);
         const toLoginPagePath = pathToRegexp.compile(routePaths.login);
 
         const { gradesSubMenuVisible, questionsSubMenuVisible } = this.state;
+
+        const userRole = getUser().userRole;
 
         return (
             <Menu onStateChange={this.handleStateChange}>
@@ -114,52 +117,54 @@ class BurgerMenu extends Component {
                 </Link>
                 {questionsSubMenuVisible && (
                     <div className="questionsSubMenuDiv">
-                        <Link
+                        {!isProfessor(userRole) && < Link
                             to={{
-                                pathname: toNewQuestionPath({
-                                })
-                            }}>
+                            pathname: toNewQuestionPath({
+                            })
+                        }}>
                             <div className="sub-menu-item">
-                                <img src={addItem} alt="Logo" />
-                                <h5>ADD QUESTION</h5>
-                            </div>
-                        </Link>
-                        <Link
-                            to={{
-                                pathname: toQuestionPath({
-                                })
-                            }}>
-                            <div className="sub-menu-item">
-                                <img src={viewList} alt="Logo" />
-                                <h5>VIEW QUESTIONS</h5>
-                            </div>
-                        </Link>
-                    </div>
-                )}
+                            <img src={addItem} alt="Logo" />
+                            <h5>ADD QUESTION</h5>
+                        </div>
+                        </Link>}
                 <Link
                     to={{
-                        pathname: toLoginPagePath({
+                        pathname: toQuestionPath({
                         })
                     }}>
-                    <div className="menu-item">
-                        <img src={settings} alt="Logo" />
-                        <h5>SETTINGS</h5>
+                    <div className="sub-menu-item">
+                        <img src={viewList} alt="Logo" />
+                        <h5>VIEW QUESTIONS</h5>
                     </div>
                 </Link>
+                    </div>
+        )
+    }
                 <Link
-                    to={{
-                        pathname: toLoginPagePath({
-                        })
-                    }}
-                    onClick={() => {
-                        setAuthorizationToken(null);
-                    }}>
-                    <div className="menu-item">
-                        <img src={logout} alt="Logo" />
-                        <h5>LOGOUT</h5>
-                    </div>
-                </Link>
-            </Menu>
+    to={{
+        pathname: toLoginPagePath({
+        })
+    }}>
+    <div className="menu-item">
+        <img src={settings} alt="Logo" />
+        <h5>SETTINGS</h5>
+    </div>
+</Link>
+    <Link
+        to={{
+            pathname: toLoginPagePath({
+            })
+        }}
+        onClick={() => {
+            setAuthorizationToken(null);
+
+        }}>
+        <div className="menu-item">
+            <img src={logout} alt="Logo" />
+            <h5>LOGOUT</h5>
+        </div>
+    </Link>
+            </Menu >
         );
     }
 
