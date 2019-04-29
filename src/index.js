@@ -10,11 +10,14 @@ import App from './components/App';
 //  import 'bootstrap/dist/css/bootstrap.min.css';
 // import './assets/styles/index.css';
 import { BrowserRouter } from 'react-router-dom';
+import { IntlProvider } from 'react-intl';
 
 ReactDOM.render(
-  <Provider store={ store }>
+  <Provider store={store}>
     <BrowserRouter>
-      <App/>
+      <IntlProvider>
+        <App />
+      </IntlProvider>
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')
