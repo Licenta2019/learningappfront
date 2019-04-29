@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import axiosClient from './../../axios/axiosClient';
 import apiPaths from './../../axios/apiPaths';
 import routePaths from './../../routes/routePaths';
+import { injectIntl } from 'react-intl';
 
 class NewQuestionContainer extends Component {
 
@@ -86,10 +87,11 @@ class NewQuestionContainer extends Component {
                     subjects={subjects}
                     topics={topics}
                     topicDisabled={topicDisabled}
+                    intl={this.props.intl}
                 />
             </div>
         );
     }
 }
 
-export default withRouter(NewQuestionContainer);
+export default injectIntl(withRouter(NewQuestionContainer));

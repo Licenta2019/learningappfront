@@ -4,11 +4,11 @@ import apiPaths from '../../axios/apiPaths';
 import QuestionListing from './QuestionListing';
 import QuestionFilter from './QuestionFilter';
 import { Container } from 'reactstrap';
-import BurgerMenu from '../shared/BurgerMenu';
 
 import './question.css';
+import { injectIntl } from 'react-intl';
 
-export default class QuestionContainer extends Component {
+class QuestionContainer extends Component {
 
     constructor(props) {
         super(props);
@@ -16,11 +16,11 @@ export default class QuestionContainer extends Component {
         this.state = {
             subjects: [],
             topics: [],
-            topicsDisabled:true,
+            topicsDisabled: true,
             questions: []
         }
 
-        this.handleSubjectOnChange = this.handleSubjectOnChange.bind(this);        
+        this.handleSubjectOnChange = this.handleSubjectOnChange.bind(this);
         this.handleTopicOnChange = this.handleTopicOnChange.bind(this);
 
         this.getSubjects = this.getSubjects.bind(this);
@@ -33,7 +33,7 @@ export default class QuestionContainer extends Component {
 
     getQuestions(topicId) {
 
-        return axiosClient.get(apiPaths.getQuestions.replace('{}',topicId));
+        return axiosClient.get(apiPaths.getQuestions.replace('{}', topicId));
     }
 
     componentDidMount() {
@@ -45,45 +45,47 @@ export default class QuestionContainer extends Component {
             })
     }
 
-    
+
     handleSubjectOnChange(value) {
         const subject = this.state.subjects.filter(subject => subject.id === value.value)[0];
-        
+
         this.setState({
             topics: subject.topicDtos,
             topicDisabled: false
         });
     }
 
-    handleTopicOnChange(value){
+    handleTopicOnChange(value) {
         const topic = this.state.topics.filter(topic => topic.id === value.value)[0];
 
         this.getQuestions(topic.id)
-        .then((questions) => {
-            console.log("then");
-            this.setState({
-                questions: questions.data
+            .then((questions) => {
+                this.setState({
+                    questions: questions.data
+                })
             })
-        })
     }
 
     render() {
-        
-        const { questions, subjects,topics,topicsDisabled } = this.state;
+
+        const { questions, subjects, topics, topicsDisabled } = this.state;
         return (
             <Container>
-                <BurgerMenu />
                 <QuestionFilter
                     subjects={subjects}
-                    topics = {topics}
+                    topics={topics}
                     handleSubjectOnChange={this.handleSubjectOnChange}
                     handleTopicOnChange={this.handleTopicOnChange}
-                    topicsDisabled = {topicsDisabled}
+                    topicsDisabled={topicsDisabled}
+                    intl={this.props.intl}
                 />
                 <QuestionListing
                     questions={questions}
+                    intl={this.props.intl}
                 />
             </Container>
         );
     }
 }
+
+export default injectIntl(QuestionContainer);

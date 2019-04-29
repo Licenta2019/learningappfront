@@ -10,6 +10,7 @@
     "react-autosize-textarea": "^7.0.0",
     "react-burger-menu": "^2.6.9",
     "react-dom": "^16.8.3",
+    "react-intl": "^2.8.0",
     "react-rangeslider": "^2.2.0",
     "react-redux": "^6.0.1",
     "react-router-dom": "^4.3.1",

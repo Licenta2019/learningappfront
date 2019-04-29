@@ -10,15 +10,17 @@ import usernameLogo from '../../assets/images/username.png';
 import passwordLogo from '../../assets/images/password.png';
 import arrowLogo from '../../assets/images/arrow.png'
 
-const validate = (values) => {
+const validate = (values, props) => {
     const errors = {};
 
+    const { intl } = props;
+
     if (!values.username) {
-        errors.username = "Username is required!";
+        errors.username = intl.formatMessage({ id: "label.error.username.required" });
     }
 
     if (!values.password) {
-        errors.password = "Password is required!";
+        errors.password = intl.formatMessage({ id: "label.error.password.required" });
     }
 
     return errors;
@@ -30,6 +32,8 @@ class LoginForm extends Component {
     constructor(props) {
         super(props);
 
+        console.log(this.props.intl);
+
         this.state = {
             username: null,
             password: null
@@ -39,7 +43,7 @@ class LoginForm extends Component {
     render() {
 
         const { username, password } = this.state;
-        const { handleSubmit, error } = this.props;
+        const { handleSubmit, error, intl } = this.props;
 
         return (
             <form onSubmit={handleSubmit}>
@@ -56,7 +60,7 @@ class LoginForm extends Component {
                                 name="username"
                                 component={renderField}
                                 value={username}
-                                placeholder="username"
+                                placeholder={intl.formatMessage({ id: "placeholder.form.username" })}
                             />
                         </div>
 
@@ -66,18 +70,24 @@ class LoginForm extends Component {
                                 name="password"
                                 component={renderField}
                                 value={password}
-                                placeholder="password"
+                                placeholder={intl.formatMessage({ id: "placeholder.form.password" })}
                                 type="password"
                             />
                         </div>
                         {error !== undefined && <div className="text-danger">{error}</div>}
 
-                        <Button type="Submit" className="loginButton">Login</Button>
+                        <Button type="Submit" className="loginButton">
+                            {intl.formatMessage({ id: "label.button.login" })}
+                        </Button>
                     </div>
 
                     <div className="footerDiv">
-                        <label className="notMemberLabel">Not a member?</label>
-                        <label className="signUpLabel">Sign up now</label>
+                        <label className="notMemberLabel">
+                            {intl.formatMessage({ id: "label.user.notMember" })}
+                        </label>
+                        <label className="signUpLabel">
+                            {intl.formatMessage({ id: "label.user.signup" })}
+                        </label>
                         <img src={arrowLogo} alt="arrowLogo" />
                     </div>
                 </div>

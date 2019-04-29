@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 import { setAuthorizationToken } from '../helpers/login';
 import { throwSubmissionError } from '../helpers/errors';
 import { authenticateUser, getUser } from '../../localStorage';
+import { injectIntl } from 'react-intl';
 
 class LoginContainer extends Component {
 
@@ -41,9 +42,10 @@ class LoginContainer extends Component {
         return (
             <LoginForm
                 onSubmit={this.handleSubmit}
+                intl={this.props.intl}
             />
         );
     }
 }
 
-export default withRouter(LoginContainer);
+export default injectIntl(withRouter(LoginContainer));

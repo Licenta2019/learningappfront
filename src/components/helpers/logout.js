@@ -1,8 +1,7 @@
 import { setAuthorizationToken } from "./login";
-import routePaths from "../../routes/routePaths";
+import { unauthenticateUser } from "../../localStorage";
 
-export const logoutHandler = (history) => {
-    //TODO(Paul) - use this handler at logout after burger menu is refactored
+export const handleLogout = (history) => {
     setAuthorizationToken(null);
-    history.replace(routePaths.login);
+    unauthenticateUser();
 }

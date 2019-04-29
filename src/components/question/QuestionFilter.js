@@ -6,7 +6,7 @@ import { mapOptions } from '../helpers/selectHelper';
 class QuestionListing extends Component {
 
     render() {
-        const { subjects, handleSubjectOnChange, topics, handleTopicOnChange, topicsDisabled } = this.props;
+        const { subjects, handleSubjectOnChange, topics, handleTopicOnChange, topicsDisabled, intl } = this.props;
 
         const customStyles = {
             control: (base, state) => ({
@@ -55,7 +55,7 @@ class QuestionListing extends Component {
                     <Label>Choose a subject:</Label>
                     <Select
                         name="subject"
-                        placeholder={"Subject"}
+                        placeholder={intl.formatMessage({ id: 'placeholder.form.subject' })}
                         onChange={handleSubjectOnChange}
                         options={mapOptions(subjects)}
                         styles={customStyles}
@@ -65,7 +65,7 @@ class QuestionListing extends Component {
                     <Label>Choose a topic:</Label>
                     <Select
                         name="topic"
-                        placeholder={"Topic"}
+                        placeholder={intl.formatMessage({ id: 'placeholder.form.topic' })}
                         onChange={handleTopicOnChange}
                         options={mapOptions(topics)}
                         disabled={topicsDisabled}
