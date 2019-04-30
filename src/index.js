@@ -11,11 +11,6 @@ import App from './components/App';
 // import './assets/styles/index.css';
 import { BrowserRouter } from 'react-router-dom';
 
-// import { addLocaleData } from "react-intl";
-// import locale_en from 'react-intl/locale-data/en';
-// import locale_ro from 'react-intl/locale-data/ro';
-
-// addLocaleData([...locale_en, ...locale_ro]);
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>

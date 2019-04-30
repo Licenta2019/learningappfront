@@ -5,37 +5,33 @@ import Header from './shared/Header';
 import Footer from './shared/Footer';
 import { IntlProvider } from 'react-intl';
 
-import messages_ro from '../lang/ro.json';
-import messages_en from '../lang/en.json';
 import { RenderIfAuthenticated } from './shared/RenderIfAuthenticated';
 import { RenderIfNotAuthenticated } from './shared/RenderIfNotAuthenticated';
 import { noAuthRoutes } from '../routes/noAuthRoutes';
 
 import BurgerMenu from './shared/BurgerMenu';
-
-const messages = {
-    'ro': messages_ro,
-    'en': messages_en
-};
-
-const language = navigator.language.split(/[-_]/)[0]; //language without region code
+import LanguageComutator from './shared/LanguageComutator';
+import { i18config } from './helpers/language';
 
 class App extends Component {
 
     render() {
 
+        console.log(i18config);
+        
         return (
-            <IntlProvider locale={language} messages={messages[language]}>
+            <IntlProvider locale={i18config.locale} messages={i18config.messages} defaultLocale={i18config.default}>
                 <div>
                     <Header />
                     <RenderIfAuthenticated>
                         <Col>
+                            <LanguageComutator />
                             <BurgerMenu />
                             {mainRoutes}
                         </Col>
                     </RenderIfAuthenticated>
 
-                    <RenderIfNotAuthenticated>
+                    <RenderIfNotAuthenticated>/>
                         <Col>
                             {noAuthRoutes}
                         </Col>
