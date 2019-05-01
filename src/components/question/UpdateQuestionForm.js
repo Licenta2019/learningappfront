@@ -120,52 +120,7 @@ class UpdateQuestionForm extends Component {
 
     render() {
         const { handleSubmit, handleSubjectOnChange, subjects, topics, error } = this.props;
-
         const { message } = this.state;
-
-        const customStyles = {
-            control: (base, state) => ({
-                ...base,
-                background: "#3b4148",
-                color: "#606468",
-                font: "14px",
-
-                borderColor: null,
-
-                "&:hover": {
-
-                    borderColor: "grey"
-                }
-            }),
-            menuList: base => ({
-                ...base,
-                background: "#3b4148",
-                color: "#606468",
-                border: "1px solidgrey"
-            }),
-            input: base => ({
-                ...base,
-                background: "#3b4148", color: "#606468",
-                font: "14px"
-            }),
-            dropdownIndicator: base => ({
-                ...base,
-                background: "#2e3338"
-            }), option: (styles, state) => ({
-                ...styles,
-                color: state.isSelected ? "#FFF" : "#606468",
-                backgroundColor: state.isSelected ? "#3297FD" : styles.color,
-                borderBottom: "1px solid rgba( 0, 0, 0, 0.125)",
-                "&:hover": {
-                    color: "#FFF",
-                    backgroundColor: "#3297FD"
-                }
-            }),
-            singleValue: (styles, state) => ({
-                ...styles,
-                color: "#606468"
-            })
-        };
 
         return (
             <div>
@@ -180,7 +135,6 @@ class UpdateQuestionForm extends Component {
                                 component={renderSelect}
                                 onChange={handleSubjectOnChange}
                                 options={mapOptions(subjects)}
-                                styles={customStyles}
                             />
                         </div>
                         <div className="topicDiv">
@@ -190,12 +144,11 @@ class UpdateQuestionForm extends Component {
                                 placeholder={"Topic"}
                                 component={renderSelect}
                                 options={mapOptions(topics)}
-                                styles={customStyles}
                             />
                         </div>
                         <div className="questionDiv">
                             <Label>
-                                Question
+                                Question:
                             </Label>
                             <Field
                                 name="questionText"
@@ -210,7 +163,7 @@ class UpdateQuestionForm extends Component {
                         </div>
                         <div className="explanationDiv">
                             <Label>
-                                Explanation
+                                Explanation:
                             </Label>
                             <Field
                                 name="explanation"
@@ -219,7 +172,7 @@ class UpdateQuestionForm extends Component {
                         </div>
                         <div className="difficultyDiv">
                             <Label>
-                                Difficulty
+                                Difficulty:
                             </Label>
                             <Field
                                 name="difficulty"
@@ -231,7 +184,7 @@ class UpdateQuestionForm extends Component {
                         </div>
                         <div className="messageDiv">
                             <Label>
-                                Message
+                                Message:
                             </Label>
                             <Field
                                 name="message"
