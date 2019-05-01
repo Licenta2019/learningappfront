@@ -80,7 +80,7 @@ const renderAnswers = ({ fields, meta: { error, submitFailed } }) => (
     <ul className="ulContainer">
         {fields.map((answer, index) => (
             <li className="liAnswerAndCheckbox" key={index}>
-                <h3>Answer #{index + 1}</h3>
+                <label className="liLabel">Answer #{index + 1}</label>
                 <div className="answerAndCheckboxDiv">
                     <div className="textareaDiv">
                         <Field
@@ -133,50 +133,6 @@ class NewQuestionForm extends Component {
         const { handleSubmit, handleSubjectOnChange, handleTopicOnChange, subjects, topics, topicDisabled } = this.props;
         const { question, explanation } = this.state;
 
-        const customStyles = {
-            control: (base, state) => ({
-                ...base,
-                background: "#3b4148",
-                color: "#606468",
-                font: "14px",
-
-                borderColor: null,
-
-                "&:hover": {
-
-                    borderColor: "grey"
-                }
-            }),
-            menuList: base => ({
-                ...base,
-                background: "#3b4148",
-                color: "#606468",
-                border: "1px solidgrey"
-            }),
-            input: base => ({
-                ...base,
-                background: "#3b4148", color: "#606468",
-                font: "14px"
-            }),
-            dropdownIndicator: base => ({
-                ...base,
-                background: "#2e3338"
-            }), option: (styles, state) => ({
-                ...styles,
-                color: state.isSelected ? "#FFF" : "#606468",
-                backgroundColor: state.isSelected ? "#3297FD" : styles.color,
-                borderBottom: "1px solid rgba( 0, 0, 0, 0.125)",
-                "&:hover": {
-                    color: "#FFF",
-                    backgroundColor: "#3297FD"
-                }
-            }),
-            singleValue: (styles, state) => ({
-                ...styles,
-                color: "#606468"
-            })
-        };
-
         return (
             <div>
                 <BurgerMenu />
@@ -190,7 +146,6 @@ class NewQuestionForm extends Component {
                                 component={renderSelect}
                                 onChange={handleSubjectOnChange}
                                 options={mapOptions(subjects)}
-                                styles={customStyles}
                             />
                         </div>
                         <div className="topicDiv">
@@ -202,7 +157,6 @@ class NewQuestionForm extends Component {
                                 onChange={handleTopicOnChange}
                                 options={mapOptions(topics)}
                                 isDisabled={topicDisabled}
-                                styles={customStyles}
                             />
                         </div>
                         <div className="questionDiv">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Select from 'react-select';
 import TextareaAutosize from 'react-autosize-textarea';
 import Slider from 'react-rangeslider';
@@ -39,9 +39,49 @@ export const renderSlider = ({ meta: { touched, error }, ...props }) => (
         />
         {touched && (error && <span className="text-danger">{error}</span>)}
     </div>
-)
-
+);
 export const renderSelect = ({ input, onSelectChange, options, meta: { touched, error }, isDisabled, ...props }) => {
+
+    const customStyles = {
+        control: (base, state) => ({
+            ...base,
+            background: "#3b4148",
+            color: "#606468",
+            font: "14px",
+            borderColor: null,
+            "&:hover": {
+                borderColor: "grey"
+            }
+        }),
+        menuList: base => ({
+            ...base,
+            background: "#3b4148",
+            color: "#606468",
+            border: "1px solidgrey"
+        }),
+        input: base => ({
+            ...base,
+            background: "#3b4148", color: "#606468",
+            font: "14px"
+        }),
+        dropdownIndicator: base => ({
+            ...base,
+            background: "#2e3338"
+        }), option: (styles, state) => ({
+            ...styles,
+            color: state.isSelected ? "#FFF" : "#606468",
+            backgroundColor: state.isSelected ? "#c70909" : styles.color,
+            borderBottom: "1px solid rgba( 0, 0, 0, 0.125)",
+            "&:hover": {
+                color: "#FFF",
+                backgroundColor: "#c70909"
+            }
+        }),
+        singleValue: (styles, state) => ({
+            ...styles,
+            color: "#606468"
+        })
+    };
 
     function handleInputChange(option) {
 
@@ -64,6 +104,7 @@ export const renderSelect = ({ input, onSelectChange, options, meta: { touched, 
                 onChange={handleInputChange}
                 onBlur={handleOnBlur}
                 isDisabled={isDisabled}
+                styles={customStyles}
             />
             {touched && (error && <span className="text-danger">{error}</span>)}
         </div>
