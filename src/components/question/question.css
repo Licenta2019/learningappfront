@@ -387,9 +387,6 @@ label {
 }
 
 .tableDiv{
-    /* overflow-x:auto; */
-    /* position: absolute; */
-    /* display: block; */
     margin-top: 2%;
     margin-left: 10%;
     margin-right: 10%;
@@ -414,9 +411,5 @@ label {
 
     .ulContainer {
         padding-left: 0;
-    }
-
-    .tableDiv table {
-        /* table-layout: unset; */
     }
 }
