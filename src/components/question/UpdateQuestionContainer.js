@@ -6,6 +6,7 @@ import apiPaths from './../../axios/apiPaths';
 import routePaths from './../../routes/routePaths';
 import { UPDATE_QUESTION } from '../constants/question';
 import { throwSubmissionError } from '../helpers/errors';
+import { injectIntl } from 'react-intl';
 
 class UpdateQuestionContainer extends Component {
 
@@ -108,10 +109,11 @@ class UpdateQuestionContainer extends Component {
                     handleSubjectOnChange={this.handleSubjectOnChange}
                     subjects={subjects}
                     topics={subject.topicDtos}
+                    intl={this.props.intl}
                 />}
             </div >
         );
     }
 }
 
-export default withRouter(UpdateQuestionContainer);
+export default injectIntl(withRouter(UpdateQuestionContainer));

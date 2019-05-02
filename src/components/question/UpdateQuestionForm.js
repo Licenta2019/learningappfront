@@ -4,33 +4,33 @@ import { Button, Label } from 'reactstrap';
 import { renderTextarea, renderSelect, renderSlider } from '../shared/renders';
 import { mapOptions } from '../helpers/selectHelper';
 import { UPDATE_QUESTION, VALIDATE_QUESTION } from '../constants/question';
-import BurgerMenu from '../shared/BurgerMenu';
 
 import './question.css';
 
-const validate = (values) => {
+const validate = (values, props) => {
+    const { intl } = props;
 
     let errors = {};
     const { question, explanation, subject, topic, difficulty } = values;
 
     if (!subject)
-        errors.subject = "Please select a subject!";
+        errors.subject = intl.formatMessage({ id: 'label.error.subject.required' });
 
     if (!topic)
-        errors.topic = "Please select a topic!";
+        errors.topic = intl.formatMessage({ id: 'label.error.topic.required' });
 
     if (!question)
-        errors.question = "Question must not be empty!";
+        errors.question = intl.formatMessage({ id: 'label.error.question.required' });
 
     if (!explanation)
-        errors.explanation = "Explanation must not be empty!";
+        errors.explanation = intl.formatMessage({ id: 'label.error.explanation.required' });
 
     if (!difficulty || difficulty < 1 || difficulty > 10)
-        errors.difficulty = "You must select a difficulty!";
+        errors.difficulty = intl.formatMessage({ id: 'label.error.difficulty.required' });;
 
     errors.answers = [];
     if (!values.answers || values.answers.length < 2) {
-        errors.answers._error = 'At least two answers must be entered';
+        errors.answers._error = intl.formatMessage({ id: 'label.error.answers.length' });
     }
     else {
         const answersErrors = [];
@@ -38,7 +38,7 @@ const validate = (values) => {
         values.answers.forEach((answer, index) => {
             const answerErrors = {}
             if (!answer || answer.answerText === "") {
-                answerErrors.answerText = "Answer text must not be empty!";
+                answerErrors.answerText = intl.formatMessage({ id: 'label.error.answer.required' });
                 answersErrors[index] = answerErrors
             }
             if (answer.isCorrect)
@@ -47,7 +47,7 @@ const validate = (values) => {
         errors.answers = answersErrors;
 
         if (!atLeastOneCorrectAnswer)
-            errors.answers._error = 'At least one answer must be correct!';
+            errors.answers._error = intl.formatMessage({ id: 'label.error.answers.correct' })
     }
     return errors;
 }
@@ -66,11 +66,13 @@ function onChangeCheckbox(event) {
     }
 }
 
-const renderAnswers = ({ fields, meta: { error, submitFailed } }) => (
+const renderAnswers = (intl, { fields, meta: { error, submitFailed } }) => (
     <ul className="ulContainer">
         {fields.map((answer, index) => (
             <li className="liAnswerAndCheckbox" key={index}>
-                <label className="liLabel">Answer #{index + 1}</label>
+                <label className="liLabel">
+                    {intl.formatMessage({ id: 'label.form.answer' })}
+                    {index + 1}</label>
                 <div className="answerAndCheckboxDiv">
                     <div className="textareaDiv">
                         <Field
@@ -93,7 +95,8 @@ const renderAnswers = ({ fields, meta: { error, submitFailed } }) => (
                     type="button"
                     title="Remove"
                     onClick={() => fields.remove(index)}
-                >Remove</button>
+                >{intl.formatMessage({ id: 'label.button.remove' })}
+                </button>
             </li>
         ))}
         <li className="liButton">
@@ -101,8 +104,8 @@ const renderAnswers = ({ fields, meta: { error, submitFailed } }) => (
                 'answerText': "",
                 isCorrect: false
             })}>
-                Add Answer
-                    </button>
+                {intl.formatMessage({ id: 'label.button.addAnswer' })}
+            </button>
             {submitFailed && error && <span>{error}</span>}
         </li>
     </ul>
@@ -119,36 +122,39 @@ class UpdateQuestionForm extends Component {
     }
 
     render() {
-        const { handleSubmit, handleSubjectOnChange, subjects, topics, error } = this.props;
+        const { handleSubmit, handleSubjectOnChange, subjects, topics, error, intl } = this.props;
         const { message } = this.state;
 
         return (
             <div>
-                <BurgerMenu />
                 <form>
                     <div className="updateQuestionDiv">
                         <div className="subjectDiv">
-                            <Label>Choose a subject:</Label>
+                            <Label>
+                                {intl.formatMessage({ id: 'label.message.subject' })}
+                            </Label>
                             <Field
                                 name="subject"
-                                placeholder={"Subject"}
+                                placeholder={intl.formatMessage({ id: 'placeholder.form.subject' })}
                                 component={renderSelect}
                                 onChange={handleSubjectOnChange}
                                 options={mapOptions(subjects)}
                             />
                         </div>
                         <div className="topicDiv">
-                            <Label>Choose a topic:</Label>
+                            <Label>
+                                {intl.formatMessage({ id: 'label.message.topic' })}
+                            </Label>
                             <Field
                                 name="topic"
-                                placeholder={"Topic"}
+                                placeholder={intl.formatMessage({ id: 'placeholder.form.topic' })}
                                 component={renderSelect}
                                 options={mapOptions(topics)}
                             />
                         </div>
                         <div className="questionDiv">
                             <Label>
-                                Question:
+                                {intl.formatMessage({ id: 'label.message.question' })}
                             </Label>
                             <Field
                                 name="questionText"
@@ -158,21 +164,22 @@ class UpdateQuestionForm extends Component {
                         <div className="answerDiv">
                             <FieldArray
                                 name="answers"
-                                component={renderAnswers}
+                                component={renderAnswers.bind(this, intl)}
                             />
                         </div>
                         <div className="explanationDiv">
                             <Label>
-                                Explanation:
+                                {intl.formatMessage({ id: 'label.message.explanation' })}
                             </Label>
                             <Field
+                                placeholder={intl.formatMessage({ id: 'placeholder.form.explanation' })}
                                 name="explanation"
                                 component={renderTextarea}
                             />
                         </div>
                         <div className="difficultyDiv">
                             <Label>
-                                Difficulty:
+                                {intl.formatMessage({ id: 'label.form.difficulty' })}
                             </Label>
                             <Field
                                 name="difficulty"
@@ -184,7 +191,7 @@ class UpdateQuestionForm extends Component {
                         </div>
                         <div className="messageDiv">
                             <Label>
-                                Message:
+                                {intl.formatMessage({ id: 'label.form.message' })}
                             </Label>
                             <Field
                                 name="message"
@@ -202,7 +209,9 @@ class UpdateQuestionForm extends Component {
                                         ...values,
                                         submitType: VALIDATE_QUESTION
                                     }))
-                            }>Validate</Button>
+                            }>
+                                {intl.formatMessage({ id: 'label.button.validate' })}
+                            </Button>
                         </div>
                         <div className='requestChangesButtonDiv'>
                             <Button className="requestChangesButton" type="submit" onClick={
@@ -211,7 +220,9 @@ class UpdateQuestionForm extends Component {
                                         ...values,
                                         submitType: UPDATE_QUESTION
                                     }))
-                            }>Request Changes</Button>
+                            }>
+                                {intl.formatMessage({ id: 'label.button.requestChanges' })}
+                            </Button>
                         </div>
                     </div>
                 </form>

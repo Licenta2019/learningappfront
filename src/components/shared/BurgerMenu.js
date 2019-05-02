@@ -11,11 +11,12 @@ import addItem from '../../assets/images/addItem.png';
 import viewList from '../../assets/images/viewList.png';
 import settings from '../../assets/images/settings.png';
 import logout from '../../assets/images/logout.png';
-import { setAuthorizationToken } from '../helpers/login';
 
 import './burgerMenu.css';
 import { getUser } from '../../localStorage';
 import { isProfessor } from '../helpers/user';
+import { handleLogout } from '../helpers/logout';
+import { injectIntl } from 'react-intl';
 
 class BurgerMenu extends Component {
 
@@ -43,9 +44,13 @@ class BurgerMenu extends Component {
 
         const { gradesSubMenuVisible, questionsSubMenuVisible } = this.state;
 
-        const userRole = getUser().userRole;
+        const { intl } = this.props;
+        const user = getUser();
+
+        const userRole = user && user.userRole;
 
         return (
+            userRole !== null &&
             <Menu onStateChange={this.handleStateChange}>
                 <div className="menuLogoDiv">
                     <img src={redLogo} alt="Logo" />
@@ -58,17 +63,20 @@ class BurgerMenu extends Component {
                     }}>
                     <div className="menu-item">
                         <img src={home} alt="Logo" />
-                        <h5>HOME</h5>
+                        <h5>
+                            {intl.formatMessage({ id: "label.menu.home" })}
+                        </h5>
                     </div>
                 </Link>
                 <Link
                     to={{
-                        pathname: toHomePagePath({
-                        })
+                        pathname: toHomePagePath({})
                     }}>
                     <div className="menu-item">
                         <img src={profile} alt="Logo" />
-                        <h5>PROFILE</h5>
+                        <h5>
+                            {intl.formatMessage({ id: "label.menu.profile" })}
+                        </h5>
                     </div>
                 </Link>
                 <Link to={{}} onClick={() => {
@@ -78,7 +86,9 @@ class BurgerMenu extends Component {
                 }}>
                     <div className="menu-item">
                         <img src={menu} alt="Logo" />
-                        <h5>GRADES MENU</h5>
+                        <h5>
+                            {intl.formatMessage({ id: "label.menu.grades" })}
+                        </h5>
                     </div>
                 </Link>
                 {gradesSubMenuVisible && (
@@ -90,7 +100,9 @@ class BurgerMenu extends Component {
                             }}>
                             <div className="sub-menu-item">
                                 <img src={addItem} alt="Logo" />
-                                <h5>ADD GRADE</h5>
+                                <h5>
+                                    {intl.formatMessage({ id: "label.submenu.addGrade" })}
+                                </h5>
                             </div>
                         </Link>
                         <Link
@@ -100,7 +112,9 @@ class BurgerMenu extends Component {
                             }}>
                             <div className="sub-menu-item">
                                 <img src={viewList} alt="Logo" />
-                                <h5>VIEW GRADES</h5>
+                                <h5>
+                                    {intl.formatMessage({ id: "label.submenu.viewGrades" })}
+                                </h5>
                             </div>
                         </Link>
                     </div>
@@ -112,62 +126,70 @@ class BurgerMenu extends Component {
                 }}>
                     <div className="menu-item">
                         <img src={menu} alt="Logo" />
-                        <h5>QUESTIONS MENU</h5>
+                        <h5>
+                            {intl.formatMessage({ id: "label.menu.questions" })}
+                        </h5>
                     </div>
                 </Link>
                 {questionsSubMenuVisible && (
                     <div className="questionsSubMenuDiv">
                         {!isProfessor(userRole) && < Link
                             to={{
-                            pathname: toNewQuestionPath({
-                            })
-                        }}>
+                                pathname: toNewQuestionPath({
+                                })
+                            }}>
                             <div className="sub-menu-item">
-                            <img src={addItem} alt="Logo" />
-                            <h5>ADD QUESTION</h5>
-                        </div>
+                                <img src={addItem} alt="Logo" />
+                                <h5>
+                                    {intl.formatMessage({ id: "label.submenu.addQuestion" })}
+                                </h5>
+                            </div>
                         </Link>}
+                        <Link
+                            to={{
+                                pathname: toQuestionPath({
+                                })
+                            }}>
+                            <div className="sub-menu-item">
+                                <img src={viewList} alt="Logo" />
+                                <h5>
+                                    {intl.formatMessage({ id: "label.submenu.viewQuestions" })}
+                                </h5>
+                            </div>
+                        </Link>
+                    </div>
+                )}
                 <Link
                     to={{
-                        pathname: toQuestionPath({
+                        pathname: toLoginPagePath({
                         })
                     }}>
-                    <div className="sub-menu-item">
-                        <img src={viewList} alt="Logo" />
-                        <h5>VIEW QUESTIONS</h5>
+                    <div className="menu-item">
+                        <img src={settings} alt="Logo" />
+                        <h5>
+                            {intl.formatMessage({ id: "label.menu.settings" })}
+                        </h5>
                     </div>
                 </Link>
-                    </div>
-        )
-    }
                 <Link
-    to={{
-        pathname: toLoginPagePath({
-        })
-    }}>
-    <div className="menu-item">
-        <img src={settings} alt="Logo" />
-        <h5>SETTINGS</h5>
-    </div>
-</Link>
-    <Link
-        to={{
-            pathname: toLoginPagePath({
-            })
-        }}
-        onClick={() => {
-            setAuthorizationToken(null);
-
-        }}>
-        <div className="menu-item">
-            <img src={logout} alt="Logo" />
-            <h5>LOGOUT</h5>
-        </div>
-    </Link>
+                    to={{
+                        pathname: toLoginPagePath({
+                        })
+                    }}
+                    onClick={() => {
+                        handleLogout();
+                    }}>
+                    <div className="menu-item">
+                        <img src={logout} alt="Logo" />
+                        <h5>
+                            {intl.formatMessage({ id: "label.menu.logout" })}
+                        </h5>
+                    </div>
+                </Link>
             </Menu >
         );
     }
 
 }
 
-export default BurgerMenu;
+export default injectIntl(BurgerMenu);

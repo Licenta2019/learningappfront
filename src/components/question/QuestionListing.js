@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import routePaths from '../../routes/routePaths';
 import pathToRegexp from 'path-to-regexp';
 import { Link } from 'react-router-dom';
-import { Label } from 'reactstrap';
 import ReactTable from 'react-table';
 import './questionsListing.css';
 import './question.css';
 import './table.css';
+import { renderTableHeader } from '../shared/renders';
 export default class QuestionListing extends Component {
 
     renderQuestions() {
@@ -33,7 +33,7 @@ export default class QuestionListing extends Component {
                     topic: question.topic,
                     subject: question.subject,
                     author: question.author,
-                    creationDate: question.creationDate
+                    updateDate: question.updateDate
                 }
             );
         });
@@ -41,29 +41,19 @@ export default class QuestionListing extends Component {
 
     render() {
 
-        const columns = [{
-            Header: 'Question',
-            accessor: 'questionText',
-        }, {
-            Header: 'Topic',
-            accessor: 'topic',
-        }, {
-            Header: 'Subject',
-            accessor: 'subject',
-        }, {
-            Header: 'Author',
-            accessor: 'author',
-            resizable: false,
-        }, {
-            Header: 'Update Date',
-            accessor: 'creationDate',
-            resizable: false,
-        }];
+        const { intl } = this.props;
+
+        const columns = renderTableHeader([
+            'questionText',
+            'topic',
+            'subject',
+            'author',
+            'updateDate'],
+            intl);
 
         return (
             <div className="questionListingDiv">
                 <div className="tableDiv">
-                    <Label>Table:</Label>
                     <ReactTable
                         className="-striped -highlight"
                         data={this.renderQuestions()}

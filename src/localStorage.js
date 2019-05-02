@@ -1,7 +1,7 @@
 import { throwSubmissionError } from "./components/helpers/errors";
+import { AUTHENTICATED_USER } from "./components/constants/user";
 
 const LOCAL_STORAGE_KEY = 'reduxState';
-const AUTHENTICATED_USER = 'user';
 
 export const loadState = () => {
   try {
