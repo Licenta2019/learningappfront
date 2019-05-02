@@ -1,30 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8c782361-9ac0-4f6f-ba69-731573ab0df0" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/constants/user.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/shared/RenderIfAuthenticated.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/shared/RenderIfNotAuthenticated.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lang/en.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lang/ro.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/noAuthRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/helpers/logout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/helpers/logout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/login/LoginContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/login/LoginContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/login/LoginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/login/LoginForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/mainPage/MainPageContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/mainPage/MainPageContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/question/NewQuestionContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/question/NewQuestionContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/question/NewQuestionForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/question/NewQuestionForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/question/QuestionContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/question/QuestionContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/question/QuestionFilter.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/question/QuestionFilter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/question/UpdateQuestionContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/question/UpdateQuestionContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/question/UpdateQuestionForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/question/UpdateQuestionForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/shared/BurgerMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/shared/BurgerMenu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/localStorage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/localStorage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
-    </list>
+    <list default="true" id="8c782361-9ac0-4f6f-ba69-731573ab0df0" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,6 +136,9 @@
       </method>
     </configuration>
   </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="8c782361-9ac0-4f6f-ba69-731573ab0df0" name="Default" comment="" />
@@ -168,12 +148,12 @@
       <updated>1556037109658</updated>
       <workItem from="1556037112016" duration="450000" />
       <workItem from="1556560779480" duration="255000" />
-      <workItem from="1556814399125" duration="349000" />
+      <workItem from="1556814399125" duration="559000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1054000" />
+    <option name="totallyTimeSpent" value="1264000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -212,9 +192,6 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
   </component>
   <component name="masterDetails">
     <states>

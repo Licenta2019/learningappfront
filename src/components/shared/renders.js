@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Select from 'react-select';
 import TextareaAutosize from 'react-autosize-textarea';
 import Slider from 'react-rangeslider';
@@ -109,4 +109,17 @@ export const renderSelect = ({ input, onSelectChange, options, meta: { touched, 
             {touched && (error && <span className="text-danger">{error}</span>)}
         </div>
     );
+};
+
+export const renderTableHeader = (columns, intl) => {
+    let tableHeader = [];
+
+    columns.forEach(column => {
+        tableHeader.push({
+            Header: intl.formatMessage({ id: `label.table.${column}` }),
+            accessor: column
+        });
+    })
+    
+    return tableHeader;
 };
