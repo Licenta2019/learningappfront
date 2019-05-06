@@ -12,7 +12,7 @@ class LanguageComutator extends Component {
                 <Select
                     name="language"
                     onChange={changeLanguage}
-                    options={mapLabels([ENGLISH,ROMANIAN])}
+                    options={mapLabels([ENGLISH, ROMANIAN])}
                     defalutValue={i18config.locale}
                 />
             </div>

@@ -39,7 +39,7 @@ export const authenticateUser = (user) => {
 };
 
 export const unauthenticateUser = () => {
-  localStorage.setItem(AUTHENTICATED_USER, null);
+  localStorage.removeItem(AUTHENTICATED_USER);
 }
 
 export const getUser = () => {
