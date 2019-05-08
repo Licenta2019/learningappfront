@@ -31,7 +31,7 @@ class App extends Component {
                         </Col>
                     </RenderIfAuthenticated>
 
-                    <RenderIfNotAuthenticated>/>
+                    <RenderIfNotAuthenticated>
                         <Col>
                             {noAuthRoutes}
                         </Col>

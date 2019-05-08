@@ -14,6 +14,7 @@
     "label.button.requestChanges": "RequestChanges",
     "label.button.remove": "Remove",
     "label.button.submit": "Submit",
+    "label.button.update": "Update", 
     "label.button.validate": "Validate",
     "label.form.answer": "Answer #",
     "label.form.difficulty": "Difficulty",

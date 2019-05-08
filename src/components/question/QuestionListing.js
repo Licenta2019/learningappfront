@@ -48,6 +48,7 @@ export default class QuestionListing extends Component {
             'topic',
             'subject',
             'author',
+            'status',
             'updateDate'],
             intl);
 
