@@ -16,7 +16,7 @@ export default class QuestionListing extends Component {
         return questions && questions.map((question, index) => {
 
             const toQuestionPath = pathToRegexp.compile(routePaths.updateQuestion);
-
+        
             return (
                 {
                     questionText: <Link to={toQuestionPath({
@@ -33,6 +33,7 @@ export default class QuestionListing extends Component {
                     topic: question.topic,
                     subject: question.subject,
                     author: question.author,
+                    status:question.status,
                     updateDate: question.updateDate
                 }
             );

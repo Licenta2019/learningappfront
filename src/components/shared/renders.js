@@ -117,8 +117,9 @@ export const renderSelect = ({ input, onSelectChange, options, meta: { touched, 
 
 export const renderTableHeader = (columns, intl) => {
     let tableHeader = [];
-
+    
     columns.forEach(column => {
+        
         tableHeader.push({
             Header: intl.formatMessage({ id: `label.table.${column}` }),
             accessor: column

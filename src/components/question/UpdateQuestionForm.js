@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { reduxForm, Field, FieldArray } from 'redux-form';
 import { Button, Label } from 'reactstrap';
-import { renderTextarea, renderSelect, renderSlider, renderSubmitButton } from '../shared/renders';
+import { renderTextarea, renderSelect, renderSlider} from '../shared/renders';
 import { mapOptions } from '../helpers/selectHelper';
 import { UPDATE_QUESTION, VALIDATE_QUESTION } from '../constants/question';
 import { isProfessor } from '../helpers/user';

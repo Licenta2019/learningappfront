@@ -156,7 +156,7 @@ class BurgerMenu extends Component {
                         <h5>
                             {intl.formatMessage({ id: "label.menu.questions" })}
                         </h5>
-                        <Badge>{notificationsCount}</Badge>
+                        <Badge className="ml-2">{notificationsCount}</Badge>
                     </div>
                 </Link>
                 {questionsSubMenuVisible && (
@@ -177,9 +177,6 @@ class BurgerMenu extends Component {
                             to={{
                                 pathname: toQuestionPath({
                                 }),
-                                // state: {
-                                //     questions: questions
-                                // }
                             }}
                         >
                             <div className="sub-menu-item">

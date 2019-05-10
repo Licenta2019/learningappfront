@@ -35,6 +35,7 @@
     "label.submenu.viewQuestions": "VIEW QUESTIONS",
     "label.table.author": "Author",
     "label.table.questionText": "Question Text",
+    "label.table.status": "Status",
     "label.table.subject": "Subject",
     "label.table.topic": "Topic",
     "label.table.updateDate": "Last Update Date",
