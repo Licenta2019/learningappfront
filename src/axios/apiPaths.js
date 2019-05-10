@@ -3,8 +3,10 @@ export default {
     login: '/login',
     addQuestion: '/topic/{}/question',
     getSubjects: '/subject',
-    getQuestions: '/topic/{}/questions',
+    getProfessorQuestions: '/professor/{}/questions',
+    getStudentQuestions: '/student/{}/questions',
     getQuestion: '/topic/question/{}',
     updateQuestions: '/topic/{}/question/[]',
-    validateQuestions: '/topic/{}/question/[]'
+    validateQuestions: '/topic/{}/question/[]',
+    getNotificationsCount: '/topic/notificationsCount/{}'
 }

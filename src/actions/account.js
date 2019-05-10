@@ -2,7 +2,7 @@ import { UNAUTHENTICATED } from "../reducers/account";
 import { AUTHENTICATED } from "../reducers/account";
 
 export function authenticate(account) {
-    console.log(account);
+    // console.log(account);
     
     localStorage.setItem(AUTHENTICATED, account.jwtToken);
 

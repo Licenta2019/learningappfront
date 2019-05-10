@@ -1,5 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
+import { Button } from 'reactstrap';
 import TextareaAutosize from 'react-autosize-textarea';
 import Slider from 'react-rangeslider';
 import 'react-rangeslider/lib/index.css';
@@ -30,16 +31,19 @@ export const renderTextarea = ({ input, meta: { touched, error }, ...props }) =>
     )
 };
 
-export const renderSlider = ({ meta: { touched, error }, ...props }) => (
-    <div>
-        <Slider
-            {...props}
-            value={props.input.value}
-            onChange={props.input.onChange}
-        />
-        {touched && (error && <span className="text-danger">{error}</span>)}
-    </div>
-);
+export const renderSlider = ({ input, meta: { touched, error }, ...props }) => {
+
+    return (
+        <div>
+            <Slider
+                {...input}
+                {...props}
+            // value={props.input.value}
+            // onChange={props.input.onChange}
+            />
+            {touched && (error && <span className="text-danger">{error}</span>)}
+        </div>)
+};
 export const renderSelect = ({ input, onSelectChange, options, meta: { touched, error }, isDisabled, ...props }) => {
 
     const customStyles = {
@@ -113,13 +117,28 @@ export const renderSelect = ({ input, onSelectChange, options, meta: { touched, 
 
 export const renderTableHeader = (columns, intl) => {
     let tableHeader = [];
-
+    
     columns.forEach(column => {
+        
         tableHeader.push({
             Header: intl.formatMessage({ id: `label.table.${column}` }),
             accessor: column
         });
     })
-    
+
     return tableHeader;
 };
+
+export const renderSubmitButton = (divClass, buttonClass, handleSubmit, submitType, labelId, intl) => {
+    return <div className={divClass}>
+        <Button className={buttonClass} type="submit" onClick={
+            handleSubmit(values =>
+                this.props.onSubmit({
+                    ...values,
+                    submitType: submitType
+                }))
+        }>
+            {intl.formatMessage({ id: labelId })}
+        </Button>
+    </div>
+}

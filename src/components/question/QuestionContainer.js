@@ -4,14 +4,18 @@ import apiPaths from '../../axios/apiPaths';
 import QuestionListing from './QuestionListing';
 import QuestionFilter from './QuestionFilter';
 import { Container } from 'reactstrap';
+import { getUser } from '../../localStorage';
+import { injectIntl } from 'react-intl';
 
 import './question.css';
-import { injectIntl } from 'react-intl';
 
 class QuestionContainer extends Component {
 
     constructor(props) {
+
         super(props);
+
+        console.log(this.props.location);
 
         this.state = {
             subjects: [],
@@ -31,20 +35,24 @@ class QuestionContainer extends Component {
         return axiosClient.get(apiPaths.getSubjects);
     }
 
-    getQuestions(topicId) {
+    getQuestions() {
+        const user = getUser();
 
-        return axiosClient.get(apiPaths.getQuestions.replace('{}', topicId));
+        console.log(user);
+        
+        const path = user.userRole === 'STUDENT' ? apiPaths.getStudentQuestions : apiPaths.getProfessorQuestions;
+        return axiosClient.get(path.replace('{}', user.id));
     }
 
     componentDidMount() {
-        this.getSubjects()
-            .then((subjects) => {
+        Promise.all([this.getSubjects(), this.getQuestions()])
+            .then(([subjects, questions]) => {
                 this.setState({
-                    subjects: subjects.data
+                    subjects: subjects.data,
+                    questions: questions.data
                 })
             })
     }
-
 
     handleSubjectOnChange(value) {
         const subject = this.state.subjects.filter(subject => subject.id === value.value)[0];

@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { reduxForm, Field, FieldArray } from 'redux-form';
 import { Button, Label } from 'reactstrap';
-import { renderTextarea, renderSelect, renderSlider } from '../shared/renders';
+import { renderTextarea, renderSelect, renderSlider} from '../shared/renders';
 import { mapOptions } from '../helpers/selectHelper';
 import { UPDATE_QUESTION, VALIDATE_QUESTION } from '../constants/question';
+import { isProfessor } from '../helpers/user';
+import { getUser } from '../../localStorage';
 
 import './question.css';
 
@@ -125,9 +127,13 @@ class UpdateQuestionForm extends Component {
         const { handleSubmit, handleSubjectOnChange, subjects, topics, error, intl } = this.props;
         const { message } = this.state;
 
+        const userRole = getUser().userRole;
+
+        const labelUpdateButton = isProfessor(userRole) ? 'label.button.requestChanges' : 'label.button.update';
+
         return (
             <div>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="updateQuestionDiv">
                         <div className="subjectDiv">
                             <Label>
@@ -177,18 +183,21 @@ class UpdateQuestionForm extends Component {
                                 component={renderTextarea}
                             />
                         </div>
-                        <div className="difficultyDiv">
-                            <Label>
-                                {intl.formatMessage({ id: 'label.form.difficulty' })}
-                            </Label>
-                            <Field
-                                name="difficulty"
-                                component={renderSlider}
-                                orientation="horizontal"
-                                min={0}
-                                max={10}
-                            />
-                        </div>
+                        {
+                            isProfessor(userRole) &&
+                            <div className="difficultyDiv">
+                                <Label>
+                                    {intl.formatMessage({ id: 'label.form.difficulty' })}
+                                </Label>
+                                <Field
+                                    name="difficulty"
+                                    component={renderSlider}
+                                    orientation="horizontal"
+                                    min={0}
+                                    max={10}
+                                />
+                            </div>
+                        }
                         <div className="messageDiv">
                             <Label>
                                 {intl.formatMessage({ id: 'label.form.message' })}
@@ -202,26 +211,30 @@ class UpdateQuestionForm extends Component {
 
                         {error !== undefined && <div className="text-danger">{error}</div>}
 
-                        <div className='submitButtonDiv'>
-                            <Button className="submitButton" type="submit" onClick={
-                                handleSubmit(values =>
-                                    this.props.onSubmit({
-                                        ...values,
-                                        submitType: VALIDATE_QUESTION
-                                    }))
-                            }>
-                                {intl.formatMessage({ id: 'label.button.validate' })}
-                            </Button>
-                        </div>
-                        <div className='requestChangesButtonDiv'>
-                            <Button className="requestChangesButton" type="submit" onClick={
+                        {
+                            isProfessor(userRole) &&
+                            <div className='submitButtonDiv'>
+                                <Button className="submitButton" type="submit" onClick={
+                                    handleSubmit(values =>
+                                        this.props.onSubmit({
+                                            ...values,
+                                            submitType: VALIDATE_QUESTION
+                                        }))
+                                }>
+                                    {intl.formatMessage({ id: 'label.button.validate' })}
+                                </Button>
+                            </div>
+                        }
+
+                        <div className={'requestChangesButtonDiv'}>
+                            <Button className={'requestChangesButton'} type="submit" onClick={
                                 handleSubmit(values =>
                                     this.props.onSubmit({
                                         ...values,
                                         submitType: UPDATE_QUESTION
                                     }))
                             }>
-                                {intl.formatMessage({ id: 'label.button.requestChanges' })}
+                                {intl.formatMessage({ id: labelUpdateButton })}
                             </Button>
                         </div>
                     </div>

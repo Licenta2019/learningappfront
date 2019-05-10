@@ -11,12 +11,19 @@ import addItem from '../../assets/images/addItem.png';
 import viewList from '../../assets/images/viewList.png';
 import settings from '../../assets/images/settings.png';
 import logout from '../../assets/images/logout.png';
+import axiosClient from '../../axios/axiosClient';
+import { Badge } from 'reactstrap';
 
 import './burgerMenu.css';
 import { getUser } from '../../localStorage';
 import { isProfessor } from '../helpers/user';
 import { handleLogout } from '../helpers/logout';
 import { injectIntl } from 'react-intl';
+import apiPaths from '../../axios/apiPaths';
+
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as accountActions from '../../actions/account';
 
 class BurgerMenu extends Component {
 
@@ -25,7 +32,26 @@ class BurgerMenu extends Component {
         this.state = {
             gradesSubMenuVisible: false,
             questionsSubMenuVisible: false,
+            notificationsCount: 0
         }
+
+        this.getNotificationsCount = this.getNotificationsCount.bind(this);
+    }
+
+    getNotificationsCount() {
+        const user = getUser();
+
+        return user && axiosClient.get(apiPaths.getNotificationsCount.replace('{}', user.id))
+            .then((response) => {
+                console.log(response);
+                this.setState({
+                    notificationsCount: response.data
+                })
+            })
+    }
+
+    componentDidMount() {
+        this.getNotificationsCount();
     }
 
     handleStateChange(newState) {
@@ -37,12 +63,13 @@ class BurgerMenu extends Component {
     }
 
     render() {
+
         const toHomePagePath = pathToRegexp.compile(routePaths.homepage);
         const toNewQuestionPath = pathToRegexp.compile(routePaths.newQuestion);
         const toQuestionPath = pathToRegexp.compile(routePaths.listQuestions);
         const toLoginPagePath = pathToRegexp.compile(routePaths.login);
 
-        const { gradesSubMenuVisible, questionsSubMenuVisible } = this.state;
+        const { gradesSubMenuVisible, questionsSubMenuVisible, notificationsCount } = this.state;
 
         const { intl } = this.props;
         const user = getUser();
@@ -129,6 +156,7 @@ class BurgerMenu extends Component {
                         <h5>
                             {intl.formatMessage({ id: "label.menu.questions" })}
                         </h5>
+                        <Badge className="ml-2">{notificationsCount}</Badge>
                     </div>
                 </Link>
                 {questionsSubMenuVisible && (
@@ -148,13 +176,15 @@ class BurgerMenu extends Component {
                         <Link
                             to={{
                                 pathname: toQuestionPath({
-                                })
-                            }}>
+                                }),
+                            }}
+                        >
                             <div className="sub-menu-item">
                                 <img src={viewList} alt="Logo" />
                                 <h5>
                                     {intl.formatMessage({ id: "label.submenu.viewQuestions" })}
                                 </h5>
+                                <Badge>{notificationsCount}</Badge>
                             </div>
                         </Link>
                     </div>
@@ -189,7 +219,16 @@ class BurgerMenu extends Component {
             </Menu >
         );
     }
-
 }
 
-export default injectIntl(BurgerMenu);
+function mapStateToProps(state) {
+    return { ...state };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        // ...accountActions
+    }, dispatch);
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(BurgerMenu));

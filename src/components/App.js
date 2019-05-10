@@ -17,8 +17,8 @@ class App extends Component {
 
     render() {
 
-        console.log(i18config);
-        
+        // console.log(i18config);
+
         return (
             <IntlProvider locale={i18config.locale} messages={i18config.messages} defaultLocale={i18config.default}>
                 <div>
@@ -31,7 +31,7 @@ class App extends Component {
                         </Col>
                     </RenderIfAuthenticated>
 
-                    <RenderIfNotAuthenticated>/>
+                    <RenderIfNotAuthenticated>
                         <Col>
                             {noAuthRoutes}
                         </Col>
