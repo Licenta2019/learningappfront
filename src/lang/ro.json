@@ -3,6 +3,7 @@
     "label.error.password.required": "Parola e obligatorie!",
     "label.error.difficulty.required": "Trebuie să selectați o dificultate!",
     "label.error.explanation.required": "Explicația trebuie să nu fie vidă!",
+    "label.error.notificationMessage.required": "Mesajul de notificare nu trebuie să fie vid!",
     "label.error.question.required": "Întrebarea trebuie să nu fie vidă!",
     "label.error.subject.required": "Selectați un subiect!",
     "label.error.topic.required": "Selectați un topic!",

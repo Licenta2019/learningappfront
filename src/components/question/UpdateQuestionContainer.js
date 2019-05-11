@@ -66,7 +66,7 @@ class UpdateQuestionContainer extends Component {
 
     handleValidate(formObject) {
         //validate question 
-        axiosClient.put(apiPaths.validateQuestions.replace('{}', formObject.topicId).replace('[]', formObject.id), formObject)
+        return axiosClient.put(apiPaths.validateQuestions.replace('{}', formObject.topicId).replace('[]', formObject.id), formObject)
             .then(() => {
                 this.props.history.push(routePaths.homepage);
             })
@@ -109,7 +109,8 @@ class UpdateQuestionContainer extends Component {
                         subject: { value: question.subjectId, label: subject.name },
                         topic: { value: question.topicId, label: topic.name },
                         answers: question.answerDtos,
-                        difficulty: question.difficulty
+                        difficulty: question.difficulty,
+                        message: question.notificationMessage
                     }}
                     handleSubjectOnChange={this.handleSubjectOnChange}
                     subjects={subjects}

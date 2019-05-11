@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { reduxForm, Field, FieldArray } from 'redux-form';
 import { Button, Label } from 'reactstrap';
-import { renderTextarea, renderSelect, renderSlider} from '../shared/renders';
+import { renderTextarea, renderSelect, renderSlider } from '../shared/renders';
 import { mapOptions } from '../helpers/selectHelper';
 import { UPDATE_QUESTION, VALIDATE_QUESTION } from '../constants/question';
 import { isProfessor } from '../helpers/user';
@@ -13,7 +13,7 @@ const validate = (values, props) => {
     const { intl } = props;
 
     let errors = {};
-    const { question, explanation, subject, topic, difficulty } = values;
+    const { question, explanation, subject, topic, difficulty,message } = values;
 
     if (!subject)
         errors.subject = intl.formatMessage({ id: 'label.error.subject.required' });
@@ -26,6 +26,9 @@ const validate = (values, props) => {
 
     if (!explanation)
         errors.explanation = intl.formatMessage({ id: 'label.error.explanation.required' });
+
+    if (!message)
+        errors.message = intl.formatMessage({ id: 'label.error.notificationMessage.required' });
 
     if (!difficulty || difficulty < 1 || difficulty > 10)
         errors.difficulty = intl.formatMessage({ id: 'label.error.difficulty.required' });;

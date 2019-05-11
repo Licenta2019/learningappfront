@@ -3,6 +3,7 @@
     "label.error.password.required": "Password is required!",
     "label.error.difficulty.required": "You must select a difficulty!",
     "label.error.explanation.required": "Explanation must not be empty!",
+    "label.error.notificationMessage.required": "Notification message must not be empty!",
     "label.error.question.required": "Question must not be empty!",
     "label.error.subject.required": "Please select a subject!",
     "label.error.topic.required": "Please select a topic!",

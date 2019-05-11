@@ -7,10 +7,11 @@ function getAxiosClient() {
         baseURL: 'http://localhost:8080'
     });
 
-    const token = getUser().jwtToken;
-    
+    const user = getUser();
+    const token = user !== undefined ? user.jwtToken : null;
+
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-    
+
     return axiosClient;
 }
 
