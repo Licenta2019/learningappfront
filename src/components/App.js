@@ -7,6 +7,9 @@ import { IntlProvider } from 'react-intl';
 
 import { RenderIfAuthenticated } from './shared/RenderIfAuthenticated';
 import { RenderIfNotAuthenticated } from './shared/RenderIfNotAuthenticated';
+import { RenderIfShouldNotify } from './shared/RenderIfShouldNotify';
+import  NotificationsContainer  from './shared/NotificationsContainer';
+
 import { noAuthRoutes } from '../routes/noAuthRoutes';
 
 import BurgerMenu from './shared/BurgerMenu';
@@ -25,6 +28,9 @@ class App extends Component {
                     <Header />
                     <RenderIfAuthenticated>
                         <Col>
+                            <RenderIfShouldNotify>
+                                <NotificationsContainer />
+                            </RenderIfShouldNotify>
                             <LanguageComutator />
                             <BurgerMenu />
                             {mainRoutes}
