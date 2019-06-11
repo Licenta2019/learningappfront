@@ -8,7 +8,7 @@ import { IntlProvider } from 'react-intl';
 import { RenderIfAuthenticated } from './shared/RenderIfAuthenticated';
 import { RenderIfNotAuthenticated } from './shared/RenderIfNotAuthenticated';
 import { RenderIfShouldNotify } from './shared/RenderIfShouldNotify';
-import  NotificationsContainer  from './shared/NotificationsContainer';
+import NotificationsContainer from './shared/NotificationsContainer';
 
 import { noAuthRoutes } from '../routes/noAuthRoutes';
 
@@ -19,8 +19,6 @@ import { i18config } from './helpers/language';
 class App extends Component {
 
     render() {
-
-        // console.log(i18config);
 
         return (
             <IntlProvider locale={i18config.locale} messages={i18config.messages} defaultLocale={i18config.default}>

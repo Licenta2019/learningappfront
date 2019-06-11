@@ -1,6 +1,6 @@
 export default {
     homepage: '/',
-    login: '/login',
+    login: 'user/login',
     addQuestion: '/topic/{}/question',
     getSubjects: '/subject',
     getProfessorQuestions: '/professor/{}/questions',
@@ -8,5 +8,6 @@ export default {
     getQuestion: '/topic/question/{}',
     updateQuestions: '/topic/{}/question/[]',
     validateQuestions: '/topic/{}/question/[]',
-    getNotificationsCount: '/topic/notificationsCount/{}'
+    getNotificationsCount: '/topic/notificationsCount/{}', // number of question that are in a non-terminal status
+    getNotifications: '/user/notifications' 
 }

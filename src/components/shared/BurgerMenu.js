@@ -23,7 +23,6 @@ import apiPaths from '../../axios/apiPaths';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as accountActions from '../../actions/account';
 
 class BurgerMenu extends Component {
 
@@ -43,11 +42,14 @@ class BurgerMenu extends Component {
 
         return user && axiosClient.get(apiPaths.getNotificationsCount.replace('{}', user.id))
             .then((response) => {
-                console.log(response);
                 this.setState({
                     notificationsCount: response.data
                 })
             })
+    }
+
+    componentWillReceiveProps(newProps) {
+        this.getNotificationsCount();
     }
 
     componentDidMount() {

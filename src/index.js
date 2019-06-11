@@ -23,4 +23,17 @@ ReactDOM.render(
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
+
+// Notification.requestPermission(function (status) {
+//   console.log('Notification permission status:', status);
+// });
+
+// function displayNotification() {
+//   if (Notification.permission === 'granted') {
+//     navigator.serviceWorker.getRegistration().then(function (reg) {
+//       reg.showNotification('Hello world!');
+//     });
+//   }
+// }
+
 serviceWorker.register();

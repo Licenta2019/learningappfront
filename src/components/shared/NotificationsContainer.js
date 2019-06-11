@@ -10,29 +10,30 @@ class NotificationsContainer extends Component {
         super(props);
 
         this.state = {
-            notifications: [{
-                message: 'ba',
-                type: 'INFO'
-            },
-            {
-                message: 'baasdasdasd',
-                type: 'WARN'
-            }]
+            notifications: []
         }
 
         this.renderNotifications = this.renderNotifications.bind(this);
     }
 
     componentDidMount() {
-
-        // get notifications axiosClient.get(apiPaths....);
+        axiosClient.get(apiPaths.getNotifications)
+            .then((response) => {
+                console.log(response.data);
+                this.setState({
+                    notifications: response.data
+                })
+            })
+            .catch((exc) => {
+                console.log(exc);
+            })
     }
 
     renderToast(notification) {
 
-        const { message, type } = notification;
-    
-        switch (type) {
+        const { message, notificationType } = notification;
+
+        switch (notificationType) {
             case 'SUCCESS':
                 toast.success(message);
                 break;
@@ -45,6 +46,8 @@ class NotificationsContainer extends Component {
             case 'ERROR':
                 toast.error(message);
                 break;
+            default:
+                break;
         }
     }
 
@@ -52,8 +55,6 @@ class NotificationsContainer extends Component {
         return (
             this.state.notifications &&
             this.state.notifications.map(not => {
-
-                console.log(not);
                 this.renderToast(not);
             })
         );
@@ -65,8 +66,9 @@ class NotificationsContainer extends Component {
             <div>
                 <ToastContainer
                     containerId={'ToastContainer'}
-                    position={toast.POSITION.TOP_RIGHT} />
-                {this.renderNotifications() }
+                    position={toast.POSITION.TOP_RIGHT}
+                    autoClose={false} />
+                {this.renderNotifications()}
             </div>
         );
     }
