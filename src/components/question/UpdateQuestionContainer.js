@@ -93,7 +93,7 @@ class UpdateQuestionContainer extends Component {
 
         return values.submitType === UPDATE_QUESTION ? this.handleUpdate(formObject) : this.handleValidate(formObject);
     }
-    
+
     render() {
         const { subjects, question } = this.state;
 

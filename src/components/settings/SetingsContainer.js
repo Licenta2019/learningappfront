@@ -1,18 +1,19 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import LanguageComutator from './shared/LanguageComutator';
 
-class SettingsContainer extends Component{
+class SettingsContainer extends Component {
 
-    constructor (props){
+    constructor(props) {
         super(props);
-        
+
         this.state = {
             userData: null,
             isDarkTheme: true
         }
     }
 
-    render(){
-
+    render() {
+        <LanguageComutator />
     }
 
 }

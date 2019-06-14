@@ -21,7 +21,6 @@ class ProfileContainer extends Component {
     }
 
     componentDidMount() {
-        console.log("prof contr");
         axiosClient.get(apiPaths.getUpdateUser.replace('{}', getUser().id))
             .then((user) => {
                 this.setState({
@@ -34,15 +33,17 @@ class ProfileContainer extends Component {
     }
 
     updateUser(values) {
+        console.log(values);
+
         axiosClient.put(apiPaths.getUpdateUser.replace('{}', this.state.userData.id), {
-            id: values.id,
+            username: values.username,
+            oldPassword: values.oldPassword,
             password: values.password,
             email: values.email,
             notificationsEnabled: values.notificationsEnabled
         })
             .then(() => {
                 this.props.history.push(routePaths.homepage);
-                //notification 
             })
             .catch((exc) => {
                 throwSubmissionError(exc);
@@ -63,6 +64,7 @@ class ProfileContainer extends Component {
                             email: userData.email
                         }}
                         intl={this.props.intl}
+                        onSubmit={this.updateUser}
                     />
                 }
             </div>

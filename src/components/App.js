@@ -13,7 +13,6 @@ import NotificationsContainer from './shared/NotificationsContainer';
 import { noAuthRoutes } from '../routes/noAuthRoutes';
 
 import BurgerMenu from './shared/BurgerMenu';
-import LanguageComutator from './shared/LanguageComutator';
 import { i18config } from './helpers/language';
 
 class App extends Component {
@@ -29,7 +28,6 @@ class App extends Component {
                             <RenderIfShouldNotify>
                                 <NotificationsContainer />
                             </RenderIfShouldNotify>
-                            <LanguageComutator />
                             <BurgerMenu />
                             {mainRoutes}
                         </Col>

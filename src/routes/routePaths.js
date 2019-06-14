@@ -4,5 +4,7 @@ export default {
     newQuestion: '/question/new',
     updateQuestion: '/question/:question_id/update',
     validateQuestion: '/question/validate',
-    listQuestions: '/questions'
+    listQuestions: '/questions',
+    profile: '/profile'
 }
+

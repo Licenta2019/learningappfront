@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { renderField } from '../shared/renders';
 import { Button, Label } from 'reactstrap';
+import '../question/question.css';
 
 const validate = (values, props) => {
 
@@ -20,68 +21,79 @@ const validate = (values, props) => {
         }
     });
 
-
     return errors;
 }
+
+// const asyncValidate = async (values, dispatch, props, field) => {
+//     const { intl, asyncErrors } = props;
+//   };
+
 
 class ProfileForm extends Component {
 
     render() {
-        const { username, password, email, notificationsEnabled, handleSubmit, error, intl } = this.props;
+
+        const { username, email, error, handleSubmit, intl } = this.props;
 
         return (
             <form onSubmit={handleSubmit}>
-                <div className="newQuestionDiv">
+                <div className="subjectDiv">
                     <Label>
-                        {intl.formatMessage({ id: 'label.message.subject' })}
+                        {intl.formatMessage({ id: 'label.form.username' })}
                     </Label>
-
-                    <div className="subjectDiv">
+                    <div>
                         <Field
                             name="username"
                             component={renderField}
                             value={username}
-                            placeholder={intl.formatMessage({ id: "placeholder.form.username" })}
                         />
                     </div>
 
                     <div className="subjectDiv">
                         <Label>
-                            {intl.formatMessage({ id: 'label.message.subject' })}
+                            {intl.formatMessage({ id: 'label.form.oldPassword' })}
+                        </Label>
+                        <Field
+                            name="oldPassword"
+                            component={renderField}
+                        // type="password"
+                        />
+                    </div>
+
+                    <div className="subjectDiv">
+                        <Label>
+                            {intl.formatMessage({ id: 'label.form.password' })}
                         </Label>
                         <Field
                             name="password"
                             component={renderField}
-                            value={password}
-                            placeholder={intl.formatMessage({ id: "placeholder.form.password" })}
                             type="password"
                         />
                     </div>
 
                     <div className="subjectDiv">
                         <Label>
-                            {intl.formatMessage({ id: 'label.message.subject' })}
+                            {intl.formatMessage({ id: 'label.form.email' })}
                         </Label>
                         <Field
                             name="email"
                             component={renderField}
                             value={email}
-                            placeholder={intl.formatMessage({ id: "placeholder.form.email" })}
                         />
                     </div>
 
-                    <div className="loginDiv">
+                    {/* <div className="loginDiv">
                         <Field
                             name="notificationsEnabled"
                             component={renderField}
                             value={notificationsEnabled}
                             type="checkbox"
                         />
-                    </div>
+                    </div> */}
                     {error !== undefined && <div className="text-danger">{error}</div>}
 
                     <Button type="Submit" className="loginButton">
-                        {intl.formatMessage({ id: "label.button.login" })}
+                        {intl.formatMessage({ id: "label.button.update" })}
                     </Button>
                 </div>
 

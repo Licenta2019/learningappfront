@@ -9,5 +9,7 @@ export default {
     updateQuestions: '/topic/{}/question/[]',
     validateQuestions: '/topic/{}/question/[]',
     getNotificationsCount: '/topic/notificationsCount/{}', // number of question that are in a non-terminal status
-    getNotifications: '/user/notifications' 
+    getNotifications: '/user/notifications',
+    getUpdateUser: '/user/{}',
+    validatePassword:'/user/{}/validatePassword'
 }

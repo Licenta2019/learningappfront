@@ -70,6 +70,8 @@ class BurgerMenu extends Component {
         const toNewQuestionPath = pathToRegexp.compile(routePaths.newQuestion);
         const toQuestionPath = pathToRegexp.compile(routePaths.listQuestions);
         const toLoginPagePath = pathToRegexp.compile(routePaths.login);
+        const toProfilePagePath = pathToRegexp.compile(routePaths.profile);
+
 
         const { gradesSubMenuVisible, questionsSubMenuVisible, notificationsCount } = this.state;
 
@@ -99,7 +101,7 @@ class BurgerMenu extends Component {
                 </Link>
                 <Link
                     to={{
-                        pathname: toHomePagePath({})
+                        pathname: toProfilePagePath({})
                     }}>
                     <div className="menu-item">
                         <img src={profile} alt="Logo" />
