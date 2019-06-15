@@ -31,6 +31,7 @@ class BurgerMenu extends Component {
         this.state = {
             gradesSubMenuVisible: false,
             questionsSubMenuVisible: false,
+            testSubMenuVisible: false,
             notificationsCount: 0
         }
 
@@ -71,9 +72,10 @@ class BurgerMenu extends Component {
         const toQuestionPath = pathToRegexp.compile(routePaths.listQuestions);
         const toLoginPagePath = pathToRegexp.compile(routePaths.login);
         const toProfilePagePath = pathToRegexp.compile(routePaths.profile);
+        const toNewTestPath = pathToRegexp.compile(routePaths.newTest);
+        const toTestPath = pathToRegexp.compile(routePaths.listTests);
 
-
-        const { gradesSubMenuVisible, questionsSubMenuVisible, notificationsCount } = this.state;
+        const { gradesSubMenuVisible, questionsSubMenuVisible, notificationsCount, testSubMenuVisible } = this.state;
 
         const { intl } = this.props;
         const user = getUser();
@@ -184,7 +186,7 @@ class BurgerMenu extends Component {
                             }}
                         >
                             <div className="sub-menu-item">
-                                <img src={viewList} alt="Logo" />
+                                <img src={addItem} alt="Logo" />
                                 <h5>
                                     {intl.formatMessage({ id: "label.submenu.viewQuestions" })}
                                 </h5>
@@ -193,6 +195,49 @@ class BurgerMenu extends Component {
                         </Link>
                     </div>
                 )}
+
+                <Link to={{}} onClick={() => {
+                    this.setState({
+                        testSubMenuVisible: !testSubMenuVisible
+                    })
+                }}>
+                    <div className="menu-item">
+                        <img src={menu} alt="Logo" />
+                        <h5>
+                            {intl.formatMessage({ id: "label.menu.test" })}
+                        </h5>
+                    </div>
+                </Link>
+                {testSubMenuVisible && (
+                    <div className="questionsSubMenuDiv">
+                        {!isProfessor(userRole) && < Link
+                            to={{
+                                pathname: toNewTestPath({
+                                })
+                            }}>
+                            <div className="sub-menu-item">
+                                <img src={addItem} alt="Logo" />
+                                <h5>
+                                    {intl.formatMessage({ id: "label.submenu.addTest" })}
+                                </h5>
+                            </div>
+                        </Link>}
+                        <Link
+                            to={{
+                                pathname: toTestPath({
+                                }),
+                            }}
+                        >
+                            <div className="sub-menu-item">
+                                <img src={addItem} alt="Logo" />
+                                <h5>
+                                    {intl.formatMessage({ id: "label.submenu.viewTests" })}
+                                </h5>
+                            </div>
+                        </Link>
+                    </div>
+                )}
+
                 <Link
                     to={{
                         pathname: toLoginPagePath({

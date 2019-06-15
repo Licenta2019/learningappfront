@@ -7,6 +7,8 @@ import NewQuestionContainer from '../components/question/NewQuestionContainer';
 import QuestionContainer from '../components/question/QuestionContainer';
 import UpdateQuestionContainer from '../components/question/UpdateQuestionContainer';
 import ProfileContainer from '../components/profile/ProfileContainer';
+import NewTestContainer from '../components/test/NewTestContainer';
+import TestContainer from '../components/test/TestContainer';
 
 export const mainRoutes = (
   <Switch>
@@ -16,5 +18,7 @@ export const mainRoutes = (
     <Route exact path={routePaths.listQuestions} component={QuestionContainer} />
     <Route exact path={routePaths.updateQuestion} component={UpdateQuestionContainer} />
     <Route exact path={routePaths.profile} component={ProfileContainer} />
+    <Route exact path={routePaths.newTest} component={NewTestContainer} />
+    <Route exact path={routePaths.listTests} component={TestContainer} />
   </Switch>
 );

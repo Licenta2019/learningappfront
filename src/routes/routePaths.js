@@ -5,6 +5,8 @@ export default {
     updateQuestion: '/question/:question_id/update',
     validateQuestion: '/question/validate',
     listQuestions: '/questions',
-    profile: '/profile'
+    profile: '/profile',
+    newTest: '/test/new',
+    listTests: '/tests',
+    getTest: '/test/:test_id'
 }
-
