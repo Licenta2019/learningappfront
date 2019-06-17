@@ -11,6 +11,10 @@
     "label.error.answers.length": "Cel puțin două răspunsuri trebuie adăugate!",
     "label.error.answer.required": "Răspunsul trebuie să nu fie vid!",
     "label.error.answers.correct": "Cel puțin un răspuns trebuie să fie corect!",
+    "label.error.testName.required": "Numele testului e obligatoriu!",
+    "label.error.topics.length": "Cel puțin un topic trebuie selectat!",
+    "label.error.questionsNumber.required": "Alegeți un număr de întrebări strict pozitiv!",
+    "label.error.dificulty.required":"Dificultatea e obligatorie!",
     "label.button.addAnswer": "Adaugă întrebare",
     "label.button.addTest": "Adaugă test",
     "label.button.addTopic": "Adaugă topic",
@@ -59,5 +63,6 @@
     "placeholder.form.password": "parola",
     "placeholder.form.subject": "Subiect",
     "placeholder.form.topic": "Topic",
+    "placeholder.form.difficulty": "Difficulty",
     "placeholder.form.username": "username"
 }

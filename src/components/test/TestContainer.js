@@ -21,7 +21,6 @@ class TestContainer extends Component {
 
         this.handleSubjectOnChange = this.handleSubjectOnChange.bind(this);
         this.getTests = this.getTests.bind(this);
-        // this.handleTopicOnChange = this.handleTopicOnChange.bind(this);
     }
 
     componentDidMount() {
@@ -49,12 +48,6 @@ class TestContainer extends Component {
                 })
             })
     }
-
-    // handleTopicOnChange(value) {
-    //     this.setState({
-    //         topic: value.value
-    //     })
-    // }
 
     render() {
         const { subjects, tests } = this.state;

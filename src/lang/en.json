@@ -11,6 +11,10 @@
     "label.error.answers.length": "At least two answers must be added!",
     "label.error.answer.required": "Answer text must not be empty!",
     "label.error.answers.correct": "At least one answer must be correct!",
+    "label.error.testName.required": "Test name is required!",
+    "label.error.topics.length": "At least one topic must be added!",
+    "label.error.questionsNumber.required": "Please choose a number of questions greater than 0!",
+    "label.error.dificulty.required":"Please select a difficulty!",
     "label.button.addAnswer": "Add Answer",
     "label.button.addTest": "Add Test",
     "label.button.addTopic": "Add Topic",
@@ -60,5 +64,6 @@
     "placeholder.form.password": "password",
     "placeholder.form.subject": "Subject",
     "placeholder.form.topic": "Topic",
+    "placeholder.form.difficulty": "Difficulty",
     "placeholder.form.username": "username"
 }

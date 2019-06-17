@@ -2,32 +2,51 @@ import React, { Component } from 'react';
 import { reduxForm, Field, FieldArray } from 'redux-form';
 import { renderField, renderSelect } from '../shared/renders';
 import { Button, Label } from 'reactstrap';
-import { mapOptions } from '../helpers/selectHelper';
+import { mapOptions, mapLabels } from '../helpers/selectHelper';
 import '../question/question.css';
 
-
-//TODO(Paul) include validations for this component!!
 const validate = (values, props) => {
 
-    const errors = [];
+    console.log(values);
+
+    let errors = {};
+    const { testName, subject } = values;
+
     const { intl } = props;
 
-    const requiredFields = [
-        'username',
-        'password',
-        'email'
-    ];
+    if (!testName)
+        errors.testName = intl.formatMessage({ id: 'label.error.testName.required' });
 
-    requiredFields.forEach((field) => {
-        if (!values[field]) {
-            errors[field] = intl.formatMessage({ id: `label.error.${field}.required` });
-        }
-    });
+    if (!subject)
+        errors.subject = intl.formatMessage({ id: 'label.error.subject.required' });
 
+    errors.topics = [];
+    if (!values.topics) {
+        errors.topics._error = intl.formatMessage({ id: 'label.error.topics.length' });
+    }
+    else {
+        const topicsErrors = [];
+
+        values.topics.forEach((topic, index) => {
+            const topicErrors = {}
+            if (topic.topic === "") {
+                topicErrors.topic = intl.formatMessage({ id: 'label.error.topic.required' });
+            }
+            if (topic.questionsNumber === "") {
+                topicErrors.questionsNumber = intl.formatMessage({ id: 'label.error.questionsNumber.required' });
+            }
+            if (topic.difficulty === undefined) {
+                topicErrors.difficulty = intl.formatMessage({ id: 'label.error.dificulty.required' });
+            }
+            topicsErrors[index] = topicErrors;
+        })
+        errors.topics = topicsErrors;
+
+    }
     return errors;
 }
 
-const renderTopics = (intl, onChangeSelect, topics, { fields, meta: { error, submitFailed } }) => (
+const renderTopics = (intl, topics, difficulties, { fields, meta: { error, submitFailed } }) => (
     <ul className="ulContainer">
         {fields.map((topic, index) => (
             <li className="liAnswer" key={index}>
@@ -41,15 +60,25 @@ const renderTopics = (intl, onChangeSelect, topics, { fields, meta: { error, sub
                             component={renderSelect}
                             id={index}
                             placeholder={intl.formatMessage({ id: 'placeholder.form.topic' })}
-                            options={mapOptions(topics)}
-                            onChange={onChangeSelect} />
+                            options={mapOptions(topics)} />
                     </div>
+
                     <div className="inputDiv">
                         <Field
                             name={`${topic}.questionsNumber`}
                             component={renderField}
                             id={index} />
                     </div>
+
+                    <div className="selectDiv">
+                        <Field
+                            name={`${topic}.difficulty`}
+                            component={renderSelect}
+                            id={index}
+                            placeholder={intl.formatMessage({ id: 'placeholder.form.difficulty' })}
+                            options={mapLabels(difficulties)} />
+                    </div>
+
                 </div>
                 <button
                     className="removeButton"
@@ -75,7 +104,7 @@ class NewTestForm extends Component {
 
     render() {
 
-        const { handleSubmit, handleTopicOnChange, handleSubjectOnChange, subjects, error, intl, topicDisabled, topics } = this.props;
+        const { handleSubmit, handleSubjectOnChange, subjects, error, intl, topicDisabled, topics, difficulties } = this.props;
 
         return (
             <form onSubmit={handleSubmit}>
@@ -108,7 +137,7 @@ class NewTestForm extends Component {
                         <div className="answerDiv">
                             <FieldArray
                                 name="topics"
-                                component={renderTopics.bind(this, intl, handleTopicOnChange, topics)}
+                                component={renderTopics.bind(this, intl, topics, difficulties)}
                             />
                         </div>
                     }

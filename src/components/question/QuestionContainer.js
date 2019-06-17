@@ -15,8 +15,6 @@ class QuestionContainer extends Component {
 
         super(props);
 
-        console.log(this.props.location);
-
         this.state = {
             subjects: [],
             topics: [],
@@ -39,7 +37,7 @@ class QuestionContainer extends Component {
         const user = getUser();
 
         console.log(user);
-        
+
         const path = user.userRole === 'STUDENT' ? apiPaths.getStudentQuestions : apiPaths.getProfessorQuestions;
         return axiosClient.get(path.replace('{}', user.id));
     }
@@ -51,7 +49,7 @@ class QuestionContainer extends Component {
                     subjects: subjects.data,
                     questions: questions.data
                 })
-            })
+            });
     }
 
     handleSubjectOnChange(value) {

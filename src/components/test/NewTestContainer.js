@@ -1,42 +1,51 @@
 import React, { Component } from 'react';
 import axiosClient from '../../axios/axiosClient';
 import apiPaths from '../../axios/apiPaths';
-import { throwSubmissionError } from '../helpers/errors';
 import routePaths from './../../routes/routePaths';
 import { injectIntl } from 'react-intl';
-import { getUser } from '../../localStorage';
 import { withRouter } from "react-router";
 import NewTestForm from './NewTestForm';
- 
+
 class NewTestContainer extends Component {
 
     constructor(props) {
         super(props);
 
+        console.log("drfhgjbnmfdjk");
+
         this.state = {
-            topicId: null, //todo set this from props
             subjects: [],
             topics: [],
+            difficulties: [],
             topicDisabled: true
         };
+        this.getSubjects = this.getSubjects.bind(this);
+        this.getDifficulties = this.getDifficulties.bind(this);
 
         this.handleSubjectOnChange = this.handleSubjectOnChange.bind(this);
-        this.handleTopicOnChange = this.handleTopicOnChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    getSubjects() {
+        return axiosClient.get(apiPaths.getSubjects);
+    }
+
+    getDifficulties() {
+        return axiosClient.get(apiPaths.getTestDifficulties);
+    }
     componentDidMount() {
-        axiosClient.get(apiPaths.getSubjects)
-            .then((subjects) => {
+        Promise.all([this.getSubjects(), this.getDifficulties()])
+            .then(([subjects, difficulties]) => {
+
+                console.log(difficulties);
                 this.setState({
-                    subjects: subjects.data
+                    subjects: subjects.data,
+                    difficulties: difficulties.data
                 })
-            });
+            })
     }
 
     handleSubjectOnChange(value) {
-
-        console.log(value);
         const { subjects } = this.state;
 
         const subject = subjects.filter(subject => subject.id === value.value)[0];
@@ -47,21 +56,14 @@ class NewTestContainer extends Component {
         });
     }
 
-    handleTopicOnChange(value) {
-        this.setState({
-            topic: value.value
-        })
-    }
-
     handleSubmit(value) {
-        // console.log(value);
         const { testName, topics } = value;
 
-        let topicsDto = topics.map(topic => { return { topicId: topic.topic.value, questionsNumber: topic.questionsNumber } });
+        let topicsDto = topics.map(topic => { return { topicId: topic.topic.value, questionsNumber: topic.questionsNumber, difficulty: topic.difficulty.value } });
 
         axiosClient.post(apiPaths.addTest, {
             name: testName,
-            topicTestDtoList: topicsDto,
+            topicTestDtoList: topicsDto
         }).then(() => {
             this.props.history.push(routePaths.homepage);
         })
@@ -69,7 +71,7 @@ class NewTestContainer extends Component {
     }
 
     render() {
-        const { subjects, topics, topicDisabled } = this.state;
+        const { subjects, topics, topicDisabled, difficulties } = this.state;
 
         const { intl } = this.props;
 
@@ -81,9 +83,9 @@ class NewTestContainer extends Component {
                     intl={intl}
                     subjects={subjects}
                     topics={topics}
-                    handleTopicOnChange={this.handleTopicOnChange}
                     handleSubjectOnChange={this.handleSubjectOnChange}
                     topicDisabled={topicDisabled}
+                    difficulties={difficulties}
                 />
             </div>
         );
