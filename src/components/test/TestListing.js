@@ -3,9 +3,9 @@ import routePaths from '../../routes/routePaths';
 import pathToRegexp from 'path-to-regexp';
 import { Link } from 'react-router-dom';
 import ReactTable from 'react-table';
-import './questionsListing.css';
-import './question.css';
-import './table.css';
+import '../question/questionsListing.css';
+import '../question/question.css';
+import '../question/table.css';
 import { renderTableHeader } from '../shared/renders';
 export default class TestListing extends Component {
 
@@ -21,8 +21,7 @@ export default class TestListing extends Component {
                 {
                     testName: <Link to={toTestPath({
                         test_id: test.id
-                    })}
-                    >
+                    })}>
                         {test.name}
                         <span className="tooltip">
                             {tests.name}</span>

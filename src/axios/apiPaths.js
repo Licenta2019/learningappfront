@@ -13,6 +13,7 @@ export default {
     getUpdateUser: '/user/{}',
     validatePassword:'/user/{}/validatePassword',
     addTest: '/test',
+    getTest: '/test/{}',
     getTests: '/test/subject/{}',
     getTestDifficulties: '/test/difficulties'
 }

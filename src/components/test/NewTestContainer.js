@@ -11,8 +11,6 @@ class NewTestContainer extends Component {
     constructor(props) {
         super(props);
 
-        console.log("drfhgjbnmfdjk");
-
         this.state = {
             subjects: [],
             topics: [],

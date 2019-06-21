@@ -3,7 +3,7 @@ import axiosClient from '../../axios/axiosClient';
 import apiPaths from '../../axios/apiPaths';
 import { injectIntl } from 'react-intl';
 import { withRouter } from "react-router";
-import TestListing from '../question/TestListing';
+import TestListing from '../test/TestListing';
 import { Label } from 'reactstrap';
 import { mapOptions } from '../helpers/selectHelper';
 import Select from 'react-select';

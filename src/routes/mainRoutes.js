@@ -9,7 +9,7 @@ import UpdateQuestionContainer from '../components/question/UpdateQuestionContai
 import ProfileContainer from '../components/profile/ProfileContainer';
 import NewTestContainer from '../components/test/NewTestContainer';
 import TestContainer from '../components/test/TestContainer';
-
+import TakeTestContainer from '../components/test/TakeTestContainer';
 export const mainRoutes = (
   <Switch>
     <Route exact path={routePaths.login} component={LoginContainer} />
@@ -20,5 +20,6 @@ export const mainRoutes = (
     <Route exact path={routePaths.profile} component={ProfileContainer} />
     <Route exact path={routePaths.newTest} component={NewTestContainer} />
     <Route exact path={routePaths.listTests} component={TestContainer} />
+    <Route exact path={routePaths.getTest} component={TakeTestContainer} />
   </Switch>
 );

@@ -13,7 +13,7 @@ const validate = (values, props) => {
     const { intl } = props;
 
     let errors = {};
-    const { question, explanation, subject, topic, difficulty,message } = values;
+    const { question, explanation, subject, topic, difficulty, message } = values;
 
     if (!subject)
         errors.subject = intl.formatMessage({ id: 'label.error.subject.required' });
@@ -133,6 +133,8 @@ class UpdateQuestionForm extends Component {
         const userRole = getUser().userRole;
 
         const labelUpdateButton = isProfessor(userRole) ? 'label.button.requestChanges' : 'label.button.update';
+
+        console.log(this.props.initialValues);
 
         return (
             <div>
