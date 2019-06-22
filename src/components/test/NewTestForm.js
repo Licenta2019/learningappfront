@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { reduxForm, Field, FieldArray } from 'redux-form';
 import { renderField, renderSelect } from '../shared/renders';
-import { Button, Label } from 'reactstrap';
+import { Button, Label, FormGroup, Row } from 'reactstrap';
 import { mapOptions, mapLabels } from '../helpers/selectHelper';
 import '../question/question.css';
 
 const validate = (values, props) => {
-
-    console.log(values);
 
     let errors = {};
     const { testName, subject } = values;
@@ -23,8 +21,12 @@ const validate = (values, props) => {
     errors.topics = [];
     if (!values.topics) {
         errors.topics._error = intl.formatMessage({ id: 'label.error.topics.length' });
+
+        console.log("nu sunt topice");
     }
     else {
+        console.log("sunt topice");
+
         const topicsErrors = [];
 
         values.topics.forEach((topic, index) => {
@@ -40,9 +42,10 @@ const validate = (values, props) => {
             }
             topicsErrors[index] = topicErrors;
         })
-        errors.topics = topicsErrors;
-
+        if (topicsErrors.length)
+            errors.topics = topicsErrors;
     }
+
     return errors;
 }
 
@@ -54,7 +57,11 @@ const renderTopics = (intl, topics, difficulties, { fields, meta: { error, submi
                     {intl.formatMessage({ id: 'placeholder.form.topic' })}{index + 1}
                 </label>
                 <div className="answerDiv">
-                    <div className="selectDiv">
+                    <Label>
+                        {intl.formatMessage({ id: "label.message.topic" })}
+                    </Label>
+
+                    <div>
                         <Field
                             name={`${topic}.topic`}
                             component={renderSelect}
@@ -63,14 +70,22 @@ const renderTopics = (intl, topics, difficulties, { fields, meta: { error, submi
                             options={mapOptions(topics)} />
                     </div>
 
-                    <div className="inputDiv">
+                    <Label>
+                        {intl.formatMessage({ id: "label.message.questionsNumber" })}
+                    </Label>
+
+                    <div>
                         <Field
                             name={`${topic}.questionsNumber`}
                             component={renderField}
                             id={index} />
                     </div>
 
-                    <div className="selectDiv">
+                    <Label>
+                        {intl.formatMessage({ id: "label.message.difficulty" })}
+                    </Label>
+
+                    <div>
                         <Field
                             name={`${topic}.difficulty`}
                             component={renderSelect}
@@ -78,7 +93,6 @@ const renderTopics = (intl, topics, difficulties, { fields, meta: { error, submi
                             placeholder={intl.formatMessage({ id: 'placeholder.form.difficulty' })}
                             options={mapLabels(difficulties)} />
                     </div>
-
                 </div>
                 <button
                     className="removeButton"
@@ -108,7 +122,7 @@ class NewTestForm extends Component {
 
         return (
             <form onSubmit={handleSubmit}>
-                <div className="subjectDiv">
+                <div className="newQuestionDiv">
 
                     <div className="subjectDiv">
                         <Label>
@@ -144,9 +158,12 @@ class NewTestForm extends Component {
 
                     {error !== undefined && <div className="text-danger">{error}</div>}
 
-                    <Button type="Submit" className="loginButton">
-                        {intl.formatMessage({ id: "label.button.addTest" })}
-                    </Button>
+                    <div className='submitButtonDiv'>
+                        <Button type="submit" className="submitButton">
+                            {intl.formatMessage({ id: "label.button.addTest" })}
+                        </Button>
+                    </div>
+
                 </div>
 
             </form>

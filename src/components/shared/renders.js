@@ -38,8 +38,6 @@ export const renderSlider = ({ input, meta: { touched, error }, ...props }) => {
             <Slider
                 {...input}
                 {...props}
-            // value={props.input.value}
-            // onChange={props.input.onChange}
             />
             {touched && (error && <span className="text-danger">{error}</span>)}
         </div>)
@@ -110,6 +108,7 @@ export const renderSelect = ({ input, onSelectChange, options, meta: { touched, 
                 isDisabled={isDisabled}
                 styles={customStyles}
             />
+
             {touched && (error && <span className="text-danger">{error}</span>)}
         </div>
     );
@@ -117,9 +116,9 @@ export const renderSelect = ({ input, onSelectChange, options, meta: { touched, 
 
 export const renderTableHeader = (columns, intl) => {
     let tableHeader = [];
-    
+
     columns.forEach(column => {
-        
+
         tableHeader.push({
             Header: intl.formatMessage({ id: `label.table.${column}` }),
             accessor: column
@@ -128,17 +127,3 @@ export const renderTableHeader = (columns, intl) => {
 
     return tableHeader;
 };
-
-export const renderSubmitButton = (divClass, buttonClass, handleSubmit, submitType, labelId, intl) => {
-    return <div className={divClass}>
-        <Button className={buttonClass} type="submit" onClick={
-            handleSubmit(values =>
-                this.props.onSubmit({
-                    ...values,
-                    submitType: submitType
-                }))
-        }>
-            {intl.formatMessage({ id: labelId })}
-        </Button>
-    </div>
-}

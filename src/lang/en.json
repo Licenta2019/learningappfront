@@ -36,6 +36,8 @@
     "label.menu.test": "TEST MENU",
     "label.message.name": "Choose a name",
     "label.message.subject": "Choose a subject",
+    "label.message.difficulty": "Choose a difficulty",
+    "label.message.questionsNumber": "Choose a number of questions",
     "label.message.topic": "Choose a topic",
     "label.message.question": "Question",
     "label.message.explanation": "Explanation",

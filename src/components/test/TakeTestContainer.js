@@ -4,6 +4,7 @@ import apiPaths from '../../axios/apiPaths';
 
 import TakeTestForm from './TakeTestForm';
 import { injectIntl } from 'react-intl';
+import routePaths from './../../routes/routePaths';
 class TakeTestContainer extends Component {
 
     constructor(props) {
@@ -37,17 +38,26 @@ class TakeTestContainer extends Component {
 
     handleSubmit(values) {
 
-        const { questions } = this.state;
-        const correctAnswers = questions.map(question => { return { questionId: question.id, answers: [] } })
+        const { questions,testData } = this.state;
+        
+        const correctAnswers = {
+            testId: testData.id,
+            questions: questions.map(question => { return { questionId: question.id, answers: [] } })
 
-        console.log(correctAnswers);
-
+        };
         Object.keys(values).forEach(answer => {
             if (values[answer]) {
                 const qid = this.getQuestion(this.state.questions, answer);
-                correctAnswers.filter(canswer => canswer.questionId === qid)[0].answers.push(answer);
+                correctAnswers.questions.filter(canswer => canswer.questionId === qid)[0].answers.push(answer);
             }
         });
+
+        axiosClient.post(apiPaths.gradeTest, correctAnswers)
+            .then((response) => {
+                console.log(response.data);
+                this.props.history.push(routePaths.homepage);
+            })
+            .catch((exc) => console.log(exc));
     }
 
     render() {

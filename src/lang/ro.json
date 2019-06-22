@@ -38,6 +38,8 @@
     "label.message.topic": "Alegeți un topic",
     "label.message.question": "Întrebare",
     "label.message.explanation": "Explicație",
+    "label.message.difficulty": "Alegeți o dificultate",
+    "label.message.questionsNumber": "Alegeți un număr de întrebări",
     "label.submenu.addGrade": "ADAUGĂ NOTĂ",
     "label.submenu.addTest": "ADAUGĂ TEST",
     "label.submenu.viewGrades": "VIZUALIZARE NOTE",

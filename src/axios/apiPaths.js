@@ -15,5 +15,6 @@ export default {
     addTest: '/test',
     getTest: '/test/{}',
     getTests: '/test/subject/{}',
-    getTestDifficulties: '/test/difficulties'
+    getTestDifficulties: '/test/difficulties',
+    gradeTest: '/test/grade'
 }

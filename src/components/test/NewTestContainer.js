@@ -31,6 +31,7 @@ class NewTestContainer extends Component {
     getDifficulties() {
         return axiosClient.get(apiPaths.getTestDifficulties);
     }
+
     componentDidMount() {
         Promise.all([this.getSubjects(), this.getDifficulties()])
             .then(([subjects, difficulties]) => {
@@ -55,9 +56,17 @@ class NewTestContainer extends Component {
     }
 
     handleSubmit(value) {
+        console.log(value);
+
         const { testName, topics } = value;
 
-        let topicsDto = topics.map(topic => { return { topicId: topic.topic.value, questionsNumber: topic.questionsNumber, difficulty: topic.difficulty.value } });
+        let topicsDto = topics.map(topic => {
+            return {
+                topicId: topic.topic.value,
+                questionsNumber: topic.questionsNumber,
+                difficulty: topic.difficulty.value
+            }
+        });
 
         axiosClient.post(apiPaths.addTest, {
             name: testName,

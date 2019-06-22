@@ -29,7 +29,6 @@ class BurgerMenu extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            gradesSubMenuVisible: false,
             questionsSubMenuVisible: false,
             testSubMenuVisible: false,
             notificationsCount: 0
@@ -75,7 +74,7 @@ class BurgerMenu extends Component {
         const toNewTestPath = pathToRegexp.compile(routePaths.newTest);
         const toTestPath = pathToRegexp.compile(routePaths.listTests);
 
-        const { gradesSubMenuVisible, questionsSubMenuVisible, notificationsCount, testSubMenuVisible } = this.state;
+        const { questionsSubMenuVisible, notificationsCount, testSubMenuVisible } = this.state;
 
         const { intl } = this.props;
         const user = getUser();
@@ -112,46 +111,7 @@ class BurgerMenu extends Component {
                         </h5>
                     </div>
                 </Link>
-                <Link to={{}} onClick={() => {
-                    this.setState({
-                        gradesSubMenuVisible: !gradesSubMenuVisible
-                    })
-                }}>
-                    <div className="menu-item">
-                        <img src={menu} alt="Logo" />
-                        <h5>
-                            {intl.formatMessage({ id: "label.menu.grades" })}
-                        </h5>
-                    </div>
-                </Link>
-                {gradesSubMenuVisible && (
-                    <div className="questionsSubMenuDiv">
-                        <Link
-                            to={{
-                                pathname: toNewQuestionPath({
-                                })
-                            }}>
-                            <div className="sub-menu-item">
-                                <img src={addItem} alt="Logo" />
-                                <h5>
-                                    {intl.formatMessage({ id: "label.submenu.addGrade" })}
-                                </h5>
-                            </div>
-                        </Link>
-                        <Link
-                            to={{
-                                pathname: toQuestionPath({
-                                })
-                            }}>
-                            <div className="sub-menu-item">
-                                <img src={viewList} alt="Logo" />
-                                <h5>
-                                    {intl.formatMessage({ id: "label.submenu.viewGrades" })}
-                                </h5>
-                            </div>
-                        </Link>
-                    </div>
-                )}
+
                 <Link to={{}} onClick={() => {
                     this.setState({
                         questionsSubMenuVisible: !questionsSubMenuVisible
@@ -186,7 +146,7 @@ class BurgerMenu extends Component {
                             }}
                         >
                             <div className="sub-menu-item">
-                                <img src={addItem} alt="Logo" />
+                                <img src={viewList} alt="Logo" />
                                 <h5>
                                     {intl.formatMessage({ id: "label.submenu.viewQuestions" })}
                                 </h5>
@@ -210,7 +170,7 @@ class BurgerMenu extends Component {
                 </Link>
                 {testSubMenuVisible && (
                     <div className="questionsSubMenuDiv">
-                        {!isProfessor(userRole) && < Link
+                        {isProfessor(userRole) && < Link
                             to={{
                                 pathname: toNewTestPath({
                                 })
@@ -229,7 +189,7 @@ class BurgerMenu extends Component {
                             }}
                         >
                             <div className="sub-menu-item">
-                                <img src={addItem} alt="Logo" />
+                                <img src={viewList} alt="Logo" />
                                 <h5>
                                     {intl.formatMessage({ id: "label.submenu.viewTests" })}
                                 </h5>
@@ -274,10 +234,5 @@ function mapStateToProps(state) {
     return { ...state };
 }
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-        // ...accountActions
-    }, dispatch);
-}
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(BurgerMenu));
+export default injectIntl(connect(mapStateToProps)(BurgerMenu));
