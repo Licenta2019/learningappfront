@@ -24,6 +24,4 @@ export const changeLanguage = (lang) => {
         messages: lang.value === ENGLISH ? messages_en : messages_ro,
         default: i18config.default
     }
-
-    console.log(i18config);
 }

@@ -33,7 +33,6 @@ class ProfileContainer extends Component {
     }
 
     updateUser(values) {
-        console.log(values);
 
         axiosClient.put(apiPaths.getUpdateUser.replace('{}', this.state.userData.id), {
             username: values.username,

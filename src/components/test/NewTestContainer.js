@@ -36,7 +36,6 @@ class NewTestContainer extends Component {
         Promise.all([this.getSubjects(), this.getDifficulties()])
             .then(([subjects, difficulties]) => {
 
-                console.log(difficulties);
                 this.setState({
                     subjects: subjects.data,
                     difficulties: difficulties.data
@@ -56,7 +55,6 @@ class NewTestContainer extends Component {
     }
 
     handleSubmit(value) {
-        console.log(value);
 
         const { testName, topics } = value;
 
@@ -82,7 +80,6 @@ class NewTestContainer extends Component {
 
         const { intl } = this.props;
 
-        console.log(this.state);
         return (
             <div>
                 <NewTestForm

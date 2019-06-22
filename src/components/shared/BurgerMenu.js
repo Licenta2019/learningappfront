@@ -21,7 +21,6 @@ import { handleLogout } from '../helpers/logout';
 import { injectIntl } from 'react-intl';
 import apiPaths from '../../axios/apiPaths';
 
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 class BurgerMenu extends Component {

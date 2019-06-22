@@ -134,8 +134,6 @@ class UpdateQuestionForm extends Component {
 
         const labelUpdateButton = isProfessor(userRole) ? 'label.button.requestChanges' : 'label.button.update';
 
-        console.log(this.props.initialValues);
-
         return (
             <div>
                 <form onSubmit={handleSubmit}>

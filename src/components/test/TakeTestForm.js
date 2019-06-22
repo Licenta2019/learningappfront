@@ -1,99 +1,72 @@
 import React, { Component } from 'react';
 import { Label, Button } from 'reactstrap';
-import { reduxForm, Field, FieldArray } from 'redux-form';
-import { renderField } from '../shared/renders';
-
-const validate = (values, props) => {
-}
-
-const renderQuestions = ({ fields, meta: { error, submitFailed } }) => (
-
-    <ul className="ulContainer">
-        {
-            fields.map((question, index) => (
-                <li key={index}>
-                    <Label>{question.questionText}</Label>
-
-                    {/* <FieldArray
-                        name="answers"
-                        component={renderAnswers.bind(this, question.answerDtos)}
-                    /> */}
-
-                </li>
-            ))
-        }
-        {submitFailed && error && <div>{error}</div>}
-    </ul>
-);
-
-const renderAnswers = ({ fields, meta: { error, submitFailed } }) => (
-    <div>
-        {fields.map((answer, index) => (
-            <div key={index} className="answerAndCheckboxDiv">
-                <Label>cheat</Label>
-                <div key={index} className="checkboxDiv">
-                    <Field
-                        name={`${answer}.isCorrect`}
-                        type="checkbox"
-                        component="input"
-                        id={index} />
-                </div>
-            </div>
-        ))}
-        {submitFailed && error && <div>{error}</div>}
-    </div>
-)
-
+import { reduxForm, Field } from 'redux-form';
+import '../question/question.css';
+import TextareaAutosize from 'react-autosize-textarea/lib';
 
 class TakeTestForm extends Component {
 
-    renderAnswers(answers) {
+    renderAnswers(answers, grade) {
+
         return answers.map((answer, key) => {
             return (
                 <div key={key} >
-                    <Label>{answer.answerText}</Label>
-                    <div className="checkboxDiv">
-                        <Field
-                            name={`${answer.id}`}
-                            type="checkbox"
-                            component="input"
-                            id={key} />
+                    <div className="answerAndCheckboxDiv">
+                        <div className="textareaDiv">
+                            <Label>{answer.answerText}</Label>
+                            <div className="checkboxDiv" className={`checkboxDiv ${grade !== null ? (answer.isCorrect ? 'green-border' : 'red-border') : ''}`}>
+                                <Field
+                                    name={`${answer.id}`}
+                                    type="checkbox"
+                                    component="input"
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
             );
         })
     }
 
-
-    renderQuestions(questions) {
+    renderQuestions(questions, grade, intl) {
         return questions.map((question, key) => {
 
             return (
                 <div key={key}
                     style={{ border: '1px solid black', padding: '10px' }}
                 >
-                    <Label className="textareaDiv">{`${key + 1}.\n${question.questionText}`}</Label>
-                {this.renderAnswers(question.answerDtos)}
+                    <TextareaAutosize className="textareaDiv"
+                        value={`${key + 1}.\n${question.questionText}`} />
+                    {this.renderAnswers(question.answerDtos, grade)}
+                    {
+                        grade !== null && <Label className="textareaDiv">{intl.formatMessage({ id: "label.message.explanation" })} :
+                            {question.explanation}</Label>
+                    }
+
                 </div>
             );
         });
     }
 
     render() {
-        const { testData, handleSubmit, intl, questions } = this.props;
+        const { testData, handleSubmit, intl, questions, grade } = this.props;
 
         return (
-            testData && <div>
+            testData && <div className="subjectDiv">
                 <form onSubmit={handleSubmit}>
-                    <Label>{testData.name}</Label>
-
+                    <Label>{intl.formatMessage({ id: "label.table.testName" })} : {testData.name}</Label>
+                    <Label>{intl.formatMessage({ id: "label.form.difficulty" })} : {testData.difficulty}</Label>
+                    <Label>{intl.formatMessage({ id: "label.form.creationDate" })} : {testData.creationDate}</Label>
                     <div>
-                        {this.renderQuestions(questions)}
+                        {this.renderQuestions(questions, grade, intl)}
                     </div>
 
-                    <Button type="Submit" className="submitButton">
+                    {grade !== null && <Label>{intl.formatMessage({ id: "label.form.grade" })}{grade}  </Label>}
+
+                    <Button type="Submit" disabled={grade !== null} className="submitButton">
                         {intl.formatMessage({ id: "label.button.submit" })}
                     </Button>
+
                 </form>
             </div>
         )
@@ -102,5 +75,4 @@ class TakeTestForm extends Component {
 
 export default reduxForm({
     form: 'takeTestForm',
-    validate,
 })(TakeTestForm)

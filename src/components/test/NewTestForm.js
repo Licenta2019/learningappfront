@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { reduxForm, Field, FieldArray } from 'redux-form';
 import { renderField, renderSelect } from '../shared/renders';
-import { Button, Label, FormGroup, Row } from 'reactstrap';
+import { Button, Label } from 'reactstrap';
 import { mapOptions, mapLabels } from '../helpers/selectHelper';
 import '../question/question.css';
 
@@ -21,12 +21,8 @@ const validate = (values, props) => {
     errors.topics = [];
     if (!values.topics) {
         errors.topics._error = intl.formatMessage({ id: 'label.error.topics.length' });
-
-        console.log("nu sunt topice");
     }
     else {
-        console.log("sunt topice");
-
         const topicsErrors = [];
 
         values.topics.forEach((topic, index) => {

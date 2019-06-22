@@ -12,7 +12,8 @@ class TakeTestContainer extends Component {
 
         this.state = {
             testData: null,
-            questions: []
+            questions: [],
+            grade: null
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,14 +33,10 @@ class TakeTestContainer extends Component {
         return questions.filter(question => question.answerDtos.filter(answer => answer.id === answerId)[0])[0].id;
     }
 
-    // getQuestionDto(questions, questionId){
-    //     return 
-    // }
-
     handleSubmit(values) {
 
-        const { questions,testData } = this.state;
-        
+        const { questions, testData } = this.state;
+
         const correctAnswers = {
             testId: testData.id,
             questions: questions.map(question => { return { questionId: question.id, answers: [] } })
@@ -54,28 +51,15 @@ class TakeTestContainer extends Component {
 
         axiosClient.post(apiPaths.gradeTest, correctAnswers)
             .then((response) => {
-                console.log(response.data);
-                this.props.history.push(routePaths.homepage);
+                this.setState({
+                    grade: response.data
+                })
             })
             .catch((exc) => console.log(exc));
     }
 
     render() {
-        const { testData, questions } = this.state;
-
-        const initialValues = questions.map(question => {
-            return {
-                id: question.id,
-                text: question.questionText,
-                answers: question.answerDtos.map(answer => {
-                    return {
-                        id: answer.id,
-                        text: answer.answerText,
-                        isCorrect: false
-                    }
-                })
-            }
-        })
+        const { testData, questions, grade } = this.state;
 
         return (
             questions && testData && <TakeTestForm
@@ -83,6 +67,7 @@ class TakeTestContainer extends Component {
                 questions={questions}
                 onSubmit={this.handleSubmit}
                 intl={this.props.intl}
+                grade={grade}
             />
         );
     }

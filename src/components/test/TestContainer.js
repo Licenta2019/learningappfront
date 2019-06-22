@@ -54,7 +54,6 @@ class TestContainer extends Component {
 
         const { intl } = this.props;
 
-        console.log(this.state);
         return (
             <div>
                 <div className="subjectDiv">

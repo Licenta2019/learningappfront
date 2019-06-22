@@ -1,6 +1,5 @@
 import React from 'react';
 import Select from 'react-select';
-import { Button } from 'reactstrap';
 import TextareaAutosize from 'react-autosize-textarea';
 import Slider from 'react-rangeslider';
 import 'react-rangeslider/lib/index.css';

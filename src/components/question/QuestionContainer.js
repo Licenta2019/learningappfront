@@ -36,8 +36,6 @@ class QuestionContainer extends Component {
     getQuestions() {
         const user = getUser();
 
-        console.log(user);
-
         const path = user.userRole === 'STUDENT' ? apiPaths.getStudentQuestions : apiPaths.getProfessorQuestions;
         return axiosClient.get(path.replace('{}', user.id));
     }

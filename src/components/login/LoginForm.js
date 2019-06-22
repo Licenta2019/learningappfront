@@ -32,8 +32,6 @@ class LoginForm extends Component {
     constructor(props) {
         super(props);
 
-        console.log(this.props.intl);
-
         this.state = {
             username: null,
             password: null
