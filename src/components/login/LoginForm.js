@@ -8,7 +8,11 @@ import './login.css';
 import whiteLogo from '../../assets/images/whiteLogo.png';
 import usernameLogo from '../../assets/images/username.png';
 import passwordLogo from '../../assets/images/password.png';
-import arrowLogo from '../../assets/images/arrow.png'
+import arrowLogo from '../../assets/images/arrow.png';
+
+import { Link } from 'react-router-dom';
+import routePaths from '../../routes/routePaths';
+import pathToRegexp from 'path-to-regexp';
 
 const validate = (values, props) => {
     const errors = {};
@@ -42,6 +46,8 @@ class LoginForm extends Component {
 
         const { username, password } = this.state;
         const { handleSubmit, error, intl } = this.props;
+
+        const toRegisterPath = pathToRegexp.compile(routePaths.register);
 
         return (
             <form onSubmit={handleSubmit}>
@@ -83,9 +89,16 @@ class LoginForm extends Component {
                         <label className="notMemberLabel">
                             {intl.formatMessage({ id: "label.user.notMember" })}
                         </label>
-                        <label className="signUpLabel">
-                            {intl.formatMessage({ id: "label.user.signup" })}
-                        </label>
+                        <Link
+                            to={{
+                                pathname: toRegisterPath({
+                                }),
+                            }}
+                        >
+                            <label className="signUpLabel">
+                                {intl.formatMessage({ id: "label.user.signup" })}
+                            </label>
+                        </Link>
                         <img src={arrowLogo} alt="arrowLogo" />
                     </div>
                 </div>

@@ -6,7 +6,9 @@ export default {
     validateQuestion: '/question/validate',
     listQuestions: '/questions',
     profile: '/profile',
+    settings: '/settings',
     newTest: '/test/new',
     listTests: '/tests',
-    getTest: '/test/:test_id'
+    getTest: '/test/:test_id',
+    register: '/register'
 }

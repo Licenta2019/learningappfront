@@ -3,8 +3,11 @@ import axiosClient from '../../axios/axiosClient';
 import apiPaths from '../../axios/apiPaths';
 
 import TakeTestForm from './TakeTestForm';
+import ExportTestForm from './ExportTestForm';
 import { injectIntl } from 'react-intl';
-import routePaths from './../../routes/routePaths';
+import { getUser } from '../../localStorage';
+import { isProfessor } from '../helpers/user';
+
 class TakeTestContainer extends Component {
 
     constructor(props) {
@@ -13,10 +16,12 @@ class TakeTestContainer extends Component {
         this.state = {
             testData: null,
             questions: [],
-            grade: null
+            grade: null,
+            filePath: null
         }
 
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmitTest = this.handleSubmitTest.bind(this);
+        this.handleExportTest = this.handleExportTest.bind(this);
     }
 
     componentDidMount() {
@@ -33,7 +38,7 @@ class TakeTestContainer extends Component {
         return questions.filter(question => question.answerDtos.filter(answer => answer.id === answerId)[0])[0].id;
     }
 
-    handleSubmit(values) {
+    handleSubmitTest(values) {
 
         const { questions, testData } = this.state;
 
@@ -58,17 +63,42 @@ class TakeTestContainer extends Component {
             .catch((exc) => console.log(exc));
     }
 
+    handleExportTest(values) {
+        console.log(values);
+        axiosClient.post(apiPaths.exportPdf.replace("{}", this.state.testData.id))
+            .then((response) => {
+                this.setState({
+                    filePath: response.data
+                })
+                // console.log(response.data);
+            })
+            .catch((exc) => console.log(exc));
+    }
+
     render() {
-        const { testData, questions, grade } = this.state;
+        const { testData, questions, grade, filePath } = this.state;
+
+        console.log(filePath);
+        const userRole = getUser().userRole;
+
+        console.log(this.state.testData);
 
         return (
-            questions && testData && <TakeTestForm
-                testData={testData}
-                questions={questions}
-                onSubmit={this.handleSubmit}
-                intl={this.props.intl}
-                grade={grade}
-            />
+            questions && testData && isProfessor(userRole) ?
+                <ExportTestForm
+                    testData={testData}
+                    questions={questions}
+                    onSubmit={this.handleExportTest}
+                    intl={this.props.intl}
+                    filePath={filePath}
+                /> :
+                <TakeTestForm
+                    testData={testData}
+                    questions={questions}
+                    onSubmit={this.handleSubmitTest}
+                    intl={this.props.intl}
+                    grade={grade}
+                />
         );
     }
 }

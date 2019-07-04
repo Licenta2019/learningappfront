@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Select from 'react-select';
 import { Row, Label } from 'reactstrap';
 import { mapOptions } from '../helpers/selectHelper';
-import {customStyles} from '../shared/customSelectStyle';
+import { customStyles } from '../shared/customSelectStyle';
 
 class QuestionListing extends Component {
 
@@ -12,7 +12,7 @@ class QuestionListing extends Component {
         return (
             <Row>
                 <div className="subjectDiv">
-                    <Label>Choose a subject:</Label>
+                    <Label>{intl.formatMessage({ id: "label.message.subject" })}</Label>
                     <Select
                         name="subject"
                         placeholder={intl.formatMessage({ id: 'placeholder.form.subject' })}
@@ -22,7 +22,7 @@ class QuestionListing extends Component {
                     />
                 </div>
                 <div className="topicDiv">
-                    <Label>Choose a topic:</Label>
+                    <Label>{intl.formatMessage({ id: "label.message.topic" })}</Label>
                     <Select
                         name="topic"
                         placeholder={intl.formatMessage({ id: 'placeholder.form.topic' })}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Label } from 'reactstrap';
 import Select from 'react-select';
 import { changeLanguage, ENGLISH, ROMANIAN, i18config } from '../helpers/language';
 import { mapLabels } from '../helpers/selectHelper';
@@ -6,9 +7,9 @@ import { mapLabels } from '../helpers/selectHelper';
 class LanguageComutator extends Component {
 
     render() {
-
         return (
             <div>
+                <Label>{this.props.intl.formatMessage({ id: "label.settings.language" })}</Label>
                 <Select
                     name="language"
                     onChange={changeLanguage}

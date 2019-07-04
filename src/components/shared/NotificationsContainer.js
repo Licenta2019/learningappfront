@@ -54,7 +54,7 @@ class NotificationsContainer extends Component {
         return (
             this.state.notifications &&
             this.state.notifications.map(not => {
-                this.renderToast(not);
+                return this.renderToast(not);
             })
         );
     }

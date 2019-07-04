@@ -44,7 +44,7 @@ class TestContainer extends Component {
         axiosClient.get(apiPaths.getTests.replace("{}", subjectId))
             .then((response) => {
                 this.setState({
-                   tests: response.data
+                    tests: response.data
                 })
             })
     }
@@ -57,7 +57,7 @@ class TestContainer extends Component {
         return (
             <div>
                 <div className="subjectDiv">
-                    <Label>Choose a subject:</Label>
+                    <Label>{intl.formatMessage({ id: "label.message.subject" })}</Label>
                     <Select
                         name="subject"
                         placeholder={intl.formatMessage({ id: 'placeholder.form.subject' })}

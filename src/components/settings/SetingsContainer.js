@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import LanguageComutator from './shared/LanguageComutator';
+import LanguageComutator from '../shared/LanguageComutator';
+import { injectIntl } from 'react-intl';
 
 class SettingsContainer extends Component {
 
@@ -13,9 +14,12 @@ class SettingsContainer extends Component {
     }
 
     render() {
-        <LanguageComutator />
+        return (
+            <LanguageComutator
+                intl={this.props.intl}
+            />
+        );
     }
-
 }
 
-export default injectIntl(SettingContainer);
+export default injectIntl(SettingsContainer);

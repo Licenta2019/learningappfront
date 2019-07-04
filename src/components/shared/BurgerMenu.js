@@ -72,6 +72,7 @@ class BurgerMenu extends Component {
         const toProfilePagePath = pathToRegexp.compile(routePaths.profile);
         const toNewTestPath = pathToRegexp.compile(routePaths.newTest);
         const toTestPath = pathToRegexp.compile(routePaths.listTests);
+        const toSettingsPath = pathToRegexp.compile(routePaths.settings);
 
         const { questionsSubMenuVisible, notificationsCount, testSubMenuVisible } = this.state;
 
@@ -199,7 +200,7 @@ class BurgerMenu extends Component {
 
                 <Link
                     to={{
-                        pathname: toLoginPagePath({
+                        pathname: toSettingsPath({
                         })
                     }}>
                     <div className="menu-item">
@@ -232,6 +233,5 @@ class BurgerMenu extends Component {
 function mapStateToProps(state) {
     return { ...state };
 }
-
 
 export default injectIntl(connect(mapStateToProps)(BurgerMenu));

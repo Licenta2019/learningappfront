@@ -11,10 +11,12 @@ export default {
     getNotificationsCount: '/topic/notificationsCount/{}', // number of question that are in a non-terminal status
     getNotifications: '/user/notifications',
     getUpdateUser: '/user/{}',
-    validatePassword:'/user/{}/validatePassword',
+    validatePassword: '/user/{}/validatePassword',
     addTest: '/test',
     getTest: '/test/{}',
     getTests: '/test/subject/{}',
     getTestDifficulties: '/test/difficulties',
-    gradeTest: '/test/grade'
+    gradeTest: '/test/grade',
+    register: '/user/register',
+    exportPdf: '/test/{}/export'
 }

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "js-file-download": "^0.4.7",
     "lodash": "^4.17.11",
     "path-to-regexp": "^3.0.0",
     "react": "^16.8.3",

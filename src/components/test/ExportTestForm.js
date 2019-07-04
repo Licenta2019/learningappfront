@@ -3,10 +3,11 @@ import { Label, Button } from 'reactstrap';
 import { reduxForm, Field } from 'redux-form';
 import '../question/question.css';
 import TextareaAutosize from 'react-autosize-textarea/lib';
+import { Link } from 'react-router-dom';
 
-class TakeTestForm extends Component {
+class ExportTestForm extends Component {
 
-    renderAnswers(answers, grade) {
+    renderAnswers(answers) {
 
         return answers.map((answer, key) => {
             return (
@@ -14,7 +15,7 @@ class TakeTestForm extends Component {
                     <div className="answerAndCheckboxDiv">
                         <div className="textareaDiv">
                             <Label>{answer.answerText}</Label>
-                            <div className={`checkboxDiv ${grade !== null ? (answer.isCorrect ? 'green-border' : 'red-border') : ''}`}>
+                            <div className={`checkboxDiv ${(answer.isCorrect ? 'green-border' : 'red-border')}`}>
                                 <Field
                                     name={`${answer.id}`}
                                     type="checkbox"
@@ -28,7 +29,7 @@ class TakeTestForm extends Component {
         })
     }
 
-    renderQuestions(questions, grade, intl) {
+    renderQuestions(questions, intl) {
         return questions.map((question, key) => {
 
             return (
@@ -37,9 +38,9 @@ class TakeTestForm extends Component {
                 >
                     <TextareaAutosize className="textareaDiv"
                         value={`${key + 1}.\n${question.questionText}`} />
-                    {this.renderAnswers(question.answerDtos, grade)}
+                    {this.renderAnswers(question.answerDtos)}
                     {
-                        grade !== null && <Label className="textareaDiv">{intl.formatMessage({ id: "label.message.explanation" })} :
+                        <Label className="textareaDiv">{intl.formatMessage({ id: "label.message.explanation" })} :
                             {question.explanation}</Label>
                     }
 
@@ -49,7 +50,7 @@ class TakeTestForm extends Component {
     }
 
     render() {
-        const { testData, handleSubmit, intl, questions, grade } = this.props;
+        const { testData, handleSubmit, intl, questions, filePath } = this.props;
 
         return (
             testData && <div className="subjectDiv">
@@ -58,13 +59,11 @@ class TakeTestForm extends Component {
                     <Label>{intl.formatMessage({ id: "label.form.difficulty" })} : {testData.difficulty}</Label>
                     <Label>{intl.formatMessage({ id: "label.form.creationDate" })} : {testData.creationDate}</Label>
                     <div>
-                        {this.renderQuestions(questions, grade, intl)}
+                        {this.renderQuestions(questions, intl)}
                     </div>
-
-                    {grade !== null && <Label>{intl.formatMessage({ id: "label.form.grade" })}{grade}  </Label>}
-
-                    <Button type="Submit" disabled={grade !== null} className="submitButton">
-                        {intl.formatMessage({ id: "label.button.submit" })}
+                    
+                    <Button type="Submit" className="submitButton">
+                        {intl.formatMessage({ id: "label.button.export" })}
                     </Button>
 
                 </form>
@@ -74,5 +73,5 @@ class TakeTestForm extends Component {
 }
 
 export default reduxForm({
-    form: 'takeTestForm',
-})(TakeTestForm)
+    form: 'exportTestForm',
+})(ExportTestForm)
