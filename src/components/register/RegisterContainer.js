@@ -38,7 +38,6 @@ class RegisterContainer extends Component {
     }
 
     render() {
-        console.log("register container");
         return (
             <RegisterForm
                 onSubmit={this.handleSubmit}

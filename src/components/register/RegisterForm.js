@@ -5,8 +5,6 @@ class RegisterForm extends Component {
 
     render() {
 
-        console.log("register from");
-
         return (<div>
 
             <TextareaAutosize value="sdfgrsehg">

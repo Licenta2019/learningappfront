@@ -3,7 +3,6 @@ import { Label, Button } from 'reactstrap';
 import { reduxForm, Field } from 'redux-form';
 import '../question/question.css';
 import TextareaAutosize from 'react-autosize-textarea/lib';
-import { Link } from 'react-router-dom';
 
 class ExportTestForm extends Component {
 
@@ -50,7 +49,7 @@ class ExportTestForm extends Component {
     }
 
     render() {
-        const { testData, handleSubmit, intl, questions, filePath } = this.props;
+        const { testData, handleSubmit, intl, questions,onChangeFile } = this.props;
 
         return (
             testData && <div className="subjectDiv">
@@ -61,7 +60,9 @@ class ExportTestForm extends Component {
                     <div>
                         {this.renderQuestions(questions, intl)}
                     </div>
-                    
+
+                    <input name="filePath" onChange={onChangeFile} directory="" webkitdirectory="" type="file"/>
+                                        
                     <Button type="Submit" className="submitButton">
                         {intl.formatMessage({ id: "label.button.export" })}
                     </Button>

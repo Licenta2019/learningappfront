@@ -63,9 +63,9 @@ class TakeTestForm extends Component {
 
                     {grade !== null && <Label>{intl.formatMessage({ id: "label.form.grade" })}{grade}  </Label>}
 
-                    <Button type="Submit" disabled={grade !== null} className="submitButton">
+                    {grade === null && <Button type="Submit" disabled={grade !== null} className="submitButton">
                         {intl.formatMessage({ id: "label.button.submit" })}
-                    </Button>
+                    </Button>}
 
                 </form>
             </div>

@@ -18,5 +18,5 @@ export default {
     getTestDifficulties: '/test/difficulties',
     gradeTest: '/test/grade',
     register: '/user/register',
-    exportPdf: '/test/{}/export'
+    exportPdf: '/test/export'
 }

@@ -61,7 +61,7 @@ class NewQuestionContainer extends Component {
             this.props.history.push(routePaths.homepage);
             // TODO add modal here
         })
-            .catch((err) => console.log(err)); //TODO catch error here
+            .catch((err) => console.log(err)); 
     }
 
     render() {

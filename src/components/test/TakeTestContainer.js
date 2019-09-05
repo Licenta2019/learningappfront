@@ -22,6 +22,13 @@ class TakeTestContainer extends Component {
 
         this.handleSubmitTest = this.handleSubmitTest.bind(this);
         this.handleExportTest = this.handleExportTest.bind(this);
+        this.onChangeFile = this.onChangeFile.bind(this);
+    }
+
+    onChangeFile(event) {
+        this.setState({
+            filePath: event.target.files[0].webkitRelativePath
+        })
     }
 
     componentDidMount() {
@@ -39,13 +46,11 @@ class TakeTestContainer extends Component {
     }
 
     handleSubmitTest(values) {
-
         const { questions, testData } = this.state;
 
         const correctAnswers = {
             testId: testData.id,
             questions: questions.map(question => { return { questionId: question.id, answers: [] } })
-
         };
         Object.keys(values).forEach(answer => {
             if (values[answer]) {
@@ -63,14 +68,15 @@ class TakeTestContainer extends Component {
             .catch((exc) => console.log(exc));
     }
 
-    handleExportTest(values) {
-        console.log(values);
-        axiosClient.post(apiPaths.exportPdf.replace("{}", this.state.testData.id))
+    handleExportTest() {
+
+        const { testData, filePath } = this.state;
+
+        axiosClient.post(apiPaths.exportPdf, {
+            testId: testData.id,
+            path: filePath
+        })
             .then((response) => {
-                this.setState({
-                    filePath: response.data
-                })
-                // console.log(response.data);
             })
             .catch((exc) => console.log(exc));
     }
@@ -78,10 +84,7 @@ class TakeTestContainer extends Component {
     render() {
         const { testData, questions, grade, filePath } = this.state;
 
-        console.log(filePath);
         const userRole = getUser().userRole;
-
-        console.log(this.state.testData);
 
         return (
             questions && testData && isProfessor(userRole) ?
@@ -91,6 +94,7 @@ class TakeTestContainer extends Component {
                     onSubmit={this.handleExportTest}
                     intl={this.props.intl}
                     filePath={filePath}
+                    onChangeFile={this.onChangeFile}
                 /> :
                 <TakeTestForm
                     testData={testData}
